@@ -13,16 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ElectronicShop
+namespace ElectronicShop.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для Page1.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AuthorizationPage : Page
     {
-        public MainWindow()
+        public AuthorizationPage()
         {
             InitializeComponent();
+
         }
-    }
+    }   
 }
