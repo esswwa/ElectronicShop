@@ -1,4 +1,6 @@
-﻿namespace ElectronicShop
+﻿using ElectronicShop.Data;
+
+namespace ElectronicShop
 {
     public class ViewModelLocator
     {
@@ -27,6 +29,7 @@
             #endregion
 
             #region Connection
+
 
             services.AddDbContext<ElectronickshopContext>(options =>
             {

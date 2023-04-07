@@ -13,7 +13,7 @@ public partial class Feedback
 
     public string? Feedbacks { get; set; }
 
-    public float Reiting { get; set; }
+    public int Reiting { get; set; }
 
     public virtual Product IdProductNavigation { get; set; } = null!;
 

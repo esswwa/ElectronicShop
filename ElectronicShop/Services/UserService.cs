@@ -1,9 +1,11 @@
-﻿using ElectronicShop.Properties;
+﻿using ElectronicShop.Data;
+using ElectronicShop.Properties;
 
 namespace ElectronicShop.Services
 {
     public class UserService
     {
+
         private readonly ElectronickshopContext _electronickshopContext;
         public UserService(ElectronickshopContext electronickshopContext)
         {
@@ -13,7 +15,7 @@ namespace ElectronicShop.Services
         {
             var user = await _electronickshopContext.Users.SingleOrDefaultAsync(u => u.Login == username);
             if (user == null)
-                return false; 
+                return false;
             if (user.Password.Equals(password))
             {
 
@@ -27,17 +29,18 @@ namespace ElectronicShop.Services
             return false;
         }
 
-        public async Task RegistrationAsync(int idUser,string login, string emailOrNumber, string password)
+        public async Task RegistrationAsync(int idUser, string login, string emailOrNumber, string password)
         {
 
             await _electronickshopContext.Users.AddAsync(new User
             {
-                Iduser= idUser,
+                Iduser = idUser,
                 Login = login,
                 EmailOrNumberPhone = login,
                 Password = password,
-                RoleId = 0
-            }); 
+                RoleId = 0, 
+                ExitCheck = 0
+            });
             await _electronickshopContext.SaveChangesAsync();
         }
 

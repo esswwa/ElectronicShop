@@ -26,8 +26,8 @@ namespace ElectronicShop.ViewModels
         public AsyncCommand Registration => new(async () =>
         {
             int maxUser = _userService.GetMaxIdUser() + 1;
-            //await _userService.AchievementsAsync(maxUser, 0, maxUser, 0);
-            //await _userService.StatisticsAsync(maxUser, 0, 0, 0, 0, 0);
+            ////await _userService.AchievementsAsync(maxUser, 0, maxUser, 0);
+            ////await _userService.StatisticsAsync(maxUser, 0, 0, 0, 0, 0);
             await _userService.RegistrationAsync(maxUser, Login, EmailOrNumber, Password);
             _pageService.ChangePage(new AuthorizationPage());
         }, bool () => {

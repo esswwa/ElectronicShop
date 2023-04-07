@@ -15,7 +15,7 @@ public partial class User
 
     public string Password { get; set; } = null!;
 
-    public int exitCheck { get; set; }
+    public int ExitCheck { get; set; }
 
     public virtual ICollection<Basket> Baskets { get; } = new List<Basket>();
 
