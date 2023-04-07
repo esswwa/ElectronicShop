@@ -36,7 +36,7 @@ namespace ElectronicShop.Services
             {
                 Iduser = idUser,
                 Login = login,
-                EmailOrNumberPhone = login,
+                EmailOrNumberPhone = emailOrNumber,
                 Password = password,
                 RoleId = 0, 
                 ExitCheck = 0

@@ -45,9 +45,9 @@ namespace ElectronicShop.ViewModels
             return ErrorMessage == string.Empty;
         });
 
-        public DelegateCommand Authorization => new(async () => {
+        public DelegateCommand Authorization => new(() => {
 
-            await Application.Current.Dispatcher.InvokeAsync(async () => _pageService.ChangePage(new AuthorizationPage()));
+            _pageService.ChangePage(new AuthorizationPage());
         });
 
     }

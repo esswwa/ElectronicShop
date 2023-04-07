@@ -85,8 +85,4 @@ namespace ElectronicShop.Services
         //}
     }
     
-
-
-
-    
 }

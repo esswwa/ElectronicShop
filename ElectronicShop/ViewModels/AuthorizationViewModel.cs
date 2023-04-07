@@ -50,9 +50,9 @@ namespace ElectronicShop.ViewModels
             return ErrorMessage == string.Empty;
         });
 
-        public DelegateCommand Registration => new(async () => {
+        public DelegateCommand Registration => new(() => {
 
-            await Application.Current.Dispatcher.InvokeAsync(async () => _pageService.ChangePage(new RegistrationPage()));
+            _pageService.ChangePage(new RegistrationPage());
         }); 
     }
 }
