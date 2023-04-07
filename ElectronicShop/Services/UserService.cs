@@ -1,5 +1,4 @@
-﻿using ElectronicShop.Data;
-using static System.Formats.Asn1.AsnWriter;
+﻿using ElectronicShop.Properties;
 
 namespace ElectronicShop.Services
 {
@@ -14,52 +13,67 @@ namespace ElectronicShop.Services
         {
             var user = await _electronickshopContext.Users.SingleOrDefaultAsync(u => u.Login == username);
             if (user == null)
-                return false; MessageBox.Show("fsdfsd");
-            //if (user.Password.Equals(password))
-            //{
-            //    Settings.Default.idUser = user.Iduser;
-            //    Settings.Default.userLogin = user.Login;
-            //    Settings.Default.userEmail = user.Email;
-            //    Settings.Default.userPassword = user.Password;
-            //    Settings.Default.idStatistic = user.IdStatistics;
-            //    Settings.Default.idAchievments = user.IdAchievemnts;
-            //    Settings.Default.Role = user.Role;
-            //    return true;
-            //}
+                return false; 
+            if (user.Password.Equals(password))
+            {
+
+                Settings.Default.idUser = user.Iduser;
+                Settings.Default.login = user.Login;
+                Settings.Default.password = user.Password;
+                Settings.Default.emailOrNumberPhone = user.EmailOrNumberPhone;
+                Settings.Default.roleId = user.RoleId;
+                return true;
+            }
             return false;
         }
 
-        //public async Task RegistrationAsync(string email, string login, string password, int idStatistic, int idAchievemnts, int Role) {
+        public async Task RegistrationAsync(int idUser,string login, string emailOrNumber, string password)
+        {
 
-        //    await _latucContext.Users.AddAsync(new User
-        //    {
-        //        Email = email,
-        //        Login = login,
-        //        Password = password,
-        //        IdStatistics = idStatistic,
-        //        IdAchievemnts = idAchievemnts,
-        //        Role = Role
-        //    }); ;
-        //    await _latucContext.SaveChangesAsync();
-        //}
+            await _electronickshopContext.Users.AddAsync(new User
+            {
+                Iduser= idUser,
+                Login = login,
+                EmailOrNumberPhone = login,
+                Password = password,
+                RoleId = 0
+            }); 
+            await _electronickshopContext.SaveChangesAsync();
+        }
+
+
+        public int GetMaxIdUser()
+        {
+
+            return _electronickshopContext.Users.Max(u => u.Iduser);
+        }
+
+        public async Task<List<string>> GetAllUser()
+        {
+
+            return await _electronickshopContext.Users.Select(u => u.Login).AsNoTracking().ToListAsync();
+        }
+
+
+
 
         //public async Task AchievementsAsync(int IduserAchievements, int Taken, int IdUser, int IdAchievements)
         //{
 
-        //    await _latucContext.UserAchievements.AddAsync(new UserAchievement
+        //    await _electronickshopContext.UserAchievements.AddAsync(new UserAchievement
         //    {
         //        IduserAchievements = IduserAchievements,
         //        Taken = Taken,
         //        IdUser = IdUser,
         //        IdAchievements = IdAchievements
         //    });
-        //    await _latucContext.SaveChangesAsync();
+        //    await _electronickshopContext.SaveChangesAsync();
         //}
 
         //public async Task StatisticsAsync(int Idstatistic, int CountOfPassedLevel, int CountTry, int ResultTest, int LanguageLvl, int Score)
         //{
 
-        //    await _latucContext.Statistics.AddAsync(new Statistic
+        //    await _electronickshopContext.Statistics.AddAsync(new Statistic
         //    {
         //        Idstatistic = Idstatistic,
         //        CountOfPassedLevel = CountOfPassedLevel,
@@ -68,20 +82,10 @@ namespace ElectronicShop.Services
         //        LanguageLvl = LanguageLvl,
         //        Score = Score
         //    });
-        //    await _latucContext.SaveChangesAsync();
+        //    await _electronickshopContext.SaveChangesAsync();
         //}
 
 
-        //public int GetMaxIdUser (){
-
-        //    return _latucContext.Users.Max(u => u.Iduser);
-        //}
-
-        //public async Task<List<string>> GetAllUser()
-        //{
-
-        //    return await _latucContext.Users.Select(u => u.Login).AsNoTracking().ToListAsync();
-        //}
     }
 }
 
