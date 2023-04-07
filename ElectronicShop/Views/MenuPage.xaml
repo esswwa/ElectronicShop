@@ -14,22 +14,29 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.1*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.35*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <TextBlock Text="ElectronickShop"
                    Grid.Row="0"
+                   Grid.ColumnSpan="3"
                    Foreground="White"
                    FontSize="32"
                    FontFamily="Arial"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"/>
         <Separator Grid.Row="0"
+                   Grid.ColumnSpan="3"
                    BorderBrush="White"
                    BorderThickness="4"
                    VerticalAlignment="Bottom"/>
 
-        <ListView     Grid.Row="1"
+        <ListView     Grid.Row="2"
+                      Grid.Column="1"
                       ItemsSource="{Binding Products,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       HorizontalContentAlignment="Stretch"
