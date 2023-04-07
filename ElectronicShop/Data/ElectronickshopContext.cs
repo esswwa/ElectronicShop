@@ -28,6 +28,8 @@ public partial class ElectronickshopContext : DbContext
 
     public virtual DbSet<Order> Orders { get; set; }
 
+    public virtual DbSet<OrderHelper> OrderHelpers { get; set; }
+
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
@@ -39,7 +41,8 @@ public partial class ElectronickshopContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql("server=localhost;user=root;password=Qwerty123;database=electronickshop", ServerVersion.Parse("8.0.31-mysql"));
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseMySql("server=localhost;user=root;password=Qwerty123;database=electronickshop", ServerVersion.Parse("8.0.25-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -58,8 +61,6 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.Idbasket)
                 .ValueGeneratedNever()
                 .HasColumnName("idbasket");
-            entity.Property(e => e.AllCost).HasColumnName("allCost");
-            entity.Property(e => e.AllCount).HasColumnName("allCount");
             entity.Property(e => e.IdUser).HasColumnName("idUser");
 
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.Baskets)
@@ -119,7 +120,7 @@ public partial class ElectronickshopContext : DbContext
 
             entity.Property(e => e.Idfeedback).HasColumnName("idfeedback");
             entity.Property(e => e.Feedbacks)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .HasColumnName("feedbacks");
             entity.Property(e => e.IdProduct).HasColumnName("idProduct");
             entity.Property(e => e.IdUser).HasColumnName("idUser");
@@ -169,8 +170,6 @@ public partial class ElectronickshopContext : DbContext
 
             entity.ToTable("order");
 
-            entity.HasIndex(e => e.IdBasket, "FK_idBasket_FromOrder_idx");
-
             entity.HasIndex(e => e.IdStatusOrder, "FK_idStatusOrder_FromCheque_idx");
 
             entity.HasIndex(e => e.IdUser, "FK_idUser_FromCheque_idx");
@@ -179,14 +178,8 @@ public partial class ElectronickshopContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("idorder");
             entity.Property(e => e.Date).HasColumnName("date");
-            entity.Property(e => e.IdBasket).HasColumnName("idBasket");
             entity.Property(e => e.IdStatusOrder).HasColumnName("idStatusOrder");
             entity.Property(e => e.IdUser).HasColumnName("idUser");
-
-            entity.HasOne(d => d.IdBasketNavigation).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.IdBasket)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_idBasket_FromOrder");
 
             entity.HasOne(d => d.IdStatusOrderNavigation).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.IdStatusOrder)
@@ -197,6 +190,35 @@ public partial class ElectronickshopContext : DbContext
                 .HasForeignKey(d => d.IdUser)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_idUser_FromOrder");
+        });
+
+        modelBuilder.Entity<OrderHelper>(entity =>
+        {
+            entity.HasKey(e => e.IdorderHelper).HasName("PRIMARY");
+
+            entity.ToTable("order_helper");
+
+            entity.HasIndex(e => e.IdOrder, "fk_id_order_from_helper_idx");
+
+            entity.HasIndex(e => e.IdProduct, "fk_id_product_from_helper_idx");
+
+            entity.Property(e => e.IdorderHelper)
+                .ValueGeneratedNever()
+                .HasColumnName("idorder_helper");
+            entity.Property(e => e.Cost).HasColumnName("cost");
+            entity.Property(e => e.Count).HasColumnName("count");
+            entity.Property(e => e.IdOrder).HasColumnName("id_order");
+            entity.Property(e => e.IdProduct).HasColumnName("id_product");
+
+            entity.HasOne(d => d.IdOrderNavigation).WithMany(p => p.OrderHelpers)
+                .HasForeignKey(d => d.IdOrder)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_id_order_from_helper");
+
+            entity.HasOne(d => d.IdProductNavigation).WithMany(p => p.OrderHelpers)
+                .HasForeignKey(d => d.IdProduct)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_id_product_from_helper");
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -287,20 +309,22 @@ public partial class ElectronickshopContext : DbContext
             entity.ToTable("user");
 
             entity.HasIndex(e => e.RoleId, "fk_usRole_idx");
+
             entity.Property(e => e.Iduser)
                 .ValueGeneratedNever()
                 .HasColumnName("iduser");
             entity.Property(e => e.EmailOrNumberPhone)
                 .HasMaxLength(45)
                 .HasColumnName("emailOrNumberPhone");
+            entity.Property(e => e.ExitCheck).HasColumnName("exitCheck");
             entity.Property(e => e.Login)
                 .HasMaxLength(45)
                 .HasColumnName("login");
-            entity.Property(e => e.RoleId).HasColumnName("roleId");
             entity.Property(e => e.Password)
-            .HasMaxLength(45)
-            .HasColumnName("password");
-            entity.Property(e => e.exitCheck).HasColumnName("exitCheck");
+                .HasMaxLength(45)
+                .HasColumnName("password");
+            entity.Property(e => e.RoleId).HasColumnName("roleId");
+
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)

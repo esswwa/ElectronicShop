@@ -20,16 +20,16 @@ namespace ElectronicShop.ViewModels
         {
             _userService = userService;
             _pageService = pageService;
-            Task.Run(async () => _userLogin = await _userService.GetAllUser());
+            //Task.Run(async () => _userLogin = await _userService.GetAllUser());
         }
 
         public AsyncCommand Registration => new(async () =>
         {
-            int maxUser = _userService.GetMaxIdUser() + 1;
-            //await _userService.AchievementsAsync(maxUser, 0, maxUser, 0);
-            //await _userService.StatisticsAsync(maxUser, 0, 0, 0, 0, 0);
-            await _userService.RegistrationAsync(maxUser, Login, EmailOrNumber, Password);
-            _pageService.ChangePage(new AuthorizationPage());
+            //int maxUser = _userService.GetMaxIdUser() + 1;
+            ////await _userService.AchievementsAsync(maxUser, 0, maxUser, 0);
+            ////await _userService.StatisticsAsync(maxUser, 0, 0, 0, 0, 0);
+            //await _userService.RegistrationAsync(maxUser, Login, EmailOrNumber, Password);
+            //_pageService.ChangePage(new AuthorizationPage());
         }, bool () => {
             if (string.IsNullOrWhiteSpace(EmailOrNumber)
                 || string.IsNullOrWhiteSpace(Login)

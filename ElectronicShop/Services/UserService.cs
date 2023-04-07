@@ -4,55 +4,55 @@ namespace ElectronicShop.Services
 {
     public class UserService
     {
-        private readonly ElectronickshopContext _electronickshopContext;
-        public UserService(ElectronickshopContext electronickshopContext)
-        {
-            _electronickshopContext = electronickshopContext;
-        }
-        public async Task<bool> AuthorizationAsync(string username, string password)
-        {
-            var user = await _electronickshopContext.Users.SingleOrDefaultAsync(u => u.Login == username);
-            if (user == null)
-                return false; 
-            if (user.Password.Equals(password))
-            {
+        //private readonly ElectronickshopContext _electronickshopContext;
+        //public UserService(ElectronickshopContext electronickshopContext)
+        //{
+        //    _electronickshopContext = electronickshopContext;
+        //}
+        //public async Task<bool> AuthorizationAsync(string username, string password)
+        //{
+        //    var user = await _electronickshopContext.Users.SingleOrDefaultAsync(u => u.Login == username);
+        //    if (user == null)
+        //        return false; 
+        //    if (user.Password.Equals(password))
+        //    {
 
-                Settings.Default.idUser = user.Iduser;
-                Settings.Default.login = user.Login;
-                Settings.Default.password = user.Password;
-                Settings.Default.emailOrNumberPhone = user.EmailOrNumberPhone;
-                Settings.Default.roleId = user.RoleId;
-                return true;
-            }
-            return false;
-        }
+        //        Settings.Default.idUser = user.Iduser;
+        //        Settings.Default.login = user.Login;
+        //        Settings.Default.password = user.Password;
+        //        Settings.Default.emailOrNumberPhone = user.EmailOrNumberPhone;
+        //        Settings.Default.roleId = user.RoleId;
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
-        public async Task RegistrationAsync(int idUser,string login, string emailOrNumber, string password)
-        {
+        //public async Task RegistrationAsync(int idUser,string login, string emailOrNumber, string password)
+        //{
 
-            await _electronickshopContext.Users.AddAsync(new User
-            {
-                Iduser= idUser,
-                Login = login,
-                EmailOrNumberPhone = login,
-                Password = password,
-                RoleId = 0
-            }); 
-            await _electronickshopContext.SaveChangesAsync();
-        }
+        //    await _electronickshopContext.Users.AddAsync(new User
+        //    {
+        //        Iduser= idUser,
+        //        Login = login,
+        //        EmailOrNumberPhone = login,
+        //        Password = password,
+        //        RoleId = 0
+        //    }); 
+        //    await _electronickshopContext.SaveChangesAsync();
+        //}
 
 
-        public int GetMaxIdUser()
-        {
+        //public int GetMaxIdUser()
+        //{
 
-            return _electronickshopContext.Users.Max(u => u.Iduser);
-        }
+        //    return _electronickshopContext.Users.Max(u => u.Iduser);
+        //}
 
-        public async Task<List<string>> GetAllUser()
-        {
+        //public async Task<List<string>> GetAllUser()
+        //{
 
-            return await _electronickshopContext.Users.Select(u => u.Login).AsNoTracking().ToListAsync();
-        }
+        //    return await _electronickshopContext.Users.Select(u => u.Login).AsNoTracking().ToListAsync();
+        //}
 
 
 

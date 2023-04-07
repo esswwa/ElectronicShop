@@ -28,15 +28,15 @@
 
             #region Connection
 
-            services.AddDbContext<ElectronickshopContext>(options =>
-            {
-                try
-                {
-                    var conn = _configuration.GetConnectionString("LocalConnection");
-                    options.UseMySql(conn, ServerVersion.AutoDetect(conn));
-                }
-                catch (MySqlConnector.MySqlException) { }
-            }, ServiceLifetime.Singleton);
+            //services.AddDbContext<ElectronickshopContext>(options =>
+            //{
+            //    try
+            //    {
+            //        var conn = _configuration.GetConnectionString("LocalConnection");
+            //        options.UseMySql(conn, ServerVersion.AutoDetect(conn));
+            //    }
+            //    catch (MySqlConnector.MySqlException) { }
+            //}, ServiceLifetime.Singleton);
 
             #endregion
 

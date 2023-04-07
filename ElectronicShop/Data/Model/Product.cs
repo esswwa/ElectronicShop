@@ -31,5 +31,7 @@ public partial class Product
 
     public virtual ICollection<HelperBasket> HelperBaskets { get; } = new List<HelperBasket>();
 
+    public virtual ICollection<OrderHelper> OrderHelpers { get; } = new List<OrderHelper>();
+
     public virtual Status StatusNavigation { get; set; } = null!;
 }

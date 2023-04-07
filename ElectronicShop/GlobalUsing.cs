@@ -6,7 +6,7 @@
         global using Microsoft.EntityFrameworkCore.Metadata.Internal;
         global using Microsoft.Extensions.Configuration;
         global using Microsoft.Extensions.DependencyInjection;
-        global using ElectronicShop.Data;
+        //global using ElectronicShop.Data;
         //global using ElectronicShop.Models;
         //global using ElectronicShop.Properties;
         global using ElectronicShop.Services;
@@ -25,5 +25,5 @@
         global using System.Windows.Data;
         global using System.Windows.Media;
         //global using ElectronicShop.Assets;
-        global using ElectronicShop.Data.Model;
+        //global using ElectronicShop.Data.Model;
         global using System.Collections.ObjectModel;
