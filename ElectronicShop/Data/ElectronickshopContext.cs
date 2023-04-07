@@ -287,7 +287,6 @@ public partial class ElectronickshopContext : DbContext
             entity.ToTable("user");
 
             entity.HasIndex(e => e.RoleId, "fk_usRole_idx");
-
             entity.Property(e => e.Iduser)
                 .ValueGeneratedNever()
                 .HasColumnName("iduser");
@@ -297,14 +296,11 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.Login)
                 .HasMaxLength(45)
                 .HasColumnName("login");
-            entity.Property(e => e.Name)
-                .HasMaxLength(45)
-                .HasColumnName("name");
             entity.Property(e => e.RoleId).HasColumnName("roleId");
-            entity.Property(e => e.Surname)
-                .HasMaxLength(45)
-                .HasColumnName("surname");
-
+            entity.Property(e => e.Password)
+            .HasMaxLength(45)
+            .HasColumnName("password");
+            entity.Property(e => e.exitCheck).HasColumnName("exitCheck");
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
                 .HasForeignKey(d => d.RoleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)

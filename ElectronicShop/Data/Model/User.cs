@@ -7,15 +7,15 @@ public partial class User
 {
     public int Iduser { get; set; }
 
-    public string? Surname { get; set; }
-
-    public string? Name { get; set; }
-
     public string Login { get; set; } = null!;
 
     public string EmailOrNumberPhone { get; set; } = null!;
 
     public int RoleId { get; set; }
+
+    public string Password { get; set; } = null!;
+
+    public int exitCheck { get; set; }
 
     public virtual ICollection<Basket> Baskets { get; } = new List<Basket>();
 

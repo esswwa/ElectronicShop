@@ -21,11 +21,11 @@
             //services.AddTransient<LearnPracticViewModel>();
             //services.AddTransient<LearnTestViewModel>();
             //services.AddTransient<LearnTheoryViewModel>();
-            //services.AddTransient<MenuViewModel>();
+            services.AddTransient<MenuViewModel>();
             //services.AddTransient<ProfileViewModel>();
             //services.AddTransient<TestPageViewModel>();
             //services.AddTransient<LearnViewModel>();
-            //services.AddTransient<RegistrationViewModel>();
+            services.AddTransient<RegistrationViewModel>();
 
             #endregion
 
@@ -58,12 +58,12 @@
         //public LearnPracticViewModel? LearnPracticViewModel => _provider?.GetRequiredService<LearnPracticViewModel>();
         //public LearnTestViewModel? LearnTestViewModel => _provider?.GetRequiredService<LearnTestViewModel>();
         //public LearnTheoryViewModel? LearnTheoryViewModel => _provider?.GetRequiredService<LearnTheoryViewModel>();
-        //public MenuViewModel? MenuViewModel => _provider?.GetRequiredService<MenuViewModel>();
+        public MenuViewModel? MenuViewModel => _provider?.GetRequiredService<MenuViewModel>();
         //public ProfileViewModel? ProfileViewModel => _provider?.GetRequiredService<ProfileViewModel>();
         //public TestPageViewModel? TestPageViewModel => _provider?.GetRequiredService<TestPageViewModel>();
         //public LearnViewModel? LearnViewModel => _provider?.GetRequiredService<LearnViewModel>();
 
-        //public RegistrationViewModel? RegistrationViewModel => _provider?.GetRequiredService<RegistrationViewModel>();
+        public RegistrationViewModel? RegistrationViewModel => _provider?.GetRequiredService<RegistrationViewModel>();
 
     }
     

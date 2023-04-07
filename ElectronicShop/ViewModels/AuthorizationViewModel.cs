@@ -29,8 +29,7 @@ namespace ElectronicShop.ViewModels
 
                 if (await _userService.AuthorizationAsync(Username, Password))
                 {
-                    ErrorMessageButton = "Харош";
-                    //await Application.Current.Dispatcher.InvokeAsync(async () => _pageService.ChangePage(new LearnPage()));
+                    await Application.Current.Dispatcher.InvokeAsync(async () => _pageService.ChangePage(new MenuPage()));
                 }
                 else
                 {
@@ -53,7 +52,7 @@ namespace ElectronicShop.ViewModels
 
         public DelegateCommand Registration => new(async () => {
 
-            //await Application.Current.Dispatcher.InvokeAsync(async () => _pageService.ChangePage(new RegistrationPage()));
+            await Application.Current.Dispatcher.InvokeAsync(async () => _pageService.ChangePage(new RegistrationPage()));
         }); 
     }
 }
