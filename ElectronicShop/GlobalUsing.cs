@@ -24,6 +24,6 @@
         global using System.Globalization;
         global using System.Windows.Data;
         global using System.Windows.Media;
-        //global using ElectronicShop.Assets;
+        global using ElectronicShop.Assets;
         global using ElectronicShop.Data.Model;
         global using System.Collections.ObjectModel;
