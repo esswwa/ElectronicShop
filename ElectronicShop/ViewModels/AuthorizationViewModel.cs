@@ -27,14 +27,14 @@ namespace ElectronicShop.ViewModels
             await Task.Run(async () =>
             {
 
-                //if (await _userService.AuthorizationAsync(Username, Password))
-                //{
-                //    await Application.Current.Dispatcher.InvokeAsync(async () => _pageService.ChangePage(new MenuPage()));
-                //}
-                //else
-                //{
-                //    ErrorMessageButton = "Неверный логин или пароль";
-                //}
+                if (await _userService.AuthorizationAsync(Username, Password))
+                {
+                    await Application.Current.Dispatcher.InvokeAsync(async () => _pageService.ChangePage(new MenuPage()));
+                }
+                else
+                {
+                    ErrorMessageButton = "Неверный логин или пароль";
+                }
             });
         }, bool () => {
 
