@@ -22,7 +22,7 @@ namespace ElectronicShop.Services
                 Settings.Default.idUser = user.Iduser;
                 Settings.Default.login = user.Login;
                 Settings.Default.password = user.Password;
-                Settings.Default.emailOrNumberPhone = user.EmailOrNumberPhone;
+                Settings.Default.email = user.Email;
                 Settings.Default.roleId = user.RoleId;
                 return true;
             }
@@ -36,7 +36,7 @@ namespace ElectronicShop.Services
             {
                 Iduser = idUser,
                 Login = login,
-                EmailOrNumberPhone = login,
+                Email = login,
                 Password = password,
                 RoleId = 0, 
                 ExitCheck = 0

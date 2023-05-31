@@ -9,7 +9,7 @@ public partial class User
 
     public string Login { get; set; } = null!;
 
-    public string EmailOrNumberPhone { get; set; } = null!;
+    public string Email { get; set; } = null!;
 
     public int RoleId { get; set; }
 

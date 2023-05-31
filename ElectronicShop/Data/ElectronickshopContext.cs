@@ -312,15 +312,15 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.Iduser)
                 .ValueGeneratedNever()
                 .HasColumnName("iduser");
-            entity.Property(e => e.EmailOrNumberPhone)
-                .HasMaxLength(45)
-                .HasColumnName("emailOrNumberPhone");
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .HasColumnName("email");
             entity.Property(e => e.ExitCheck).HasColumnName("exitCheck");
             entity.Property(e => e.Login)
                 .HasMaxLength(45)
                 .HasColumnName("login");
             entity.Property(e => e.Password)
-                .HasMaxLength(45)
+                .HasMaxLength(50)
                 .HasColumnName("password");
             entity.Property(e => e.RoleId).HasColumnName("roleId");
 

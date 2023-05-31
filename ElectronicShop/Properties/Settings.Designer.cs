@@ -38,30 +38,6 @@ namespace ElectronicShop.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string surname {
-            get {
-                return ((string)(this["surname"]));
-            }
-            set {
-                this["surname"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string name {
-            get {
-                return ((string)(this["name"]));
-            }
-            set {
-                this["name"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string login {
             get {
                 return ((string)(this["login"]));
@@ -74,12 +50,12 @@ namespace ElectronicShop.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string emailOrNumberPhone {
+        public string email {
             get {
-                return ((string)(this["emailOrNumberPhone"]));
+                return ((string)(this["email"]));
             }
             set {
-                this["emailOrNumberPhone"] = value;
+                this["email"] = value;
             }
         }
         
@@ -104,6 +80,18 @@ namespace ElectronicShop.Properties {
             }
             set {
                 this["password"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int exitCheck {
+            get {
+                return ((int)(this["exitCheck"]));
+            }
+            set {
+                this["exitCheck"] = value;
             }
         }
     }
