@@ -10,7 +10,7 @@ namespace ElectronicShop.Data.Model
     {
         public int IdimageProduct { get; set; }
 
-        public int IdProduct { get; set; }
+        public string IdProduct { get; set; } = null;
 
         public string Image { get; set; } = null!;
 

@@ -36,11 +36,11 @@
                    VerticalAlignment="Bottom"/>
 
         <ListView FontFamily="{StaticResource pwsFont}"
-                      Grid.Row="1"
+                      Grid.Row="2"
+                      Grid.Column="1"
                       ItemsSource="{Binding Products,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       HorizontalContentAlignment="Stretch"
-                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
             <ListView.ContextMenu>
@@ -52,18 +52,18 @@
                 </ContextMenu>
             </ListView.ContextMenu>
 
-            <ListView.ItemsPanel>
+            <!--<ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="2">
                     </UniformGrid>
                 </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
+            </ListView.ItemsPanel>-->
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <materialDesign:Card Background="{Binding Discount, Converter={StaticResource StringToBrushConverter}}"
-                                             Padding="8"
-                                             Height="160"
+                    <materialDesign:Card Background="White"
+                                             Margin="30"
+                                             Height="200"
                                              HorizontalContentAlignment="Stretch">
                         <Grid HorizontalAlignment="Stretch"
                                   VerticalAlignment="Center">
@@ -73,12 +73,15 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Image Grid.Column="0"
-                                       Source="{Binding imgProduct}"
+                            <Border Grid.Column="0"
+                                    CornerRadius="12"
+                                       Width="150"
+                                       Height="100">
+                                <Image
+                                       Source="{Binding ImgProduct}"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
-                                       Width="60"
-                                       Height="75"/>
+                                       HorizontalAlignment="Center"/>
+                            </Border>
 
                             <Grid Grid.Column="1"
                                       VerticalAlignment="Center">

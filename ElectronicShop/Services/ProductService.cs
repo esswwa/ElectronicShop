@@ -15,27 +15,38 @@ namespace ElectronicShop.Services
             _electronickshopContext = electronickshopContext;
         }
 
-        //public async Task<List<Product>> GetProducts()
-        //{
-        //    List<Product> products = new();
-        //    try
-        //    {
-        //        var product = await _electronickshopContext.Products.ToListAsync();
-        //        await Task.Run(() =>
-        //        {
-        //            foreach (var item in product)
-        //            {
-        //                products.Add(new Product
-        //                {
+        public async Task<List<Product>> GetProducts()
+        {
+            List<Product> products = new();
+            try
+            {
+                var product = await _electronickshopContext.Products.ToListAsync();
+                await Task.Run(() =>
+                {
+                    foreach (var item in product)
+                    {
+                        products.Add(new Product
+                        {
+                            NameProduct = item.NameProduct,
+                            ImgProduct = Path.GetFullPath($@"Resources\Image\{item.ImgProduct}"),
+                            FirmProduct = item.FirmProduct,
+                            CostProduct = item.CostProduct,
+                            CategoryProduct = item.CategoryProduct,
+                            ReitingProduct = item.ReitingProduct,
+                            CountProduct = item.CountProduct,
+                            Status = item.Status,
+                            Description = item.Description,
+                            SecondNameProduct = item.SecondNameProduct,
+                            Article = item.Article
 
-                          
-        //                });
-        //            }
-        //        });
-        //    }
-        //    catch { }
-        //    return products;
-        //}
+                        }); ;
+                    }
+                });
+
+            }
+            catch { }
+            return products;
+        }
         //public async Task<List<Product>> getBasket()
         //{
 
@@ -84,9 +95,9 @@ namespace ElectronicShop.Services
         //    return product;
         //}
     }
-    
 
 
 
-    
+
+
 }

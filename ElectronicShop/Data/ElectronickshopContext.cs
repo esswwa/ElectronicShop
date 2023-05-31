@@ -103,7 +103,9 @@ public partial class ElectronickshopContext : DbContext
             entity.ToTable("imageproduct");
 
             entity.Property(e => e.IdimageProduct).HasColumnName("idfirms");
-            entity.Property(e => e.IdProduct).HasColumnName("idProduct");
+            entity.Property(e => e.IdProduct)
+                .HasMaxLength(45)
+                .HasColumnName("idProduct");
             entity.Property(e => e.Image)
                 .HasMaxLength(45)
                 .HasColumnName("image");
@@ -266,7 +268,9 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.CostProduct).HasColumnName("costProduct");
             entity.Property(e => e.CountProduct).HasColumnName("countProduct");
             entity.Property(e => e.FirmProduct).HasColumnName("firmProduct");
-            entity.Property(e => e.ImgProduct).HasColumnName("imgProduct");
+            entity.Property(e => e.ImgProduct)
+                .HasMaxLength(45)
+                .HasColumnName("imgProduct");
             entity.Property(e => e.NameProduct)
                 .HasMaxLength(150)
                 .HasColumnName("nameProduct");

@@ -9,7 +9,7 @@ public partial class Product
 
     public string NameProduct { get; set; } = null!;
 
-    public int ImgProduct { get; set; }
+    public string ImgProduct { get; set; } = null;
 
     public int FirmProduct { get; set; }
 
@@ -29,6 +29,7 @@ public partial class Product
 
     public string Article { get; set; } = null!;
 
+    //public string ImgProductFull { get; set; } = null;
 
     public virtual Category CategoryProductNavigation { get; set; } = null!;
 

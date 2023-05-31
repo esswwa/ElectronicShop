@@ -47,6 +47,7 @@ namespace ElectronicShop
 
             services.AddSingleton<PageService>();
             services.AddSingleton<UserService>();
+            services.AddSingleton<ProductService>();
 
             #endregion
 
