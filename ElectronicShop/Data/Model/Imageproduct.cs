@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace ElectronicShop.Data.Model
 {
-    internal class Imageproduct
+    public partial class Imageproduct
     {
+        public int IdimageProduct { get; set; }
+
+        public int IdProduct { get; set; }
+
+        public string Image { get; set; } = null!;
+
     }
 }

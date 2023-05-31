@@ -92,35 +92,42 @@
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Grid.Row="0"
-                                               FontWeight="Bold"
-                                               Text="{Binding nameProduct}"/>
-                                <TextBlock Grid.Row="1"
-                                               Text="{Binding Description}"
-                                               TextWrapping="Wrap"/>
-                                <TextBlock Grid.Row="2"
-                                               Text="{Binding Manufacturer, StringFormat={}Производитель: {0}}"
-                                               TextWrapping="Wrap"/>
-                                <TextBlock Grid.Row="3"
-                                               Text="{Binding Quantity, StringFormat={}Количество на складе: {0}}"
-                                               TextWrapping="Wrap"/>
-                                <TextBlock Grid.Row="4"
-                                               Text="{Binding Status, StringFormat={}Статус: {0}}"
-                                               TextWrapping="Wrap"/>
-                                <TextBlock Grid.Row="5"
                                            TextWrapping="Wrap">
                                     <TextBlock.Inlines>
-                                        <Run Text="Цена:"/>
-                                        <Run Text="{Binding Price, StringFormat={}{0:C}, ConverterCulture=ru-RU}"
-                                                 TextDecorations="{Binding Discount, Converter={StaticResource ValueToTextDecorationsConverter}}"/>
-                                        <Run Text="{Binding DisplayedPrice, StringFormat={}{0:C}, ConverterCulture=ru-RU, Mode=OneWay}"/>
+                                        <Run Text="{Binding NameProduct, StringFormat={}{0:C}, ConverterCulture=ru-RU}"/>
+                                        <Run Text="{Binding SecondNameProduct, StringFormat={}{0:C}, ConverterCulture=ru-RU, Mode=OneWay}"/>
                                     </TextBlock.Inlines>
                                 </TextBlock>
-                            </Grid>
-
-                            <TextBlock Grid.Column="2"
-                                           Text="{Binding Discount, StringFormat={}Скидка: {0}%}"
+                                <StackPanel Grid.Row="1"
+                                            Orientation="Horizontal">
+                                    <materialDesign:RatingBar
+                                        x:Name="BasicRatingBarTheory"
+                                        IsReadOnly="True"
+                                        Value="{Binding RatingTheory}" />
+                                    <TextBlock Margin="0 5 0 0"
+                                               Text="{Binding ReitingProduct}"/>
+                                </StackPanel>
+                                <TextBlock Grid.Row="2"
+                                           Text="{Binding Status, StringFormat={}Статус: {0}%}"
                                            TextWrapping="Wrap"
                                            VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0"
+                                           Text="{Binding CostProduct}"/>
+                                <StackPanel Grid.Row="1"
+                                            Orientation="Horizontal">
+                                    
+                                    <Button Margin="0 5 0 0"
+                                            Content="Купить"
+                                            Command="{Binding buyProduct}"/>
+                                </StackPanel>
+                            </Grid>
                         </Grid>
                     </materialDesign:Card>
                 </DataTemplate>
