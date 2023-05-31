@@ -6,11 +6,9 @@
         xmlns:local="clr-namespace:ElectronicShop.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         mc:Ignorable="d"
-        Title="Latuc Code" Height="450" Width="800" Background="#CCE0FF"
+        Title="Latuc Code" MinHeight="550" MinWidth="1000" Background="#CCE0FF"
         DataContext="{Binding MainWindowViewModel,
-        Source={StaticResource ViewModelLocator}}"
-        MinWidth="360"
-        MinHeight="450">
+        Source={StaticResource ViewModelLocator}}">
 
     <Grid>
         <Frame NavigationUIVisibility="Hidden"
