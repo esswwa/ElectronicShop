@@ -35,8 +35,8 @@
                    BorderThickness="4"
                    VerticalAlignment="Bottom"/>
 
-        <ListView     Grid.Row="2"
-                      Grid.Column="1"
+        <ListView FontFamily="{StaticResource pwsFont}"
+                      Grid.Row="1"
                       ItemsSource="{Binding Products,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       HorizontalContentAlignment="Stretch"
@@ -45,8 +45,10 @@
 
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Добавить"
-                                  Command="{Binding AddCardToBasket}"/>
+                    <!--<MenuItem Header="Редактировать"
+                                  Command="{Binding RedactCard}"/>
+                    <MenuItem Header="Удалить"
+                                  Command="{Binding DeleteCard}"/>-->
                 </ContextMenu>
             </ListView.ContextMenu>
 
@@ -61,7 +63,7 @@
                 <DataTemplate>
                     <materialDesign:Card Background="{Binding Discount, Converter={StaticResource StringToBrushConverter}}"
                                              Padding="8"
-                                             Height="120"
+                                             Height="160"
                                              HorizontalContentAlignment="Stretch">
                         <Grid HorizontalAlignment="Stretch"
                                   VerticalAlignment="Center">
@@ -72,7 +74,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Image Grid.Column="0"
-                                       Source="{Binding DisplayedImage}"
+                                       Source="{Binding imgProduct}"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        Width="60"
@@ -85,11 +87,13 @@
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
 
                                 <TextBlock Grid.Row="0"
                                                FontWeight="Bold"
-                                               Text="{Binding Title}"/>
+                                               Text="{Binding nameProduct}"/>
                                 <TextBlock Grid.Row="1"
                                                Text="{Binding Description}"
                                                TextWrapping="Wrap"/>
@@ -97,7 +101,13 @@
                                                Text="{Binding Manufacturer, StringFormat={}Производитель: {0}}"
                                                TextWrapping="Wrap"/>
                                 <TextBlock Grid.Row="3"
-                                               TextWrapping="Wrap">
+                                               Text="{Binding Quantity, StringFormat={}Количество на складе: {0}}"
+                                               TextWrapping="Wrap"/>
+                                <TextBlock Grid.Row="4"
+                                               Text="{Binding Status, StringFormat={}Статус: {0}}"
+                                               TextWrapping="Wrap"/>
+                                <TextBlock Grid.Row="5"
+                                           TextWrapping="Wrap">
                                     <TextBlock.Inlines>
                                         <Run Text="Цена:"/>
                                         <Run Text="{Binding Price, StringFormat={}{0:C}, ConverterCulture=ru-RU}"
@@ -105,7 +115,6 @@
                                         <Run Text="{Binding DisplayedPrice, StringFormat={}{0:C}, ConverterCulture=ru-RU, Mode=OneWay}"/>
                                     </TextBlock.Inlines>
                                 </TextBlock>
-
                             </Grid>
 
                             <TextBlock Grid.Column="2"

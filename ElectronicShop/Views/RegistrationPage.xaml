@@ -55,12 +55,12 @@
                     <TextBox Grid.Row="2"
                              Height="50"
                              Width="200"
-                             materialDesign:HintAssist.Hint="Почта или номер"
+                             materialDesign:HintAssist.Hint="Почта"
                              materialDesign:HintAssist.Foreground="#0096EB"
                              BorderBrush="#0096EB"
                              Foreground="#0096EB"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             Text="{Binding EmailOrNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <PasswordBox Grid.Row="3"
                                  Height="50"
                                  Width="200"

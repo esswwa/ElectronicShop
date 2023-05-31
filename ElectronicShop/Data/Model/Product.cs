@@ -9,19 +9,21 @@ public partial class Product
 
     public string NameProduct { get; set; } = null!;
 
-    public string? ImgProduct { get; set; }
+    public int ImgProduct { get; set; }
 
-    public string FirmProduct { get; set; } = null!;
+    public int FirmProduct { get; set; }
 
     public int CostProduct { get; set; }
 
     public int CategoryProduct { get; set; }
 
-    public float? ReitingProduct { get; set; }
+    public float ReitingProduct { get; set; }
 
     public int CountProduct { get; set; }
 
     public int Status { get; set; }
+
+    public string Description { get; set; } = null!;
 
     public virtual Category CategoryProductNavigation { get; set; } = null!;
 
@@ -34,4 +36,7 @@ public partial class Product
     public virtual ICollection<OrderHelper> OrderHelpers { get; } = new List<OrderHelper>();
 
     public virtual Status StatusNavigation { get; set; } = null!;
+
+    public virtual Firms FirmsNavigation { get; set; } = null!;
+
 }

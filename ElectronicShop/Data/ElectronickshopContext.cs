@@ -34,6 +34,10 @@ public partial class ElectronickshopContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
+    public virtual DbSet<Firms> Firmss { get; set; }
+
+    public virtual DbSet<Imageproduct> Imageproducts { get; set; }
+
     public virtual DbSet<Status> Statuses { get; set; }
 
     public virtual DbSet<StatusOrder> StatusOrders { get; set; }
@@ -78,6 +82,31 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(45)
                 .HasColumnName("categoryName");
+        });
+
+        modelBuilder.Entity<Firms>(entity =>
+        {
+            entity.HasKey(e => e.Idfirms).HasName("PRIMARY");
+
+            entity.ToTable("firms");
+
+            entity.Property(e => e.Idfirms).HasColumnName("idfirms");
+            entity.Property(e => e.Firm)
+                .HasMaxLength(45)
+                .HasColumnName("firm");
+        });
+
+        modelBuilder.Entity<Imageproduct>(entity =>
+        {
+            entity.HasKey(e => e.IdimageProduct).HasName("PRIMARY");
+
+            entity.ToTable("imageproduct");
+
+            entity.Property(e => e.IdimageProduct).HasColumnName("idfirms");
+            entity.Property(e => e.IdProduct).HasColumnName("idProduct");
+            entity.Property(e => e.Image)
+                .HasMaxLength(45)
+                .HasColumnName("image");
         });
 
         modelBuilder.Entity<Favourity>(entity =>
@@ -236,15 +265,14 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.CategoryProduct).HasColumnName("categoryProduct");
             entity.Property(e => e.CostProduct).HasColumnName("costProduct");
             entity.Property(e => e.CountProduct).HasColumnName("countProduct");
-            entity.Property(e => e.FirmProduct)
-                .HasMaxLength(45)
-                .HasColumnName("firmProduct");
-            entity.Property(e => e.ImgProduct)
-                .HasColumnType("text")
-                .HasColumnName("imgProduct");
+            entity.Property(e => e.FirmProduct).HasColumnName("firmProduct");
+            entity.Property(e => e.ImgProduct).HasColumnName("imgProduct");
             entity.Property(e => e.NameProduct)
                 .HasMaxLength(45)
                 .HasColumnName("nameProduct");
+            entity.Property(e => e.Description)
+                .HasMaxLength(250)
+                .HasColumnName("description");
             entity.Property(e => e.ReitingProduct).HasColumnName("reitingProduct");
             entity.Property(e => e.Status).HasColumnName("status");
 
@@ -257,6 +285,10 @@ public partial class ElectronickshopContext : DbContext
                 .HasForeignKey(d => d.Status)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Fk_status_fromProduct_to_Status");
+            entity.HasOne(d => d.FirmsNavigation).WithMany(p => p.Products)
+              .HasForeignKey(d => d.FirmProduct)
+              .OnDelete(DeleteBehavior.ClientSetNull)
+              .HasConstraintName("Fk_firm_fromProduct_to_firms");
         });
 
         modelBuilder.Entity<Role>(entity =>

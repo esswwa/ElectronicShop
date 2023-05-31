@@ -11,6 +11,9 @@ namespace ElectronicShop.Services
         {
             _electronickshopContext = electronickshopContext;
         }
+
+        public ObservableCollection<User> Users { get; set; }
+
         public async Task<bool> AuthorizationAsync(string username, string password)
         {
             var user = await _electronickshopContext.Users.SingleOrDefaultAsync(u => u.Login == username);
@@ -24,19 +27,20 @@ namespace ElectronicShop.Services
                 Settings.Default.password = user.Password;
                 Settings.Default.email = user.Email;
                 Settings.Default.roleId = user.RoleId;
+                Settings.Default.exitCheck = 1;
                 return true;
             }
             return false;
         }
 
-        public async Task RegistrationAsync(int idUser, string login, string emailOrNumber, string password)
+        public async Task RegistrationAsync(int idUser, string login, string email, string password)
         {
 
             await _electronickshopContext.Users.AddAsync(new User
             {
                 Iduser = idUser,
                 Login = login,
-                Email = login,
+                Email = email,
                 Password = password,
                 RoleId = 0, 
                 ExitCheck = 0
@@ -57,37 +61,34 @@ namespace ElectronicShop.Services
             return await _electronickshopContext.Users.Select(u => u.Login).AsNoTracking().ToListAsync();
         }
 
+        public async Task<List<string>> GetAllEmail()
+        {
 
+            return await _electronickshopContext.Users.Select(u => u.Email).AsNoTracking().ToListAsync();
+        }
 
+        public async void UpdateProduct()
+        {
+            var currentOrders = await getUsers();
+            Users = new ObservableCollection<User>(currentOrders);
+            var item = Users.First(i => i.Iduser == Settings.Default.idUser);
+            var index = Users.IndexOf(item);
+            item.ExitCheck = Settings.Default.exitCheck;
+            Users.RemoveAt(index);
+            Users.Insert(index, item);
+            await _electronickshopContext.SaveChangesAsync();
+        }
 
-        //public async Task AchievementsAsync(int IduserAchievements, int Taken, int IdUser, int IdAchievements)
-        //{
+        public async Task<List<User>> getUsers()
+        {
+            return _electronickshopContext.Users.ToList();
+        }
 
-        //    await _electronickshopContext.UserAchievements.AddAsync(new UserAchievement
-        //    {
-        //        IduserAchievements = IduserAchievements,
-        //        Taken = Taken,
-        //        IdUser = IdUser,
-        //        IdAchievements = IdAchievements
-        //    });
-        //    await _electronickshopContext.SaveChangesAsync();
-        //}
-
-        //public async Task StatisticsAsync(int Idstatistic, int CountOfPassedLevel, int CountTry, int ResultTest, int LanguageLvl, int Score)
-        //{
-
-        //    await _electronickshopContext.Statistics.AddAsync(new Statistic
-        //    {
-        //        Idstatistic = Idstatistic,
-        //        CountOfPassedLevel = CountOfPassedLevel,
-        //        CountTry = CountTry,
-        //        ResultTest = ResultTest,
-        //        LanguageLvl = LanguageLvl,
-        //        Score = Score
-        //    });
-        //    await _electronickshopContext.SaveChangesAsync();
-        //}
-
+        public void UpdateProductNull()
+        {
+            Settings.Default.exitCheck = 0;
+            UpdateProduct();
+        }
 
     }
 }
