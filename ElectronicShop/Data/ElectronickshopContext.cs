@@ -268,14 +268,17 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.FirmProduct).HasColumnName("firmProduct");
             entity.Property(e => e.ImgProduct).HasColumnName("imgProduct");
             entity.Property(e => e.NameProduct)
-                .HasMaxLength(45)
+                .HasMaxLength(150)
                 .HasColumnName("nameProduct");
             entity.Property(e => e.Description)
-                .HasMaxLength(350)
+                .HasMaxLength(500)
                 .HasColumnName("description");
             entity.Property(e => e.SecondNameProduct)
                 .HasMaxLength(250)
                 .HasColumnName("secondNameProduct");
+            entity.Property(e => e.Article)
+                .HasMaxLength(45)
+                .HasColumnName("Article");
             entity.Property(e => e.ReitingProduct).HasColumnName("reitingProduct");
             entity.Property(e => e.Status).HasColumnName("status");
 

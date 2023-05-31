@@ -27,6 +27,9 @@ public partial class Product
 
     public string SecondNameProduct { get; set; } = null!;
 
+    public string Article { get; set; } = null!;
+
+
     public virtual Category CategoryProductNavigation { get; set; } = null!;
 
     public virtual ICollection<Favourity> Favourities { get; } = new List<Favourity>();

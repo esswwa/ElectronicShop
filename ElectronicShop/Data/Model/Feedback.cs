@@ -11,7 +11,7 @@ public partial class Feedback
 
     public int IdUser { get; set; }
 
-    public string? Feedbacks { get; set; }
+    public string Feedbacks { get; set; } = null!;
 
     public int Reiting { get; set; }
 
