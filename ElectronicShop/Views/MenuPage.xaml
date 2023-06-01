@@ -578,7 +578,7 @@
                                             Height="Auto"
                                             Width="Auto"
                                             Margin="40"
-                                            VerticalAlignment="Center">
+                                            VerticalAlignment="Top">
                         <materialDesign:Flipper.FrontContent>
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -590,8 +590,8 @@
                                     Background="#CCE0FF"
                                     Mode="Custom">
                                     <materialDesign:PackIcon
-                                        MinWidth="128"
-                                        MinHeight="128"
+                                        MinWidth="140"
+                                        MinHeight="140"
                                         Foreground="#424874"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
@@ -603,6 +603,7 @@
                                     VerticalAlignment="Center">
                                     <TextBlock Text="James Willock"
                                                Foreground="#424874"
+                                               FontSize="20"
                                                HorizontalAlignment="Center"/>
                                     <Button HorizontalAlignment="Center"
                                         Command="{x:Static materialDesign:Flipper.FlipCommand}"
@@ -635,7 +636,8 @@
                                         <TextBlock
                                                   Margin="8,0,0,0"
                                                   VerticalAlignment="Center"
-                                                  Text="EDIT USER" />
+                                                  FontSize="16"
+                                                  Text="Редактирование" />
                                     </StackPanel>
                                 </materialDesign:ColorZone>
                                 <Grid   Grid.Row="1"
@@ -651,15 +653,17 @@
                                     </Grid.RowDefinitions>
                                     <TextBox
                                             Margin="0,12,0,0"
-                                            materialDesign:HintAssist.Hint="First name"
+                                            materialDesign:HintAssist.Hint="Логин"
+                                            FontSize="16"
                                             materialDesign:HintAssist.IsFloating="True"
-                                            Text="James" />
+                                            Text="esswwa" />
                                     <TextBox
                                             Grid.Row="1"
                                             Margin="0,12,0,0"
-                                            materialDesign:HintAssist.Hint="Last name"
+                                            FontSize="16"
+                                            materialDesign:HintAssist.Hint="Почта"
                                             materialDesign:HintAssist.IsFloating="True"
-                                            Text="Willock" />
+                                            Text="email@yandex.ru" />
                                 </Grid>
                             </Grid>
                         </materialDesign:Flipper.BackContent>
