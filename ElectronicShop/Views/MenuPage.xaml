@@ -14,16 +14,14 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
-            <RowDefinition Height="0.1*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.35*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="ElectronickShop"
+        <TextBlock Text="ELEISSIS"
                    Grid.Row="0"
-                   Grid.ColumnSpan="3"
                    Foreground="White"
                    FontSize="32"
                    FontFamily="Arial"
@@ -31,12 +29,14 @@
                    VerticalAlignment="Center"/>
         <Separator Grid.Row="0"
                    Grid.ColumnSpan="3"
+                   Height="20"
                    BorderBrush="White"
-                   BorderThickness="4"
+                   BorderThickness="2"
                    VerticalAlignment="Bottom"/>
 
         <ListView FontFamily="{StaticResource pwsFont}"
-                      Grid.Row="2"
+                      Grid.Row="1"
+                      Grid.RowSpan="2"
                       Grid.Column="1"
                       ItemsSource="{Binding Products,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -45,10 +45,8 @@
 
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <!--<MenuItem Header="Редактировать"
+                    <MenuItem Header="Добавить в корзину"
                                   Command="{Binding RedactCard}"/>
-                    <MenuItem Header="Удалить"
-                                  Command="{Binding DeleteCard}"/>-->
                 </ContextMenu>
             </ListView.ContextMenu>
 
@@ -120,6 +118,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0"
                                            Text="{Binding CostProduct}"/>
@@ -132,26 +131,41 @@
                                             Background="#CCE0FF"
                                             Command="{Binding buyProduct}"/>
                                 </StackPanel>
+                                <ToggleButton
+                                        Grid.Row="2"
+                                        Content="{materialDesign:PackIcon Kind=Heart,Size=21}"
+                                        IsChecked="False"
+                                        Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                                         />
                             </Grid>
                         </Grid>
                     </materialDesign:Card>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Grid Grid.Row="2"
-              Background="White">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Expander HorizontalAlignment="Stretch"
-                  Grid.Row="0"
-                  Header="Категории"
-                  Margin="10"
-                  Foreground="#424874"
-                  FontFamily="{StaticResource font}">
-                    <Grid>
+        <materialDesign:Card Grid.Row="2">
+            <TabControl
+                materialDesign:ColorZoneAssist.Mode="Standard"
+                materialDesign:ElevationAssist.Elevation="Dp0"
+                Style="{StaticResource MaterialDesignNavigationRailTabControl}">
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel
+                            Width="auto"
+                            Height="auto">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Kind="Folder" />
+                            <TextBlock
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Text="Фильтры"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid Background="White">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -159,246 +173,499 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
+                        <materialDesign:ColorZone
+                                    Grid.Row="0"
+                                    Margin="16"
+                                    Padding="8,4,8,4"
+                                    materialDesign:ElevationAssist.Elevation="Dp2"
+                                    CornerRadius="2"
+                                    Mode="Standard">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Style="{StaticResource MaterialDesignToolButton}"
+                                        Foreground="#424874">
+                                        <materialDesign:PackIcon
+                                                    Kind="Search"
+                                                    Foreground="#424874"
+                                                    Opacity=".56"/>
+                                </Button>
+                                <TextBox Foreground="#424874"
+                                         Grid.Column="1"
+                                         MinWidth="200"
+                                         Margin="8,0,0,0"
+                                         VerticalAlignment="Center"
+                                         materialDesign:HintAssist.Hint="Поиск"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         BorderThickness="0" />
+                            </Grid>
+                        </materialDesign:ColorZone>
                         <Expander HorizontalAlignment="Stretch"
-                        Grid.Row="0"
-                        Background="#CCE0FF"
-                        Header="ПК, ноутбуки, периферия"
-                        Margin="20 0 0 0"
-                        Foreground="#424874"
-                        FontFamily="{StaticResource font}">
+                            Grid.Row="1"
+                            Header="Категории"
+                            Margin="10"
+                            Foreground="#424874"
+                            FontFamily="{StaticResource font}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Expander HorizontalAlignment="Stretch"
+                                        Grid.Row="0"
+                                        Header="ПК, ноутбуки, периферия"
+                                        Margin="20 0 0 0"
+                                        Foreground="#424874"
+                                        FontFamily="{StaticResource font}">
+                                    <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
+                                        <TreeView>
+                                            <TreeViewItem Header="Персональный компьютер"
+                                                          Foreground="#424874">
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Ноутбук"
+                                                          Foreground="#424874">
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Периферия"
+                                                          Foreground="#424874">
+                                            </TreeViewItem>
+                                        </TreeView>
+                                    </StackPanel>
+                                </Expander>
+                                <Expander HorizontalAlignment="Stretch"
+                                          Grid.Row="1"
+                                          Margin="20 0 0 0"
+                                          Header="Смартфоны и фототехника"
+                                          Foreground="#424874"
+                                          FontFamily="{StaticResource font}">
+                                    <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
+                                        <TreeView>
+                                            <TreeViewItem Header="Смартфон"
+                                                          Foreground="#424874">
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Фототехника"
+                                                          Foreground="#424874">
+                                            </TreeViewItem>
+                                        </TreeView>
+                                    </StackPanel>
+                                </Expander>
+                                <Expander HorizontalAlignment="Stretch"
+                                          Grid.Row="2"
+                                          Margin="20 0 0 0"
+                                          Header="ТВ, консоли и аудио"
+                                          Foreground="#424874"
+                                          FontFamily="{StaticResource font}">
+                                    <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
+                                        <TreeView>
+                                            <TreeViewItem Header="Телевизор"
+                                                          Foreground="#424874">
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Консоль"
+                                                          Foreground="#424874">
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Аудио"
+                                                          Foreground="#424874">
+
+                                            </TreeViewItem>
+                                        </TreeView>
+                                    </StackPanel>
+                                </Expander>
+                                <Expander HorizontalAlignment="Stretch"
+                                          Grid.Row="3"
+                                          Margin="20 0 0 0"
+                                          Header="Комплектующие для ПК"
+                                          Foreground="#424874"
+                                          FontFamily="{StaticResource font}">
+                                    <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
+                                        <TreeView>
+                                            <TreeViewItem Header="Видеокарта"
+                                                          Foreground="#424874">
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Процессор"
+                                                          Foreground="#424874">
+
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Материнская плата"
+                                                          Foreground="#424874">
+
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Оперативная память"
+                                                          Foreground="#424874">
+
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Корпус"
+                                                          Foreground="#424874">
+
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Блок питания"
+                                                          Foreground="#424874">
+
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Накопитель"
+                                                          Foreground="#424874">
+
+                                            </TreeViewItem>
+                                        </TreeView>
+                                    </StackPanel>
+                                </Expander>
+                                <Expander HorizontalAlignment="Stretch"
+                                          Grid.Row="4"
+                                          Margin="20 0 0 0"
+                                          Header="Сетевое оборудование"
+                                          Foreground="#424874"
+                                          FontFamily="{StaticResource font}">
+                                    <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
+                                        <TreeView>
+                                            <TreeViewItem Header="Wi-Fi Роутер"
+                                                          Foreground="#424874">
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Видеонаблюдение"
+                                                          Foreground="#424874">
+
+                                            </TreeViewItem>
+                                        </TreeView>
+                                    </StackPanel>
+                                </Expander>
+                                <Expander HorizontalAlignment="Stretch"
+                                          Grid.Row="5"
+                                          Margin="20 0 0 0"
+                                          Header="Бытовая техника"
+                                          Foreground="#424874"
+                                          FontFamily="{StaticResource font}">
+                                    <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
+                                        <TreeView>
+                                            <TreeViewItem Header="Духовая печь"
+                                                          Foreground="#424874">
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Стиральная машина"
+                                                          Foreground="#424874">
+
+                                            </TreeViewItem>
+                                        </TreeView>
+                                        <TreeView>
+                                            <TreeViewItem Header="Холодильник"
+                                                          Foreground="#424874">
+
+                                            </TreeViewItem>
+                                        </TreeView>
+                                    </StackPanel>
+                                </Expander>
+                            </Grid>
+                        </Expander>
+                        <Expander HorizontalAlignment="Stretch"
+                                  Header="Стоимость"
+                                  Foreground="#424874"
+                                  Margin="10"
+                                  Grid.Row="2"
+                                  FontFamily="{StaticResource font}">
                             <StackPanel Orientation="Vertical"
-                            HorizontalAlignment="Stretch">
+                                            HorizontalAlignment="Stretch">
                                 <TreeView>
-                                    <TreeViewItem Header="Персональный компьютер"
-                                      Foreground="#424874">
+                                    <TreeViewItem Header="Категории"
+                                      Foreground="#424874"
+                                      FontFamily="{StaticResource font}">
                                     </TreeViewItem>
                                 </TreeView>
                                 <TreeView>
-                                    <TreeViewItem Header="Ноутбук"
-                                      Foreground="#424874">
+                                    <TreeViewItem Header="Стоимость">
 
                                     </TreeViewItem>
                                 </TreeView>
                                 <TreeView>
-                                    <TreeViewItem Header="Периферия"
-                                      Foreground="#424874">
+                                    <TreeViewItem Header="Статус">
 
                                     </TreeViewItem>
                                 </TreeView>
                             </StackPanel>
                         </Expander>
                         <Expander HorizontalAlignment="Stretch"
-                        Grid.Row="1"
-                        Background="#CCE0FF"
-                        Margin="20 0 0 0"
-                        Header="Смартфоны и фототехника"
-                        Foreground="#424874"
-                        FontFamily="{StaticResource font}">
+                                  Header="Статус"
+                                  Foreground="#424874"
+                                  
+                                  Margin="10"
+                                  Grid.Row="3"
+                                  FontFamily="{StaticResource font}">
                             <StackPanel Orientation="Vertical"
-                            HorizontalAlignment="Stretch">
+                                        HorizontalAlignment="Stretch">
                                 <TreeView>
-                                    <TreeViewItem Header="Смартфон"
-                                      Foreground="#424874">
+                                    <TreeViewItem Header="Категории"
+                                      Foreground="#424874"
+                                      FontFamily="{StaticResource font}">
                                     </TreeViewItem>
                                 </TreeView>
                                 <TreeView>
-                                    <TreeViewItem Header="Фототехника"
-                                      Foreground="#424874">
-
-                                    </TreeViewItem>
-                                </TreeView>
-                            </StackPanel>
-                        </Expander>
-                        <Expander HorizontalAlignment="Stretch"
-                        Grid.Row="2"
-                        Background="#CCE0FF"
-                        Margin="20 0 0 0"
-                        Header="ТВ, консоли и аудио"
-                        Foreground="#424874"
-                        FontFamily="{StaticResource font}">
-                            <StackPanel Orientation="Vertical"
-                            HorizontalAlignment="Stretch">
-                                <TreeView>
-                                    <TreeViewItem Header="Телевизор"
-                                      Foreground="#424874">
-                                    </TreeViewItem>
-                                </TreeView>
-                                <TreeView>
-                                    <TreeViewItem Header="Консоль"
-                                      Foreground="#424874">
+                                    <TreeViewItem Header="Стоимость">
 
                                     </TreeViewItem>
                                 </TreeView>
                                 <TreeView>
-                                    <TreeViewItem Header="Аудио"
-                                      Foreground="#424874">
-
-                                    </TreeViewItem>
-                                </TreeView>
-                            </StackPanel>
-                        </Expander>
-                        <Expander HorizontalAlignment="Stretch"
-                        Grid.Row="3"
-                        Background="#CCE0FF"
-                        Margin="20 0 0 0"
-                        Header="Комплектующие для ПК"
-                        Foreground="#424874"
-                        FontFamily="{StaticResource font}">
-                            <StackPanel Orientation="Vertical"
-                            HorizontalAlignment="Stretch">
-                                <TreeView>
-                                    <TreeViewItem Header="Видеокарта"
-                                      Foreground="#424874">
-                                    </TreeViewItem>
-                                </TreeView>
-                                <TreeView>
-                                    <TreeViewItem Header="Процессор"
-                                      Foreground="#424874">
-
-                                    </TreeViewItem>
-                                </TreeView>
-                                <TreeView>
-                                    <TreeViewItem Header="Материнская плата"
-                                      Foreground="#424874">
-
-                                    </TreeViewItem>
-                                </TreeView>
-                                <TreeView>
-                                    <TreeViewItem Header="Оперативная память"
-                                      Foreground="#424874">
-
-                                    </TreeViewItem>
-                                </TreeView>
-                                <TreeView>
-                                    <TreeViewItem Header="Корпус"
-                                      Foreground="#424874">
-
-                                    </TreeViewItem>
-                                </TreeView>
-                                <TreeView>
-                                    <TreeViewItem Header="Блок питания"
-                                      Foreground="#424874">
-
-                                    </TreeViewItem>
-                                </TreeView>
-                                <TreeView>
-                                    <TreeViewItem Header="Накопитель"
-                                      Foreground="#424874">
-
-                                    </TreeViewItem>
-                                </TreeView>
-                            </StackPanel>
-                        </Expander>
-                        <Expander HorizontalAlignment="Stretch"
-                        Grid.Row="4"
-                        Background="#CCE0FF"
-                        Margin="20 0 0 0"
-                        Header="Сетевое оборудование"
-                        Foreground="#424874"
-                        FontFamily="{StaticResource font}">
-                            <StackPanel Orientation="Vertical"
-                            HorizontalAlignment="Stretch">
-                                <TreeView>
-                                    <TreeViewItem Header="Wi-Fi Роутер"
-                                      Foreground="#424874">
-                                    </TreeViewItem>
-                                </TreeView>
-                                <TreeView>
-                                    <TreeViewItem Header="Видеонаблюдение"
-                                      Foreground="#424874">
-
-                                    </TreeViewItem>
-                                </TreeView>
-                            </StackPanel>
-                        </Expander>
-                        <Expander HorizontalAlignment="Stretch"
-                        Grid.Row="5"
-                        Background="#CCE0FF"
-                        Margin="20 0 0 0"
-                        Header="Бытовая техника"
-                        Foreground="#424874"
-                        FontFamily="{StaticResource font}">
-                            <StackPanel Orientation="Vertical"
-                            HorizontalAlignment="Stretch">
-                                <TreeView>
-                                    <TreeViewItem Header="Духовая печь"
-                                      Foreground="#424874">
-                                    </TreeViewItem>
-                                </TreeView>
-                                <TreeView>
-                                    <TreeViewItem Header="Стиральная машина"
-                                      Foreground="#424874">
-
-                                    </TreeViewItem>
-                                </TreeView>
-                                <TreeView>
-                                    <TreeViewItem Header="Холодильник"
-                                      Foreground="#424874">
+                                    <TreeViewItem Header="Статус">
 
                                     </TreeViewItem>
                                 </TreeView>
                             </StackPanel>
                         </Expander>
                     </Grid>
-            </Expander>
-            <Expander HorizontalAlignment="Stretch"
-                  Header="Стоимость"
-                  Foreground="#424874"
-                  Margin="10"
-                  Grid.Row="1"
-                  FontFamily="{StaticResource font}">
-                <StackPanel Orientation="Vertical"
-                        Background="#CCE0FF"
-                        HorizontalAlignment="Stretch">
-                    <TreeView>
-                        <TreeViewItem Header="Категории"
-                                      Foreground="#424874"
-                                      FontFamily="{StaticResource font}">
-                        </TreeViewItem>
-                    </TreeView>
-                    <TreeView>
-                        <TreeViewItem Header="Стоимость">
-
-                        </TreeViewItem>
-                    </TreeView>
-                    <TreeView>
-                        <TreeViewItem Header="Статус">
-
-                        </TreeViewItem>
-                    </TreeView>
-                </StackPanel>
-            </Expander>
-            <Expander HorizontalAlignment="Stretch"
-                  Header="Статус"
-                  Foreground="#424874"
-                 
-                  Margin="10"
-                  Grid.Row="2"
-                  FontFamily="{StaticResource font}">
-                <StackPanel Orientation="Vertical"
-                        HorizontalAlignment="Stretch"
-                        Background="#CCE0FF">
-                    <TreeView>
-                        <TreeViewItem Header="Категории"
-                                      Foreground="#424874"
-                                      FontFamily="{StaticResource font}">
-                        </TreeViewItem>
-                    </TreeView>
-                    <TreeView>
-                        <TreeViewItem Header="Стоимость">
-
-                        </TreeViewItem>
-                    </TreeView>
-                    <TreeView>
-                        <TreeViewItem Header="Статус">
-
-                        </TreeViewItem>
-                    </TreeView>
-                </StackPanel>
-            </Expander>
-        </Grid>
-        
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel
+                            Width="auto"
+                            Height="auto">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Kind="Sort" />
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                Text="Сортировка" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel
+                            Width="auto"
+                            Height="auto">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Kind="NavigationVariant" />
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                Text="Навигация" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid HorizontalAlignment="Center"
+                          VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel
+                            Grid.Column="0"
+                            Width="auto"
+                            Margin="5"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="Heart" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                Text="Избранные" />
+                        </StackPanel>
+                        <StackPanel
+                            Margin="5"
+                            Grid.Column="1"
+                            Width="auto"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="Basket" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                Text="Корзина" />
+                        </StackPanel>
+                        <StackPanel
+                            Margin="5"
+                            Grid.Column="2"
+                            Width="auto"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="BasketUnfill" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                Text="Заказы" />
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem>
+                    <TabItem.Header>
+                        <StackPanel
+                            Width="auto"
+                            Height="auto">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Kind="FaceManProfile" />
+                            <TextBlock
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Text="Профиль" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <materialDesign:Flipper materialDesign:ElevationAssist.Elevation="Dp0"
+                                            HorizontalAlignment="Stretch"
+                                            Height="Auto"
+                                            Width="Auto"
+                                            Margin="40"
+                                            VerticalAlignment="Center">
+                        <materialDesign:Flipper.FrontContent>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:ColorZone
+                                    VerticalAlignment="Stretch"
+                                    Background="#CCE0FF"
+                                    Mode="Custom">
+                                    <materialDesign:PackIcon
+                                        MinWidth="128"
+                                        MinHeight="128"
+                                        Foreground="#424874"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Kind="AccountCircle" />
+                                </materialDesign:ColorZone>
+                                <StackPanel
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <TextBlock Text="James Willock"
+                                               Foreground="#424874"
+                                               HorizontalAlignment="Center"/>
+                                    <Button HorizontalAlignment="Center"
+                                        Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                        Content="Редактировать"
+                                        Foreground="#424874"
+                                        Style="{StaticResource MaterialDesignFlatButton}" />
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Flipper.FrontContent>
+                        <materialDesign:Flipper.BackContent>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:ColorZone
+                                    Padding="6"
+                                    Background="#CCE0FF"
+                                    Foreground="#424874"
+                                    Mode="Custom">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
+                                               HorizontalAlignment="Left"
+                                               Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                               Style="{StaticResource MaterialDesignToolForegroundButton}">
+                                            <materialDesign:PackIcon
+                                                                    HorizontalAlignment="Right"
+                                                                    Kind="ArrowLeft" />
+                                        </Button>
+                                        <TextBlock
+                                                  Margin="8,0,0,0"
+                                                  VerticalAlignment="Center"
+                                                  Text="EDIT USER" />
+                                    </StackPanel>
+                                </materialDesign:ColorZone>
+                                <Grid   Grid.Row="1"
+                                        MinWidth="150"
+                                        Margin="0,6,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Top">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBox
+                                            Margin="0,12,0,0"
+                                            materialDesign:HintAssist.Hint="First name"
+                                            materialDesign:HintAssist.IsFloating="True"
+                                            Text="James" />
+                                    <TextBox
+                                            Grid.Row="1"
+                                            Margin="0,12,0,0"
+                                            materialDesign:HintAssist.Hint="Last name"
+                                            materialDesign:HintAssist.IsFloating="True"
+                                            Text="Willock" />
+                                </Grid>
+                            </Grid>
+                        </materialDesign:Flipper.BackContent>
+                    </materialDesign:Flipper>
+                </TabItem>
+            </TabControl>
+        </materialDesign:Card>
     </Grid>
 </Page>
