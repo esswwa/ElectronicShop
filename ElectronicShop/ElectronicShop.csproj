@@ -10,11 +10,23 @@
   <ItemGroup>
     <None Remove="appsettings.json" />
     <None Remove="Resources\Image\A323FD.jpg" />
+    <None Remove="Resources\Image\A324FD.jpg" />
+    <None Remove="Resources\Image\A325FD.jpg" />
+    <None Remove="Resources\Image\A325FD.jpg.jpg" />
     <None Remove="Resources\Image\B323FD.jpg" />
+    <None Remove="Resources\Image\B324FD.jpg" />
     <None Remove="Resources\Image\C323FD.jpg" />
+    <None Remove="Resources\Image\C3245F.jpg" />
+    <None Remove="Resources\Image\C32F65.jpg" />
     <None Remove="Resources\Image\D323FD.jpg" />
+    <None Remove="Resources\Image\D45FD3.jpg" />
+    <None Remove="Resources\Image\D4DFD3.jpg" />
+    <None Remove="Resources\Image\D6DFC3.jpg" />
+    <None Remove="Resources\Image\D9DFH3.jpg" />
     <None Remove="Resources\Image\E323FD.jpg" />
     <None Remove="Resources\Image\F323FD.jpg" />
+    <None Remove="Resources\Image\F4GFD2.jpg" />
+    <None Remove="Resources\Image\F56FD2.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,20 +36,53 @@
     <Content Include="Resources\Image\A323FD.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Image\A324FD.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Image\A325FD.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Image\B323FD.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Image\B324FD.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Image\C323FD.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\Image\C3245F.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Image\C32F65.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Image\D323FD.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Image\D45FD3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Image\D4DFD3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Image\D6DFC3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Image\D9DFH3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Image\E323FD.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Image\F323FD.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Image\F4GFD2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Image\F56FD2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

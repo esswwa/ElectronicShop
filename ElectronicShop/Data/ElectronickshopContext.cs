@@ -275,7 +275,7 @@ public partial class ElectronickshopContext : DbContext
                 .HasMaxLength(150)
                 .HasColumnName("nameProduct");
             entity.Property(e => e.Description)
-                .HasMaxLength(500)
+                .HasMaxLength(1000)
                 .HasColumnName("description");
             entity.Property(e => e.SecondNameProduct)
                 .HasMaxLength(250)
