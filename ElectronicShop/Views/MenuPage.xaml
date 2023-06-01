@@ -135,6 +135,8 @@
                                         Grid.Row="2"
                                         Content="{materialDesign:PackIcon Kind=Heart,Size=21}"
                                         IsChecked="False"
+                                    Foreground="#424874"
+                                    Background="#CCE0FF"
                                         Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                                          />
                             </Grid>
