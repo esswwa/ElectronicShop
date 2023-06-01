@@ -506,6 +506,7 @@
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignFloatingActionButton}"
                                 Background="#CCE0FF"
+                                Command="{Binding Favourite}"
                                 BorderBrush="#CCE0FF">
                                 <materialDesign:PackIcon
                                                     Background="#CCE0FF"
@@ -528,6 +529,7 @@
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignFloatingActionButton}"
                                 Background="#CCE0FF"
+                                Command="{Binding Basket}"
                                 BorderBrush="#CCE0FF">
                                 <materialDesign:PackIcon
                                                     Background="#CCE0FF"
@@ -550,6 +552,7 @@
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignFloatingActionButton}"
                                 Background="#CCE0FF"
+                                Command="{Binding Order}"
                                 BorderBrush="#CCE0FF">
                                 <materialDesign:PackIcon
                                                     Background="#CCE0FF"
@@ -617,6 +620,11 @@
                                     <Button HorizontalAlignment="Center"
                                         Command="{x:Static materialDesign:Flipper.FlipCommand}"
                                         Content="Редактировать"
+                                        Foreground="#424874"
+                                        Style="{StaticResource MaterialDesignFlatButton}" />
+                                    <Button HorizontalAlignment="Center"
+                                        Command="{Binding ExitAcc}"
+                                        Content="Выйти из аккаунта"
                                         Foreground="#424874"
                                         Style="{StaticResource MaterialDesignFlatButton}" />
                                 </StackPanel>

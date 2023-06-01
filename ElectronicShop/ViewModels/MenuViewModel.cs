@@ -1,5 +1,6 @@
 ﻿using ElectronicShop.Data.Model;
 using ElectronicShop.Properties;
+using ElectronicShop.Services;
 using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace ElectronicShop.ViewModels
     {
         private readonly PageService _pageService;
         private readonly ProductService _productService;
+        private readonly UserService _userService;
 
         public List<string> Sorts { get; set; } = new() {
             "По производителю",
@@ -59,13 +61,33 @@ namespace ElectronicShop.ViewModels
             set { SetValue(value, changedCallback: UpdateProduct); }
         }
 
-        public MenuViewModel(PageService pageService, ProductService productService)
+        public MenuViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
             _productService = productService;
+            _userService = userService;
             SelectedFilter = "Все диапазоны";
             UpdateProduct();
         }
+
+        public DelegateCommand Basket => new(() =>
+        {
+            _pageService.ChangePage(new BasketPage());
+        });
+        public DelegateCommand Favourite => new(() =>
+        {
+            _pageService.ChangePage(new FavouritePage());
+        });
+        public DelegateCommand Order => new(() =>
+        {
+            _pageService.ChangePage(new OrderPage());
+        });
+        public DelegateCommand ExitAcc => new(() =>
+        {
+            _pageService.ChangePage(new AuthorizationPage());
+            _userService.UpdateProductNull();
+        });
+
 
         private async void UpdateProduct()
         {
