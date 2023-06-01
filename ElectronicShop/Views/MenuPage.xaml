@@ -21,7 +21,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="ELEISSIS"
-                   Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
                    Foreground="White"
                    FontSize="32"
                    FontFamily="Arial"
@@ -73,8 +74,8 @@
 
                             <Border Grid.Column="0"
                                     CornerRadius="12"
-                                    Width="150"
-                                    Height="100">
+                                    Width="180"
+                                    Height="150">
                                 <Image
                                        Source="{Binding ImgProduct}"
                                        VerticalAlignment="Center"
@@ -121,11 +122,13 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0"
-                                           Text="{Binding CostProduct}"/>
+                                           Text="{Binding CostProduct}"
+                                           HorizontalAlignment="Center"/>
                                 <StackPanel Grid.Row="1"
-                                            Orientation="Horizontal">
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Center">
                                     
-                                    <Button Margin="0 5 0 0"
+                                    <Button Margin="0 10 0 0"
                                             Content="Купить"
                                             BorderBrush="#CCE0FF"
                                             Background="#CCE0FF"
@@ -408,12 +411,14 @@
                                     </TreeViewItem>
                                 </TreeView>
                                 <TreeView>
-                                    <TreeViewItem Header="Стоимость">
+                                    <TreeViewItem Header="Стоимость"
+                                                  Foreground="#424874">
 
                                     </TreeViewItem>
                                 </TreeView>
                                 <TreeView>
-                                    <TreeViewItem Header="Статус">
+                                    <TreeViewItem Header="Статус"
+                                                  Foreground="#424874">
 
                                     </TreeViewItem>
                                 </TreeView>
@@ -435,12 +440,14 @@
                                     </TreeViewItem>
                                 </TreeView>
                                 <TreeView>
-                                    <TreeViewItem Header="Стоимость">
+                                    <TreeViewItem Header="Стоимость"
+                                                  Foreground="#424874">
 
                                     </TreeViewItem>
                                 </TreeView>
                                 <TreeView>
-                                    <TreeViewItem Header="Статус">
+                                    <TreeViewItem Header="Статус"
+                                                  Foreground="#424874">
 
                                     </TreeViewItem>
                                 </TreeView>
