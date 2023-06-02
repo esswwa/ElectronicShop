@@ -104,8 +104,7 @@
                                         IsReadOnly="True" 
                                         IsPreviewValueEnabled="True"
                                         Max="5"
-                                        Min="0"
-                                        
+                                        Min="0" 
                                         ValueIncrements="0.1"
                                         Value="{Binding ReitingProduct}"/>
                                     <TextBlock Margin="0 5 0 0"
@@ -135,6 +134,7 @@
                                             Content="Купить"
                                             BorderBrush="#CCE0FF"
                                             Background="#CCE0FF"
+                                            Foreground="#424874"
                                             Command="{Binding buyProduct}"/>
                                 </StackPanel>
                                 <StackPanel Grid.Row="2"
