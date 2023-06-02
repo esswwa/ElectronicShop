@@ -253,13 +253,9 @@
                                                 <TreeViewItem Header="Персональный компьютер"
                                                           Foreground="#424874">
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Ноутбук"
                                                           Foreground="#424874">
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Периферия"
                                                           Foreground="#424874">
                                                 </TreeViewItem>
@@ -278,8 +274,6 @@
                                                 <TreeViewItem Header="Смартфон"
                                                           Foreground="#424874">
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Фототехника"
                                                           Foreground="#424874">
                                                 </TreeViewItem>
@@ -298,13 +292,9 @@
                                                 <TreeViewItem Header="Телевизор"
                                                           Foreground="#424874">
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Консоль"
                                                           Foreground="#424874">
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Аудио"
                                                           Foreground="#424874">
 
@@ -324,14 +314,10 @@
                                                 <TreeViewItem Header="Видеокарта"
                                                           Foreground="#424874">
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Процессор"
                                                           Foreground="#424874">
 
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Материнская плата"
                                                           Foreground="#424874">
 
@@ -342,20 +328,14 @@
                                                           Foreground="#424874">
 
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Корпус"
                                                           Foreground="#424874">
 
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Блок питания"
                                                           Foreground="#424874">
 
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Накопитель"
                                                           Foreground="#424874">
 
@@ -375,8 +355,6 @@
                                                 <TreeViewItem Header="Wi-Fi Роутер"
                                                           Foreground="#424874">
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Видеонаблюдение"
                                                           Foreground="#424874">
 
@@ -396,14 +374,10 @@
                                                 <TreeViewItem Header="Духовая печь"
                                                           Foreground="#424874">
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Стиральная машина"
                                                           Foreground="#424874">
 
                                                 </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
                                                 <TreeViewItem Header="Холодильник"
                                                           Foreground="#424874">
 
@@ -426,14 +400,10 @@
                                       Foreground="#424874"
                                       FontFamily="{StaticResource font}">
                                         </TreeViewItem>
-                                    </TreeView>
-                                    <TreeView>
                                         <TreeViewItem Header="Стоимость"
                                                   Foreground="#424874">
 
                                         </TreeViewItem>
-                                    </TreeView>
-                                    <TreeView>
                                         <TreeViewItem Header="Статус"
                                                   Foreground="#424874">
 
@@ -455,14 +425,10 @@
                                       Foreground="#424874"
                                       FontFamily="{StaticResource font}">
                                         </TreeViewItem>
-                                    </TreeView>
-                                    <TreeView>
                                         <TreeViewItem Header="Стоимость"
                                                   Foreground="#424874">
 
                                         </TreeViewItem>
-                                    </TreeView>
-                                    <TreeView>
                                         <TreeViewItem Header="Статус"
                                                   Foreground="#424874">
 
