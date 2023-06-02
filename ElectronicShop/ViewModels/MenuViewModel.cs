@@ -16,6 +16,11 @@ namespace ElectronicShop.ViewModels
         private readonly ProductService _productService;
         private readonly UserService _userService;
 
+        public string Login { get; set; }
+        public string LoginBack { get; set; }
+        public string Email { get; set; }
+        
+
         public List<string> Sorts { get; set; } = new() {
             "По производителю",
             "По возрастанию (Цена)",
@@ -43,6 +48,11 @@ namespace ElectronicShop.ViewModels
 
         public int? Records { get; set; } = 0;
 
+        public bool IsCheckedFavourite { get; set; }
+
+        public bool IsCheckedBasket { get; set; }
+
+
         public string SelectedSort
         {
             get { return GetValue<string>(); }
@@ -68,6 +78,12 @@ namespace ElectronicShop.ViewModels
             _userService = userService;
             SelectedFilter = "Все диапазоны";
             UpdateProduct();
+            IsCheckedFavourite = true;
+            if (Settings.Default.login != "") {
+                Login = Settings.Default.login;
+                LoginBack = Settings.Default.login;
+                Email = Settings.Default.email;
+            }
         }
 
         public DelegateCommand Basket => new(() =>
@@ -87,8 +103,15 @@ namespace ElectronicShop.ViewModels
             _pageService.ChangePage(new AuthorizationPage());
             _userService.UpdateProductNull();
         });
+        public DelegateCommand addInFavourite => new(() =>
+        {
+        });
+        public DelegateCommand addInBasket => new(() =>
+        {
 
+        });
 
+        
         private async void UpdateProduct()
         {
             var currentProduct = await _productService.GetProducts();
