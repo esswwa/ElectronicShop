@@ -250,15 +250,21 @@
                                         <StackPanel Orientation="Vertical"
                                                 HorizontalAlignment="Stretch">
                                             <TreeView>
-                                                <TreeViewItem Header="Персональный компьютер"
-                                                          Foreground="#424874">
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Ноутбук"
-                                                          Foreground="#424874">
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Периферия"
-                                                          Foreground="#424874">
-                                                </TreeViewItem>
+                                                <CheckBox
+                                                    Content="Персональный компьютер"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Ноутбук"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Периферия"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                             </TreeView>
                                         </StackPanel>
                                     </Expander>
@@ -271,12 +277,16 @@
                                         <StackPanel Orientation="Vertical"
                                                 HorizontalAlignment="Stretch">
                                             <TreeView>
-                                                <TreeViewItem Header="Смартфон"
-                                                          Foreground="#424874">
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Фототехника"
-                                                          Foreground="#424874">
-                                                </TreeViewItem>
+                                                <CheckBox
+                                                    Content="Смартфон"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Фототехника"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                             </TreeView>
                                         </StackPanel>
                                     </Expander>
@@ -289,16 +299,21 @@
                                         <StackPanel Orientation="Vertical"
                                                 HorizontalAlignment="Stretch">
                                             <TreeView>
-                                                <TreeViewItem Header="Телевизор"
-                                                          Foreground="#424874">
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Консоль"
-                                                          Foreground="#424874">
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Аудио"
-                                                          Foreground="#424874">
-
-                                                </TreeViewItem>
+                                                <CheckBox
+                                                    Content="Телевизор"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Консоль"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Аудио"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                             </TreeView>
                                         </StackPanel>
                                     </Expander>
@@ -311,35 +326,42 @@
                                         <StackPanel Orientation="Vertical"
                                                 HorizontalAlignment="Stretch">
                                             <TreeView>
-                                                <TreeViewItem Header="Видеокарта"
-                                                          Foreground="#424874">
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Процессор"
-                                                          Foreground="#424874">
+                                                <CheckBox
+                                                    Content="Видеокарта"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Процессор"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Материнская плата"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
 
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Материнская плата"
-                                                          Foreground="#424874">
-
-                                                </TreeViewItem>
-                                            </TreeView>
-                                            <TreeView>
-                                                <TreeViewItem Header="Оперативная память"
-                                                          Foreground="#424874">
-
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Корпус"
-                                                          Foreground="#424874">
-
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Блок питания"
-                                                          Foreground="#424874">
-
-                                                </TreeViewItem>
-                                                <TreeViewItem Header="Накопитель"
-                                                          Foreground="#424874">
-
-                                                </TreeViewItem>
+                                                <CheckBox
+                                                    Content="Оперативная память"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Корпус"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Блок питания"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Накопитель"
+                                                    Foreground="#424874"
+                                                    IsChecked="True"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                             </TreeView>
                                         </StackPanel>
                                     </Expander>
