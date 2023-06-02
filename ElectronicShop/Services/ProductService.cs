@@ -29,6 +29,7 @@ namespace ElectronicShop.Services
                     {
                         products.Add(new Product
                         {
+                            IdProduct = item.IdProduct,
                             NameProduct = item.NameProduct,
                             ImgProduct = Path.GetFullPath($@"Resources\Image\{item.ImgProduct}"),
                             FirmProduct = item.FirmProduct,
@@ -104,8 +105,7 @@ namespace ElectronicShop.Services
         public bool getUserHelper(Product product) {
 
            List<HelperBasket> help = _electronickshopContext.HelperBaskets.Where(i => i.IdBasketNavigation.IdUser == Settings.Default.idUser).ToList();
-           var d = help.Where(i => i.IdProduct == product.IdProduct).First();
-            if (d == null)
+            if (help.Where(i => i.IdProduct == product.IdProduct).FirstOrDefault() == null)
                 return true;
             else
                 return false;

@@ -112,7 +112,7 @@ namespace ElectronicShop.ViewModels
             int maxHelper = _productService.GetMaxHelper() + 1;
             bool z = _productService.getUserHelper(SelectedProduct);
             if(z == true)
-                _productService.AddHelperBasket(maxHelper, SelectedProduct.IdProduct, Settings.Default.idUser,SelectedProduct.CostProduct);
+                _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct ,SelectedProduct.CostProduct);
             else
                 _productService.editHelperBasket(_productService.getUserHelperBasket(SelectedProduct), true); 
         });
