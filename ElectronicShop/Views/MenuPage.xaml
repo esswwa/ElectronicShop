@@ -396,15 +396,11 @@
                                 <StackPanel Orientation="Vertical"
                                             HorizontalAlignment="Stretch">
                                     <TreeView>
-                                        <TreeViewItem Header="Категории"
+                                        <TreeViewItem Header="По возрастанию"
                                       Foreground="#424874"
                                       FontFamily="{StaticResource font}">
                                         </TreeViewItem>
-                                        <TreeViewItem Header="Стоимость"
-                                                  Foreground="#424874">
-
-                                        </TreeViewItem>
-                                        <TreeViewItem Header="Статус"
+                                        <TreeViewItem Header="По убыванию"
                                                   Foreground="#424874">
 
                                         </TreeViewItem>
@@ -421,15 +417,15 @@
                                 <StackPanel Orientation="Vertical"
                                         HorizontalAlignment="Stretch">
                                     <TreeView>
-                                        <TreeViewItem Header="Категории"
+                                        <TreeViewItem Header="В наличии"
                                       Foreground="#424874"
                                       FontFamily="{StaticResource font}">
                                         </TreeViewItem>
-                                        <TreeViewItem Header="Стоимость"
+                                        <TreeViewItem Header="Нет в наличии"
                                                   Foreground="#424874">
 
                                         </TreeViewItem>
-                                        <TreeViewItem Header="Статус"
+                                        <TreeViewItem Header="Снят с продажи"
                                                   Foreground="#424874">
 
                                         </TreeViewItem>
