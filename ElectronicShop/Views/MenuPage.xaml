@@ -107,7 +107,7 @@
                                                Text="{Binding ReitingProduct}"/>
                                 </StackPanel>
                                 <TextBlock Grid.Row="2"
-                                           Text="{Binding Status, StringFormat={}Статус: {0}%}"
+                                           Text="{Binding Status, StringFormat={}Статус: {0}}"
                                            TextWrapping="Wrap"
                                            VerticalAlignment="Center"/>
                             </Grid>

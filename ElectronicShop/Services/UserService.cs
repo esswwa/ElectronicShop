@@ -69,7 +69,7 @@ namespace ElectronicShop.Services
 
         public async void UpdateProduct()
         {
-            var currentOrders = await getUsers();
+            var currentOrders = await _electronickshopContext.Users.ToListAsync();
             Users = new ObservableCollection<User>(currentOrders);
             var item = Users.First(i => i.Iduser == Settings.Default.idUser);
             var index = Users.IndexOf(item);
@@ -81,7 +81,7 @@ namespace ElectronicShop.Services
 
         public async Task<List<User>> getUsers()
         {
-            return _electronickshopContext.Users.ToList();
+            return await _electronickshopContext.Users.ToListAsync();
         }
 
         public void UpdateProductNull()

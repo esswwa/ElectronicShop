@@ -47,6 +47,11 @@ namespace ElectronicShop.Services
             catch { }
             return products;
         }
+
+        //public bool checkProduct() { 
+        
+        //}
+
         //public async Task<List<Product>> getBasket()
         //{
 

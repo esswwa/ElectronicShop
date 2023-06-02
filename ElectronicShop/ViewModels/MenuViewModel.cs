@@ -1,4 +1,5 @@
 ﻿using ElectronicShop.Data.Model;
+using ElectronicShop.Models;
 using ElectronicShop.Properties;
 using ElectronicShop.Services;
 using MaterialDesignThemes.Wpf;
@@ -108,7 +109,11 @@ namespace ElectronicShop.ViewModels
         });
         public DelegateCommand addInBasket => new(() =>
         {
+            foreach (var check in BasketCard.products) { 
+            
+            }
 
+            BasketCard.products.Add(SelectedProduct);
         });
 
         

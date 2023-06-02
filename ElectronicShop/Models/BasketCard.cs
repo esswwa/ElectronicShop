@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace ElectronicShop.Models
 {
-    public class Basket
+    public class BasketCard
     {
-        List<Product> products { get; set; }
-        List<int> count { get; set; }
-        List<double> cost { get; set; }
+        public static List<Product> products { get; set; }
     }
 }
