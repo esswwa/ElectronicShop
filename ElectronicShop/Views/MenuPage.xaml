@@ -121,7 +121,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0"
-                                           Text="{Binding CostProduct}"
+                                           Text="{Binding CostProduct, StringFormat={}{0} ₽}"
                                            HorizontalAlignment="Center"/>
                                 <StackPanel Grid.Row="1"
                                             Orientation="Horizontal"
