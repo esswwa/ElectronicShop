@@ -28,8 +28,8 @@ namespace ElectronicShop.ViewModels
         public AsyncCommand Registration => new(async () =>
         {
             int maxUser = _userService.GetMaxIdUser() + 1;
-
             await _userService.RegistrationAsync(maxUser, Login, Email, Password);
+            await _userService.BasketAsync(maxUser, maxUser);
             _pageService.ChangePage(new AuthorizationPage());
         }, bool () => {
             if (string.IsNullOrWhiteSpace(Email)

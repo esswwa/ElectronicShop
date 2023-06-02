@@ -1,4 +1,6 @@
-﻿using ElectronicShop.Data.Model;
+﻿using ElectronicShop.Data;
+using ElectronicShop.Data.Model;
+using ElectronicShop.Properties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,9 +49,77 @@ namespace ElectronicShop.Services
             catch { }
             return products;
         }
+     
+        public async Task AddHelperBasket(int idHelper_basket, int idBasket, int idProduct, double cost)
+        {
+            await _electronickshopContext.HelperBaskets.AddAsync(new HelperBasket
+            {
+                IdhelperBasket = idHelper_basket,
+                IdBasket = idBasket,
+                IdProduct = idProduct,
+                Count = 1,
+                Cost = cost
+            });
+            await _electronickshopContext.SaveChangesAsync();
+        }
+
+        public async Task editHelperBasket(HelperBasket SelectedHelper, bool z)
+        {
+            ObservableCollection<HelperBasket> helperBasket = getAllHelperBasket();
+            var item = helperBasket.First(i => i.IdhelperBasket == SelectedHelper.IdhelperBasket);
+            var index = helperBasket.IndexOf(item);
+            if (z == true) {
+                item.Count = item.Count + 1;
+                item.Cost = item.Cost + SelectedHelper.IdProductNavigation.CostProduct;
+                helperBasket.RemoveAt(index);
+                helperBasket.Insert(index, item);
+            }
+            else {
+                if (item.Count > 1)
+                {
+                    item.Count = item.Count - 1;
+                    item.Cost = item.Cost - SelectedHelper.IdProductNavigation.CostProduct;
+                    helperBasket.RemoveAt(index);
+                    helperBasket.Insert(index, item);
+                    
+                }
+                else {
+                    helperBasket.RemoveAt(index);
+                }
+                
+            }
+            await _electronickshopContext.SaveChangesAsync();
+        }
+
+        public ObservableCollection<HelperBasket> getAllHelperBasket()
+        {
+            return _electronickshopContext.HelperBaskets.ToObservableCollection<HelperBasket>();
+        }
+
+        public HelperBasket getUserHelperBasket(Product SelectedProduct)
+        {
+            return _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser && i.IdProduct == SelectedProduct.IdProduct).First();
+        }
+
+        public bool getUserHelper(Product product) {
+
+           List<HelperBasket> help = _electronickshopContext.HelperBaskets.Where(i => i.IdBasketNavigation.IdUser == Settings.Default.idUser).ToList();
+           var d = help.Where(i => i.IdProduct == product.IdProduct).First();
+            if (d == null)
+                return true;
+            else
+                return false;
+        }
+
+
+        public int GetMaxHelper()
+        {
+
+            return _electronickshopContext.HelperBaskets.Max(u => u.IdhelperBasket);
+        }
 
         //public bool checkProduct() { 
-        
+
         //}
 
         //public async Task<List<Product>> getBasket()

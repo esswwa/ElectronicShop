@@ -1,4 +1,5 @@
 ﻿using ElectronicShop.Data;
+using ElectronicShop.Data.Model;
 using ElectronicShop.Properties;
 
 namespace ElectronicShop.Services
@@ -44,6 +45,16 @@ namespace ElectronicShop.Services
                 Password = password,
                 RoleId = 0, 
                 ExitCheck = 0
+            });
+            await _electronickshopContext.SaveChangesAsync();
+        }
+        public async Task BasketAsync(int basket, int user)
+        {
+
+            await _electronickshopContext.Baskets.AddAsync(new Basket
+            {
+                Idbasket = basket,
+                IdUser = user
             });
             await _electronickshopContext.SaveChangesAsync();
         }

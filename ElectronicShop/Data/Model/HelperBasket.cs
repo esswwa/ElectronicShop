@@ -5,7 +5,7 @@ namespace ElectronicShop.Data.Model;
 
 public partial class HelperBasket
 {
-    public int IdhelperOrder { get; set; }
+    public int IdhelperBasket { get; set; }
 
     public int IdBasket { get; set; }
 

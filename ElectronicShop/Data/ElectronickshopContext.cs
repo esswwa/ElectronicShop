@@ -169,7 +169,7 @@ public partial class ElectronickshopContext : DbContext
 
         modelBuilder.Entity<HelperBasket>(entity =>
         {
-            entity.HasKey(e => e.IdhelperOrder).HasName("PRIMARY");
+            entity.HasKey(e => e.IdhelperBasket).HasName("PRIMARY");
 
             entity.ToTable("helper_basket");
 
@@ -177,7 +177,7 @@ public partial class ElectronickshopContext : DbContext
 
             entity.HasIndex(e => e.IdProduct, "fk_idproduct_from_helper_to_product_idx");
 
-            entity.Property(e => e.IdhelperOrder).HasColumnName("idhelper_order");
+            entity.Property(e => e.IdhelperBasket).HasColumnName("idhelper_basket");
             entity.Property(e => e.Cost).HasColumnName("cost");
             entity.Property(e => e.Count).HasColumnName("count");
             entity.Property(e => e.IdBasket).HasColumnName("id_basket");

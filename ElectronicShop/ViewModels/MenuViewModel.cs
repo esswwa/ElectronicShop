@@ -109,11 +109,12 @@ namespace ElectronicShop.ViewModels
         });
         public DelegateCommand addInBasket => new(() =>
         {
-            foreach (var check in BasketCard.products) { 
-            
-            }
-
-            BasketCard.products.Add(SelectedProduct);
+            int maxHelper = _productService.GetMaxHelper() + 1;
+            bool z = _productService.getUserHelper(SelectedProduct);
+            if(z == true)
+                _productService.AddHelperBasket(maxHelper, SelectedProduct.IdProduct, Settings.Default.idUser,SelectedProduct.CostProduct);
+            else
+                _productService.editHelperBasket(_productService.getUserHelperBasket(SelectedProduct), true); 
         });
 
         
