@@ -102,6 +102,7 @@
                                     <materialDesign:RatingBar
                                         x:Name="BasicRatingBarTheory"
                                         IsReadOnly="True"
+                                        
                                         Value="{Binding RatingTheory}" />
                                     <TextBlock Margin="0 5 0 0"
                                                Text="{Binding ReitingProduct}"/>

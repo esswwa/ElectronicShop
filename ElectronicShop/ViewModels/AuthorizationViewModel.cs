@@ -29,8 +29,9 @@ namespace ElectronicShop.ViewModels
 
                 if (await _userService.AuthorizationAsync(Username, Password))
                 {
-                    await Application.Current.Dispatcher.InvokeAsync(async () => _pageService.ChangePage(new MenuPage()));
                     _userService.UpdateProduct();
+                    await Application.Current.Dispatcher.InvokeAsync(async () => _pageService.ChangePage(new MenuPage()));
+                    
                 }
                 else
                 {
