@@ -153,7 +153,7 @@
                 materialDesign:ColorZoneAssist.Mode="Standard"
                 materialDesign:ElevationAssist.Elevation="Dp0"
                 Style="{StaticResource MaterialDesignNavigationRailTabControl}">
-                <TabItem>
+                <TabItem  Width="90">
                     <TabItem.Header>
                         <StackPanel
                             Width="auto"
@@ -455,7 +455,9 @@
                         </Expander>
                     </Grid>
                 </TabItem>
-                <TabItem>
+                <TabItem 
+                            Width="90"
+                            Height="auto">
                     <TabItem.Header>
                         <StackPanel
                             Width="auto"
@@ -473,7 +475,7 @@
                         </StackPanel>
                     </TabItem.Header>
                 </TabItem>
-                <TabItem>
+                <TabItem  Width="90">
                     <TabItem.Header>
                         <StackPanel
                             Width="auto"
@@ -568,7 +570,7 @@
                         </StackPanel>
                     </Grid>
                 </TabItem>
-                <TabItem>
+                <TabItem  Width="90">
                     <TabItem.Header>
                         <StackPanel
                             Width="auto"
