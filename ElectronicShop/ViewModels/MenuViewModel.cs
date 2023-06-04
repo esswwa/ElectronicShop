@@ -88,15 +88,12 @@ namespace ElectronicShop.ViewModels
             get { return GetValue<string>(); }
             set { SetValue(value, changedCallback: UpdateProduct); }
         }
-        Task<List<Product>> product;
-        List<Product> product1;
         public MenuViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
             _productService = productService;
             _userService = userService;
             SelectedFilter = "Все диапазоны";
-            UpdateProduct("Продукты");
             IsCheckedFavourite = true;
             if (Settings.Default.login != "") {
                 Login = Settings.Default.login;
@@ -161,14 +158,13 @@ namespace ElectronicShop.ViewModels
         
         private async void UpdateProduct(string check)
         {
+            var currentProduct = await _productService.GetProducts();
+            int z = 0;
+            List<Product> newProduct = new List<Product>();
             if (check == "Фильтр")
             {
-                int z = 0;
-                var currentProduct = await _productService.GetProducts();
                 var checkProduct = currentProduct;
-                List<Product> newProduct = new List<Product>();
-                if (!string.IsNullOrEmpty(Search))
-                    currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower())).ToList();
+               
                 foreach (var strings1 in strings)
                 {
                     if (!string.IsNullOrEmpty(strings1))
@@ -179,7 +175,7 @@ namespace ElectronicShop.ViewModels
                             {
                                 if (z == 0 && strings.Count <= 1)
                                 {
-                                    currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                                    newProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
                                 }
                                 else if (z == 0 && strings.Count > 1)
                                 {
@@ -197,16 +193,33 @@ namespace ElectronicShop.ViewModels
                         }
                     }   
                 }
-                if (z == 0)
-                {
-                    Products = currentProduct;
-                }
-                else {
+                //if (z == 0)
+                //{
+                //    if (!string.IsNullOrEmpty(Search))
+                //    {
+                //        currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower())).ToList();
+
+                //    }
+                //    Products = currentProduct;
+                //}
+                //else
+                //{
+                    if (!string.IsNullOrEmpty(Search))
+                    {
+                        newProduct = newProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower())).ToList();
+
+                    }
                     Products = newProduct;
-                }
+                //}
             }
             else {
-                var currentProduct = await _productService.GetProducts();
+
+                    if (!string.IsNullOrEmpty(Search))
+                    {
+                        currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower())).ToList();
+
+                    }
+
                 Products = currentProduct;
             }
         }
