@@ -1,4 +1,5 @@
-﻿using ElectronicShop.Data.Model;
+﻿using DevExpress.Internal.WinApi;
+using ElectronicShop.Data.Model;
 using ElectronicShop.Models;
 using ElectronicShop.Properties;
 using ElectronicShop.Services;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ElectronicShop.ViewModels
 {
@@ -21,7 +23,8 @@ namespace ElectronicShop.ViewModels
         public string Login { get; set; }
         public string LoginBack { get; set; }
         public string Email { get; set; }
-
+        
+        public bool CheckBox { get; set; }
         public DelegateCommand<string> commandCategories { get; set; }
 
 
@@ -85,14 +88,15 @@ namespace ElectronicShop.ViewModels
             get { return GetValue<string>(); }
             set { SetValue(value, changedCallback: UpdateProduct); }
         }
-
+        Task<List<Product>> product;
+        List<Product> product1;
         public MenuViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
             _productService = productService;
             _userService = userService;
             SelectedFilter = "Все диапазоны";
-            UpdateProduct();
+            UpdateProduct("Продукты");
             IsCheckedFavourite = true;
             if (Settings.Default.login != "") {
                 Login = Settings.Default.login;
@@ -103,11 +107,41 @@ namespace ElectronicShop.ViewModels
             commandCategories = new DelegateCommand<string>(TheoryMethod);
 
         }
-        string strings = "";
-        private void TheoryMethod(string parametr)
+        List<string> strings = new List<string>();
+
+    private void TheoryMethod(string parametr)
         {
-            strings = parametr;
-            UpdateProduct();
+
+            if (strings != null)
+            {
+                bool z = false;
+                foreach (var c in strings) {
+                    if (parametr == c) {
+
+                        int b = strings.IndexOf(c);
+                        z = true;
+                        break;
+                    }
+                }
+                if (z && strings.Count > 1)
+                {
+                    strings.Remove(parametr);
+                    UpdateProduct("Фильтр");
+                }
+                else if (z && strings.Count == 1) {
+                    strings.Remove(parametr);
+                    UpdateProduct("Продукты");
+                }
+                else
+                {
+                    strings.Add(parametr);
+                    UpdateProduct("Фильтр");
+                }
+            }
+            else {
+                strings.Add(parametr);
+                UpdateProduct("Фильтр");
+            }
         }
 
       
@@ -125,46 +159,56 @@ namespace ElectronicShop.ViewModels
         });
 
         
-        private async void UpdateProduct()
+        private async void UpdateProduct(string check)
         {
-            var currentProduct = await _productService.GetProducts();
-            if (!string.IsNullOrEmpty(Search))
-                currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower())).ToList();
-            if (!string.IsNullOrEmpty(strings))
-                for (int i = 0; i < Filters.Count - 1; i++)
+            if (check == "Фильтр")
+            {
+                int z = 0;
+                var currentProduct = await _productService.GetProducts();
+                var checkProduct = currentProduct;
+                List<Product> newProduct = new List<Product>();
+                if (!string.IsNullOrEmpty(Search))
+                    currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower())).ToList();
+                foreach (var strings1 in strings)
                 {
-                    if (strings == Filters[i]) {
-                        currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
-                    }
-                } 
-                
-
-            Products = currentProduct;
-
-
-            //if (!string.IsNullOrEmpty(SelectedSort))
-            //{
-            //    switch (SelectedSort)
-            //    {
-            //        case "По производителю":
-            //            currentProduct = currentProduct.OrderBy(p => p.Manufacturer).ToList();
-            //            break;
-            //        case "По возрастанию (Цена)":
-            //            currentProduct = currentProduct.OrderBy(p => p.Price).ToList();
-            //            break;
-            //        case "По убыванию (Цена)":
-            //            currentProduct = currentProduct.OrderByDescending(p => p.Price).ToList();
-            //            break;
-            //        case "По возрастанию (Скидка)":
-            //            currentProduct = currentProduct.OrderBy(p => p.Discount).ToList();
-            //            break;
-            //        case "По убыванию (Скидка)":
-            //            currentProduct = currentProduct.OrderByDescending(p => p.Discount).ToList();
-            //            break;
-            //    }
-            //}
-
-
+                    if (!string.IsNullOrEmpty(strings1))
+                    {
+                        for (int i = 0; i < Filters.Count - 1; i++)
+                        {
+                            if (strings1 == Filters[i])
+                            {
+                                if (z == 0 && strings.Count <= 1)
+                                {
+                                    currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                                }
+                                else if (z == 0 && strings.Count > 1)
+                                {
+                                    currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                                    newProduct = currentProduct;
+                                    z++;
+                                }
+                                else if (z > 0 && strings.Count > 1)
+                                {
+                                    currentProduct = checkProduct.Where(p => p.CategoryProduct == i).ToList();
+                                    newProduct.AddRange(currentProduct);
+                                    z++;
+                                }
+                            }
+                        }
+                    }   
+                }
+                if (z == 0)
+                {
+                    Products = currentProduct;
+                }
+                else {
+                    Products = newProduct;
+                }
+            }
+            else {
+                var currentProduct = await _productService.GetProducts();
+                Products = currentProduct;
+            }
         }
 
         public DelegateCommand Basket => new(() =>
