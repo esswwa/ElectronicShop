@@ -329,7 +329,7 @@
                                                     Foreground="#424874"
                                                     IsChecked="False"
                                                     Command="{Binding commandCategories}"
-                                                    CommandParameter="Консоль"
+                                                    CommandParameter="Аудио"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                             </TreeView>
                                         </StackPanel>

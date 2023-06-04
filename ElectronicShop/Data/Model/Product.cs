@@ -9,7 +9,7 @@ public partial class Product
 
     public string NameProduct { get; set; } = null!;
 
-    public string ImgProduct { get; set; } = null;
+    public string ImgProduct { get; set; } = null!;
 
     public int FirmProduct { get; set; }
 
@@ -29,16 +29,15 @@ public partial class Product
 
     public string Article { get; set; } = null!;
 
-    public virtual ICollection<Favourity> Favourities { get; } = new List<Favourity>();
+    public virtual Category CategoryProductNavigation { get; set; } = null!;
 
     public virtual ICollection<Feedback> Feedbacks { get; } = new List<Feedback>();
+
+    public virtual Firm FirmProductNavigation { get; set; } = null!;
 
     public virtual ICollection<HelperBasket> HelperBaskets { get; } = new List<HelperBasket>();
 
     public virtual ICollection<OrderHelper> OrderHelpers { get; } = new List<OrderHelper>();
 
     public virtual Status StatusNavigation { get; set; } = null!;
-    public virtual Category CategoryProductNavigation { get; set; } = null!;
-    public virtual Firms FirmsNavigation { get; set; } = null!;
-
 }

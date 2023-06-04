@@ -40,7 +40,10 @@ namespace ElectronicShop.Services
                             Status = item.Status,
                             Description = item.Description,
                             SecondNameProduct = item.SecondNameProduct,
-                            Article = item.Article
+                            Article = item.Article,
+                            CategoryProductNavigation = item.CategoryProductNavigation,
+                            FirmProductNavigation = item.FirmProductNavigation, 
+                            StatusNavigation = item.StatusNavigation
 
                         }); ;
                     }

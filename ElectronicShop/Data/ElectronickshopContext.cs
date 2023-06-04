@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ElectronicShop.Data.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElectronicShop.Data;
@@ -24,7 +23,11 @@ public partial class ElectronickshopContext : DbContext
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
 
+    public virtual DbSet<Firm> Firms { get; set; }
+
     public virtual DbSet<HelperBasket> HelperBaskets { get; set; }
+
+    public virtual DbSet<Imageproduct> Imageproducts { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
 
@@ -34,10 +37,6 @@ public partial class ElectronickshopContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<Firms> Firmss { get; set; }
-
-    public virtual DbSet<Imageproduct> Imageproducts { get; set; }
-
     public virtual DbSet<Status> Statuses { get; set; }
 
     public virtual DbSet<StatusOrder> StatusOrders { get; set; }
@@ -45,7 +44,7 @@ public partial class ElectronickshopContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql("server=localhost;user=root;password=Qwerty123;database=electronickshop", ServerVersion.Parse("8.0.25-mysql"));
+        => optionsBuilder.UseMySql("server=localhost;user=root;password=Qwerty123;database=electronickshop", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.31-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -78,40 +77,15 @@ public partial class ElectronickshopContext : DbContext
 
             entity.ToTable("category");
 
-            entity.Property(e => e.Idcategory).HasColumnName("idcategory");
+            entity.Property(e => e.Idcategory)
+                .ValueGeneratedNever()
+                .HasColumnName("idcategory");
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(45)
                 .HasColumnName("categoryName");
             entity.Property(e => e.CategoryNameDeep)
                 .HasMaxLength(45)
-                .HasColumnName("categoryNameDeep"); 
-        });
-
-        modelBuilder.Entity<Firms>(entity =>
-        {
-            entity.HasKey(e => e.Idfirms).HasName("PRIMARY");
-
-            entity.ToTable("firms");
-
-            entity.Property(e => e.Idfirms).HasColumnName("idfirms");
-            entity.Property(e => e.Firm)
-                .HasMaxLength(45)
-                .HasColumnName("firm");
-        });
-
-        modelBuilder.Entity<Imageproduct>(entity =>
-        {
-            entity.HasKey(e => e.IdimageProduct).HasName("PRIMARY");
-
-            entity.ToTable("imageproduct");
-
-            entity.Property(e => e.IdimageProduct).HasColumnName("idfirms");
-            entity.Property(e => e.IdProduct)
-                .HasMaxLength(45)
-                .HasColumnName("idProduct");
-            entity.Property(e => e.Image)
-                .HasMaxLength(45)
-                .HasColumnName("image");
+                .HasColumnName("categoryNameDeep");
         });
 
         modelBuilder.Entity<Favourity>(entity =>
@@ -127,13 +101,10 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.Idfavourities)
                 .ValueGeneratedNever()
                 .HasColumnName("idfavourities");
-            entity.Property(e => e.IdProduct).HasColumnName("idProduct");
+            entity.Property(e => e.IdProduct)
+                .HasMaxLength(45)
+                .HasColumnName("idProduct");
             entity.Property(e => e.IdUser).HasColumnName("idUser");
-
-            entity.HasOne(d => d.IdProductNavigation).WithMany(p => p.Favourities)
-                .HasForeignKey(d => d.IdProduct)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_idProductFromFavourities");
 
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.Favourities)
                 .HasForeignKey(d => d.IdUser)
@@ -151,7 +122,9 @@ public partial class ElectronickshopContext : DbContext
 
             entity.HasIndex(e => e.IdUser, "FK_idUser_FromFeedBack_idx");
 
-            entity.Property(e => e.Idfeedback).HasColumnName("idfeedback");
+            entity.Property(e => e.Idfeedback)
+                .ValueGeneratedNever()
+                .HasColumnName("idfeedback");
             entity.Property(e => e.Feedbacks)
                 .HasMaxLength(100)
                 .HasColumnName("feedbacks");
@@ -170,6 +143,20 @@ public partial class ElectronickshopContext : DbContext
                 .HasConstraintName("FK_idUser_FromFeedBack");
         });
 
+        modelBuilder.Entity<Firm>(entity =>
+        {
+            entity.HasKey(e => e.Idfirms).HasName("PRIMARY");
+
+            entity.ToTable("firms");
+
+            entity.Property(e => e.Idfirms)
+                .ValueGeneratedNever()
+                .HasColumnName("idfirms");
+            entity.Property(e => e.Firm1)
+                .HasMaxLength(45)
+                .HasColumnName("firm");
+        });
+
         modelBuilder.Entity<HelperBasket>(entity =>
         {
             entity.HasKey(e => e.IdhelperBasket).HasName("PRIMARY");
@@ -180,7 +167,9 @@ public partial class ElectronickshopContext : DbContext
 
             entity.HasIndex(e => e.IdProduct, "fk_idproduct_from_helper_to_product_idx");
 
-            entity.Property(e => e.IdhelperBasket).HasColumnName("idhelper_basket");
+            entity.Property(e => e.IdhelperBasket)
+                .ValueGeneratedNever()
+                .HasColumnName("idhelper_basket");
             entity.Property(e => e.Cost).HasColumnName("cost");
             entity.Property(e => e.Count).HasColumnName("count");
             entity.Property(e => e.IdBasket).HasColumnName("id_basket");
@@ -195,6 +184,23 @@ public partial class ElectronickshopContext : DbContext
                 .HasForeignKey(d => d.IdProduct)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_idproduct_from_helper_to_product");
+        });
+
+        modelBuilder.Entity<Imageproduct>(entity =>
+        {
+            entity.HasKey(e => e.IdimageProduct).HasName("PRIMARY");
+
+            entity.ToTable("imageproduct");
+
+            entity.Property(e => e.IdimageProduct)
+                .ValueGeneratedNever()
+                .HasColumnName("idimageProduct");
+            entity.Property(e => e.IdProduct)
+                .HasMaxLength(45)
+                .HasColumnName("idProduct");
+            entity.Property(e => e.Image)
+                .HasMaxLength(45)
+                .HasColumnName("image");
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -262,14 +268,20 @@ public partial class ElectronickshopContext : DbContext
 
             entity.HasIndex(e => e.CategoryProduct, "FK_categoryProduct_FromProduct_idx");
 
+            entity.HasIndex(e => e.FirmProduct, "Fk_firm_fromProduct_to_firms_idx");
+
             entity.HasIndex(e => e.Status, "Fk_status_fromProduct_to_Status_idx");
 
             entity.Property(e => e.IdProduct)
                 .ValueGeneratedNever()
                 .HasColumnName("idProduct");
+            entity.Property(e => e.Article).HasMaxLength(45);
             entity.Property(e => e.CategoryProduct).HasColumnName("categoryProduct");
             entity.Property(e => e.CostProduct).HasColumnName("costProduct");
             entity.Property(e => e.CountProduct).HasColumnName("countProduct");
+            entity.Property(e => e.Description)
+                .HasMaxLength(1000)
+                .HasColumnName("description");
             entity.Property(e => e.FirmProduct).HasColumnName("firmProduct");
             entity.Property(e => e.ImgProduct)
                 .HasMaxLength(45)
@@ -277,30 +289,26 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.NameProduct)
                 .HasMaxLength(150)
                 .HasColumnName("nameProduct");
-            entity.Property(e => e.Description)
-                .HasMaxLength(1000)
-                .HasColumnName("description");
+            entity.Property(e => e.ReitingProduct).HasColumnName("reitingProduct");
             entity.Property(e => e.SecondNameProduct)
                 .HasMaxLength(250)
                 .HasColumnName("secondNameProduct");
-            entity.Property(e => e.Article)
-                .HasMaxLength(45)
-                .HasColumnName("Article");
-            entity.Property(e => e.ReitingProduct).HasColumnName("reitingProduct");
             entity.Property(e => e.Status).HasColumnName("status");
 
             entity.HasOne(d => d.CategoryProductNavigation).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryProduct)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_categoryProduct_FromProduct");
+
+            entity.HasOne(d => d.FirmProductNavigation).WithMany(p => p.Products)
+                .HasForeignKey(d => d.FirmProduct)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("Fk_firm_fromProduct_to_firms");
+
             entity.HasOne(d => d.StatusNavigation).WithMany(p => p.Products)
                 .HasForeignKey(d => d.Status)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("Fk_status_fromProduct_to_Status");
-            entity.HasOne(d => d.FirmsNavigation).WithMany(p => p.Products)
-              .HasForeignKey(d => d.FirmProduct)
-              .OnDelete(DeleteBehavior.ClientSetNull)
-              .HasConstraintName("Fk_firm_fromProduct_to_firms");
         });
 
         modelBuilder.Entity<Role>(entity =>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ElectronicShop.Data.Model;
+namespace ElectronicShop.Data.Model;   
 
 public partial class HelperBasket
 {

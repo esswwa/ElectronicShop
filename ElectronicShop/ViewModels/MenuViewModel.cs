@@ -35,21 +35,21 @@ namespace ElectronicShop.ViewModels
 
         public List<string> Filters { get; set; } = new() {
             "Персональный компьютер",
-            "Смартфон",
-            "Телевизор",
-            "Видеокарта",
-            "Wi-Fi Роутер",
             "Ноутбук",
             "Периферия",
+            "Смартфон",
             "Фототехника",
+            "Телевизор",
             "Консоль",
             "Аудио",
+            "Видеокарта",
             "Процессор",
             "Материнская плата",
             "Оперативная память",
             "Корпус",
-            "Накопитель",
             "Блок питания",
+            "Накопитель",
+            "Wi-Fi Роутер",
             "Видеонаблюдение",
             "Духовая печь",
             "Стиральная машина",
@@ -127,14 +127,18 @@ namespace ElectronicShop.ViewModels
         
         private async void UpdateProduct()
         {
-            
             var currentProduct = await _productService.GetProducts();
-            MessageBox.Show(currentProduct[0].CategoryProductNavigation.CategoryNameDeep);
             if (!string.IsNullOrEmpty(Search))
                 currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower())).ToList();
-            //if (!string.IsNullOrEmpty(strings))
-            //    currentProduct = currentProduct.Where(p => p.CategoryProductNavigation.CategoryNameDeep == strings).ToList();
-            
+            if (!string.IsNullOrEmpty(strings))
+                for (int i = 0; i < Filters.Count - 1; i++)
+                {
+                    if (strings == Filters[i]) {
+                        currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                    }
+                } 
+                
+
             Products = currentProduct;
 
 
