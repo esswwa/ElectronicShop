@@ -293,7 +293,6 @@ public partial class ElectronickshopContext : DbContext
                 .HasForeignKey(d => d.CategoryProduct)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_categoryProduct_FromProduct");
-
             entity.HasOne(d => d.StatusNavigation).WithMany(p => p.Products)
                 .HasForeignKey(d => d.Status)
                 .OnDelete(DeleteBehavior.ClientSetNull)
