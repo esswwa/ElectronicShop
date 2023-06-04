@@ -222,7 +222,8 @@
                                          VerticalAlignment="Center"
                                          materialDesign:HintAssist.Hint="Поиск"
                                          materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                         BorderThickness="0" />
+                                         BorderThickness="0" 
+                                         Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                 </Grid>
                             </materialDesign:ColorZone>
                             <Expander HorizontalAlignment="Stretch"
@@ -253,17 +254,23 @@
                                                 <CheckBox
                                                     Content="Персональный компьютер"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Персональный компьютер"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Ноутбук"
                                                     Foreground="#424874"
                                                     IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Ноутбук"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Периферия"
                                                     Foreground="#424874"
                                                     IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Периферия"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                             </TreeView>
                                         </StackPanel>
@@ -280,12 +287,16 @@
                                                 <CheckBox
                                                     Content="Смартфон"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Смартфон"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Фототехника"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Фототехника"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                             </TreeView>
                                         </StackPanel>
@@ -302,17 +313,23 @@
                                                 <CheckBox
                                                     Content="Телевизор"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Телевизор"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Консоль"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Консоль"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Аудио"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Консоль"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                             </TreeView>
                                         </StackPanel>
@@ -329,38 +346,52 @@
                                                 <CheckBox
                                                     Content="Видеокарта"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Видеокарта"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Процессор"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Процессор"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Материнская плата"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Материнская плата"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
 
                                                 <CheckBox
                                                     Content="Оперативная память"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Оперативная память"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Корпус"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Корпус"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Блок питания"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Блок питания"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Накопитель"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Накопитель"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                             </TreeView>
                                         </StackPanel>
@@ -377,12 +408,16 @@
                                                 <CheckBox
                                                     Content="Wi-Fi Роутер"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Wi-Fi Роутер"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Видеонаблюдение"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Видеонаблюдение"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                             </TreeView>
                                         </StackPanel>
@@ -399,17 +434,23 @@
                                                 <CheckBox
                                                     Content="Духовая печь"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Духовая печь"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Стиральная машина"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Стиральная машина"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                                 <CheckBox
                                                     Content="Холодильник"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Холодильник"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                             </TreeView>
                                         </StackPanel>
@@ -433,7 +474,7 @@
                                         <CheckBox
                                                     Content="По убыванию"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                     </TreeView>
                                 </StackPanel>
@@ -456,12 +497,12 @@
                                         <CheckBox
                                                     Content="Нет в наличии"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                         <CheckBox
                                                     Content="Снят с продажи"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                     </TreeView>
                                 </StackPanel>

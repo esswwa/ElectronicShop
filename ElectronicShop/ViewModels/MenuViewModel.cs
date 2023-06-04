@@ -3,6 +3,7 @@ using ElectronicShop.Models;
 using ElectronicShop.Properties;
 using ElectronicShop.Services;
 using MaterialDesignThemes.Wpf;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,9 @@ namespace ElectronicShop.ViewModels
         public string Login { get; set; }
         public string LoginBack { get; set; }
         public string Email { get; set; }
-        
+
+        public DelegateCommand<string> commandCategories { get; set; }
+
 
         public List<string> Sorts { get; set; } = new() {
             "По производителю",
@@ -31,11 +34,26 @@ namespace ElectronicShop.ViewModels
         };
 
         public List<string> Filters { get; set; } = new() {
-            "Все диапазоны",
-            "Без скидки",
-            "1-5%",
-            "5-9%",
-            "9% и более"
+            "Персональный компьютер",
+            "Смартфон",
+            "Телевизор",
+            "Видеокарта",
+            "Wi-Fi Роутер",
+            "Ноутбук",
+            "Периферия",
+            "Фототехника",
+            "Консоль",
+            "Аудио",
+            "Процессор",
+            "Материнская плата",
+            "Оперативная память",
+            "Корпус",
+            "Накопитель",
+            "Блок питания",
+            "Видеонаблюдение",
+            "Духовая печь",
+            "Стиральная машина",
+            "Холодильник"
         };
         public bool IsEnabledCart { get; set; }
 
@@ -44,10 +62,6 @@ namespace ElectronicShop.ViewModels
         public Product SelectedProduct { get; set; }
 
         public string FullName { get; set; } = Settings.Default.login == string.Empty ? "Гость" : Settings.Default.login;
-
-        public int? MaxRecords { get; set; } = 0;
-
-        public int? Records { get; set; } = 0;
 
         public bool IsCheckedFavourite { get; set; }
 
@@ -85,25 +99,18 @@ namespace ElectronicShop.ViewModels
                 LoginBack = Settings.Default.login;
                 Email = Settings.Default.email;
             }
+
+            commandCategories = new DelegateCommand<string>(TheoryMethod);
+
+        }
+        string strings = "";
+        private void TheoryMethod(string parametr)
+        {
+            strings = parametr;
+            UpdateProduct();
         }
 
-        public DelegateCommand Basket => new(() =>
-        {
-            _pageService.ChangePage(new BasketPage());
-        });
-        public DelegateCommand Favourite => new(() =>
-        {
-            _pageService.ChangePage(new FavouritePage());
-        });
-        public DelegateCommand Order => new(() =>
-        {
-            _pageService.ChangePage(new OrderPage());
-        });
-        public DelegateCommand ExitAcc => new(() =>
-        {
-            _pageService.ChangePage(new AuthorizationPage());
-            _userService.UpdateProductNull();
-        });
+      
         public DelegateCommand addInFavourite => new(() =>
         {
         });
@@ -120,33 +127,15 @@ namespace ElectronicShop.ViewModels
         
         private async void UpdateProduct()
         {
+            
             var currentProduct = await _productService.GetProducts();
+            MessageBox.Show(currentProduct[0].CategoryProductNavigation.CategoryNameDeep);
+            if (!string.IsNullOrEmpty(Search))
+                currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower())).ToList();
+            //if (!string.IsNullOrEmpty(strings))
+            //    currentProduct = currentProduct.Where(p => p.CategoryProductNavigation.CategoryNameDeep == strings).ToList();
+            
             Products = currentProduct;
-           
-            //if (!string.IsNullOrEmpty(SelectedFilter))
-            //{
-            //    switch (SelectedFilter)
-            //    {
-            //        case "Без скидки":
-            //            currentProduct = currentProduct.Where(p => p.Discount == 0).ToList();
-            //            break;
-            //        case "1-5%":
-            //            currentProduct = currentProduct.Where(p => p.Discount > 0 && p.Discount < 5).ToList();
-            //            break;
-            //        case "5-9%":
-            //            currentProduct = currentProduct.Where(p => p.Discount >= 5 && p.Discount < 9).ToList();
-            //            break;
-            //        case "9% и более":
-            //            currentProduct = currentProduct.Where(p => p.Discount >= 9).ToList();
-            //            break;
-            //    }
-            //}
-
-
-
-            //if (!string.IsNullOrEmpty(Search))
-            //    currentProduct = currentProduct.Where(p => p.Title.ToLower().Contains(Search.ToLower())).ToList();
-
 
 
             //if (!string.IsNullOrEmpty(SelectedSort))
@@ -174,39 +163,22 @@ namespace ElectronicShop.ViewModels
 
         }
 
-        //public DelegateCommand SignOutCommand => new(() =>
-        //{
-        //    Settings.Default.UserId = 0;
-        //    Settings.Default.UserName = string.Empty;
-        //    Settings.Default.UserSurname = string.Empty;
-        //    Settings.Default.UserPatronymic = string.Empty;
-        //    Settings.Default.RoleName = string.Empty;
-        //    _pageService.ChangePage(new SingInPage());
-        //});
-        //public DelegateCommand AddCardToBasket => new(() =>
-        //{
-        //    var card = Global.CurrentCart.SingleOrDefault(c => c.ArticleName.Equals(SelectedProduct.Article));
-        //    if (card == null)
-        //    {
-        //        Global.CurrentCart.Add(new Card
-        //        {
-        //            ArticleName = SelectedProduct.Article,
-        //            Count = 1
-        //        });
-        //    }
-        //    else
-        //    {
-
-        //        card.Count++;
-        //        Global.CurrentCart[Global.CurrentCart.FindIndex(c => c.ArticleName.Equals(card.ArticleName))] = card;
-        //    }
-        //    CheckEnabled();
-        //});
-
-        //public DelegateCommand CardCommand => new(() =>
-        //{
-        //    _pageService.ChangePage(new BasketInfoPage());
-        //});
-
+        public DelegateCommand Basket => new(() =>
+        {
+            _pageService.ChangePage(new BasketPage());
+        });
+        public DelegateCommand Favourite => new(() =>
+        {
+            _pageService.ChangePage(new FavouritePage());
+        });
+        public DelegateCommand Order => new(() =>
+        {
+            _pageService.ChangePage(new OrderPage());
+        });
+        public DelegateCommand ExitAcc => new(() =>
+        {
+            _pageService.ChangePage(new AuthorizationPage());
+            _userService.UpdateProductNull();
+        });
     }
 }

@@ -82,6 +82,9 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(45)
                 .HasColumnName("categoryName");
+            entity.Property(e => e.CategoryNameDeep)
+                .HasMaxLength(45)
+                .HasColumnName("categoryNameDeep"); 
         });
 
         modelBuilder.Entity<Firms>(entity =>

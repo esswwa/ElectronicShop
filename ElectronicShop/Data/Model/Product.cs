@@ -29,8 +29,6 @@ public partial class Product
 
     public string Article { get; set; } = null!;
 
-    public virtual Category CategoryProductNavigation { get; set; } = null!;
-
     public virtual ICollection<Favourity> Favourities { get; } = new List<Favourity>();
 
     public virtual ICollection<Feedback> Feedbacks { get; } = new List<Feedback>();
@@ -40,7 +38,7 @@ public partial class Product
     public virtual ICollection<OrderHelper> OrderHelpers { get; } = new List<OrderHelper>();
 
     public virtual Status StatusNavigation { get; set; } = null!;
-
+    public virtual Category CategoryProductNavigation { get; set; } = null!;
     public virtual Firms FirmsNavigation { get; set; } = null!;
 
 }
