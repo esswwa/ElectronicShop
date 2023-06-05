@@ -88,6 +88,9 @@ namespace ElectronicShop.ViewModels
             get { return GetValue<string>(); }
             set { SetValue(value, changedCallback: UpdateProduct); }
         }
+
+        public List<Product> product1;
+
         public MenuViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
@@ -100,7 +103,7 @@ namespace ElectronicShop.ViewModels
                 LoginBack = Settings.Default.login;
                 Email = Settings.Default.email;
             }
-
+            product1 = Task.Run(async () => await _productService.GetProducts()).Result;
             commandCategories = new DelegateCommand<string>(TheoryMethod);
 
         }
@@ -155,73 +158,66 @@ namespace ElectronicShop.ViewModels
                 _productService.editHelperBasket(_productService.getUserHelperBasket(SelectedProduct), true); 
         });
 
-        
+        List<Product> currentProduct;
+
         private async void UpdateProduct(string check)
         {
-            var currentProduct = await _productService.GetProducts();
-            int z = 0;
-            List<Product> newProduct = new List<Product>();
-            if (check == "Фильтр")
+            if (product1 != null)
             {
-                var checkProduct = currentProduct;
-               
-                foreach (var strings1 in strings)
+                 currentProduct = product1;
+            }
+            else
+            {
+                 currentProduct = await _productService.GetProducts();
+            }
+            if (!string.IsNullOrEmpty(Search))
+            {
+                currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower()) || p.Article.ToLower() == Search.ToLower()).ToList();
+
+            }
+            int z = 0;
+                List<Product> newProduct = new List<Product>();
+                if (check == "Фильтр")
                 {
-                    if (!string.IsNullOrEmpty(strings1))
+                    var checkProduct = currentProduct;
+
+                    foreach (var strings1 in strings)
                     {
-                        for (int i = 0; i < Filters.Count - 1; i++)
+                        if (!string.IsNullOrEmpty(strings1))
                         {
-                            if (strings1 == Filters[i])
+                            for (int i = 0; i < Filters.Count - 1; i++)
                             {
-                                if (z == 0 && strings.Count <= 1)
+                                if (strings1 == Filters[i])
                                 {
-                                    newProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
-                                }
-                                else if (z == 0 && strings.Count > 1)
-                                {
-                                    currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
-                                    newProduct = currentProduct;
-                                    z++;
-                                }
-                                else if (z > 0 && strings.Count > 1)
-                                {
-                                    currentProduct = checkProduct.Where(p => p.CategoryProduct == i).ToList();
-                                    newProduct.AddRange(currentProduct);
-                                    z++;
+                                    if (z == 0 && strings.Count <= 1)
+                                    {
+                                        newProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                                    }
+                                    else if (z == 0 && strings.Count > 1)
+                                    {
+                                        currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                                        newProduct = currentProduct;
+                                        z++;
+                                    }
+                                    else if (z > 0 && strings.Count > 1)
+                                    {
+                                        currentProduct = checkProduct.Where(p => p.CategoryProduct == i).ToList();
+                                        newProduct.AddRange(currentProduct);
+                                        z++;
+                                    }
                                 }
                             }
                         }
-                    }   
-                }
-                //if (z == 0)
-                //{
-                //    if (!string.IsNullOrEmpty(Search))
-                //    {
-                //        currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower())).ToList();
-
-                //    }
-                //    Products = currentProduct;
-                //}
-                //else
-                //{
-                    if (!string.IsNullOrEmpty(Search))
-                    {
-                        newProduct = newProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower())).ToList();
-
                     }
+                 
                     Products = newProduct;
-                //}
-            }
-            else {
-
-                    if (!string.IsNullOrEmpty(Search))
-                    {
-                        currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower())).ToList();
-
-                    }
-
-                Products = currentProduct;
-            }
+                }
+                else
+                {
+                    Products = currentProduct;
+                }
+            
+            
         }
 
         public DelegateCommand Basket => new(() =>
