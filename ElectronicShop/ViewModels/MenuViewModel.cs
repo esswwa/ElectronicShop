@@ -180,8 +180,6 @@ namespace ElectronicShop.ViewModels
                 }
                 int z = 0;
                 List<Product> newProduct = new List<Product>();
-                if (check == "Фильтр")
-                {
                     var checkProduct = currentProduct;
 
                     foreach (var strings1 in strings)
@@ -194,18 +192,17 @@ namespace ElectronicShop.ViewModels
                                     {
                                         if (z == 0 && strings.Count <= 1)
                                         {
-                                            newProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                                            currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
                                         }
                                         else if (z == 0 && strings.Count > 1)
                                         {
                                             currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
-                                            newProduct = currentProduct;
                                             z++;
                                         }
                                         else if (z > 0 && strings.Count > 1)
                                         {
-                                            currentProduct = checkProduct.Where(p => p.CategoryProduct == i).ToList();
-                                            newProduct.AddRange(currentProduct);
+                                            newProduct = checkProduct.Where(p => p.CategoryProduct == i).ToList();
+                                            currentProduct.AddRange(newProduct);
                                             z++;
                                         }
                                     }
@@ -214,14 +211,7 @@ namespace ElectronicShop.ViewModels
                         }
                     }
                  
-                    Products = newProduct;
-                }
-                else
-                {
                     Products = currentProduct;
-                }
-            
-            
         }
 
         public DelegateCommand Basket => new(() =>
