@@ -539,101 +539,6 @@
                                 Height="24"
                                 Foreground="#424874"
                                 HorizontalAlignment="Center"
-                                Kind="NavigationVariant" />
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                Foreground="#424874"
-                                Text="Навигация" />
-                        </StackPanel>
-                    </TabItem.Header>
-                    <Grid HorizontalAlignment="Center"
-                          VerticalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel
-                            Grid.Column="0"
-                            Width="auto"
-                            Margin="5"
-                            Height="auto">
-                            <Button
-                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                Style="{StaticResource MaterialDesignFloatingActionButton}"
-                                Background="#CCE0FF"
-                                Command="{Binding Favourite}"
-                                BorderBrush="#CCE0FF">
-                                <materialDesign:PackIcon
-                                                    Background="#CCE0FF"
-                                                    Foreground="#424874"
-                                                    Width="24"
-                                                    Height="24"
-                                                    Kind="Heart" />
-                            </Button>
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                Foreground="#424874"
-                                Text="Избранные" />
-                        </StackPanel>
-                        <StackPanel
-                            Margin="5"
-                            Grid.Column="1"
-                            Width="auto"
-                            Height="auto">
-                            <Button
-                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                Style="{StaticResource MaterialDesignFloatingActionButton}"
-                                Background="#CCE0FF"
-                                Command="{Binding Basket}"
-                                BorderBrush="#CCE0FF">
-                                <materialDesign:PackIcon
-                                                    Background="#CCE0FF"
-                                                    Foreground="#424874"
-                                                    Width="24"
-                                                    Height="24"
-                                                    Kind="Basket" />
-                            </Button>
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                Foreground="#424874"
-                                Text="Корзина" />
-                        </StackPanel>
-                        <StackPanel
-                            Margin="5"
-                            Grid.Column="2"
-                            Width="auto"
-                            Height="auto">
-                            <Button
-                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                Style="{StaticResource MaterialDesignFloatingActionButton}"
-                                Background="#CCE0FF"
-                                Command="{Binding Order}"
-                                BorderBrush="#CCE0FF">
-                                <materialDesign:PackIcon
-                                                    Background="#CCE0FF"
-                                                    Foreground="#424874"
-                                                    Width="24"
-                                                    Height="24"
-                                                    Kind="BasketUnfill" />
-                            </Button>
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                Foreground="#424874"
-                                Text="Заказы" />
-                        </StackPanel>
-                    </Grid>
-                </TabItem>
-                <TabItem  Width="90">
-                    <TabItem.Header>
-                        <StackPanel
-                            Width="auto"
-                            Height="auto">
-                            <materialDesign:PackIcon
-                                Width="24"
-                                Height="24"
-                                Foreground="#424874"
-                                HorizontalAlignment="Center"
                                 Kind="FaceManProfile" />
                             <TextBlock
                                 Foreground="#424874"
@@ -741,6 +646,93 @@
                             </Grid>
                         </materialDesign:Flipper.BackContent>
                     </materialDesign:Flipper>
+                </TabItem>
+                <TabItem  Width="90"
+                          Height="100">
+                    <TabItem.Header>
+                        <StackPanel
+                            Grid.Column="0"
+                            Width="auto"
+                            Margin="5"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                Command="{Binding Favourite}"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="Heart" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                FontSize="14"
+                                Text="Избранные" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem  Width="90"
+                          Height="100">
+                    <TabItem.Header>
+                        <StackPanel
+                            Margin="5"
+                            Grid.Column="1"
+                            Width="auto"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                Command="{Binding Basket}"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="Basket" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                FontSize="14"
+                                Text="Корзина" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem  Width="90"
+                          Height="100">
+                    <TabItem.Header>
+                        <StackPanel
+                            Margin="5"
+                            Grid.Column="2"
+                            Width="auto"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                Command="{Binding Order}"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="BasketUnfill" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                FontSize="14"
+                                Text="Заказы" />
+                        </StackPanel>
+                    </TabItem.Header>
                 </TabItem>
             </TabControl>
         </materialDesign:Card>
