@@ -504,7 +504,7 @@
                                                     CommandParameter="Нет в наличии"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                         <CheckBox
-                                                    Content="Снят с продажи"
+                                                    Content="Снят с продаж"
                                                     Foreground="#424874"
                                                     IsChecked="False"
                                                     Command="{Binding commandCategories}"
