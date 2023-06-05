@@ -111,7 +111,7 @@
                                                Text="{Binding ReitingProduct}"/>
                                 </StackPanel>
                                 <TextBlock Grid.Row="2"
-                                           Text="{Binding Status, StringFormat={}Статус: {0}}"
+                                           Text="{Binding StatusNavigation.Status1, StringFormat={}Статус: {0}}"
                                            TextWrapping="Wrap"
                                            VerticalAlignment="Center"/>
                             </Grid>
@@ -457,7 +457,7 @@
                                     </Expander>
                                 </Grid>
                             </Expander>
-                            <Expander HorizontalAlignment="Stretch"
+                            <!--<Expander HorizontalAlignment="Stretch"
                                   Header="Стоимость"
                                   Foreground="#424874"
                                   Margin="10"
@@ -478,7 +478,7 @@
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                     </TreeView>
                                 </StackPanel>
-                            </Expander>
+                            </Expander>-->
                             <Expander HorizontalAlignment="Stretch"
                                   Header="Статус"
                                   Foreground="#424874"
@@ -492,17 +492,23 @@
                                         <CheckBox
                                                     Content="В наличии"
                                                     Foreground="#424874"
-                                                    IsChecked="True"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="В наличии"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                         <CheckBox
                                                     Content="Нет в наличии"
                                                     Foreground="#424874"
                                                     IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Нет в наличии"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                         <CheckBox
                                                     Content="Снят с продажи"
                                                     Foreground="#424874"
                                                     IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Снят с продаж"
                                                     Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                                     </TreeView>
                                 </StackPanel>

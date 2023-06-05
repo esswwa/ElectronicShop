@@ -56,7 +56,11 @@ namespace ElectronicShop.ViewModels
             "Видеонаблюдение",
             "Духовая печь",
             "Стиральная машина",
-            "Холодильник"
+            "Холодильник", 
+            "В наличии",
+            "Нет в наличии",
+            "Снят с продаж"
+
         };
         public bool IsEnabledCart { get; set; }
 
@@ -162,20 +166,19 @@ namespace ElectronicShop.ViewModels
 
         private async void UpdateProduct(string check)
         {
-            if (product1 != null)
-            {
-                 currentProduct = product1;
-            }
-            else
-            {
-                 currentProduct = await _productService.GetProducts();
-            }
-            if (!string.IsNullOrEmpty(Search))
-            {
-                currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower()) || p.Article.ToLower() == Search.ToLower()).ToList();
-
-            }
-            int z = 0;
+                if (product1 != null)
+                {
+                     currentProduct = product1;
+                }
+                else
+                {
+                     currentProduct = await _productService.GetProducts();
+                }
+                if (!string.IsNullOrEmpty(Search))
+                {
+                    currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower()) || p.Article.ToLower() == Search.ToLower()).ToList();
+                }
+                int z = 0;
                 List<Product> newProduct = new List<Product>();
                 if (check == "Фильтр")
                 {
@@ -185,28 +188,29 @@ namespace ElectronicShop.ViewModels
                     {
                         if (!string.IsNullOrEmpty(strings1))
                         {
-                            for (int i = 0; i < Filters.Count - 1; i++)
-                            {
-                                if (strings1 == Filters[i])
+                                for (int i = 0; i < Filters.Count - 1; i++)
                                 {
-                                    if (z == 0 && strings.Count <= 1)
+                                    if (strings1 == Filters[i])
                                     {
-                                        newProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
-                                    }
-                                    else if (z == 0 && strings.Count > 1)
-                                    {
-                                        currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
-                                        newProduct = currentProduct;
-                                        z++;
-                                    }
-                                    else if (z > 0 && strings.Count > 1)
-                                    {
-                                        currentProduct = checkProduct.Where(p => p.CategoryProduct == i).ToList();
-                                        newProduct.AddRange(currentProduct);
-                                        z++;
+                                        if (z == 0 && strings.Count <= 1)
+                                        {
+                                            newProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                                        }
+                                        else if (z == 0 && strings.Count > 1)
+                                        {
+                                            currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                                            newProduct = currentProduct;
+                                            z++;
+                                        }
+                                        else if (z > 0 && strings.Count > 1)
+                                        {
+                                            currentProduct = checkProduct.Where(p => p.CategoryProduct == i).ToList();
+                                            newProduct.AddRange(currentProduct);
+                                            z++;
+                                        }
                                     }
                                 }
-                            }
+                            
                         }
                     }
                  

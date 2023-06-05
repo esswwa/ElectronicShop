@@ -22,6 +22,9 @@ namespace ElectronicShop.Services
             List<Product> products = new();
             try
             {
+                _electronickshopContext.Statuses.ToList();
+                _electronickshopContext.Firms.ToList();
+                _electronickshopContext.Categories.ToList();
                 var product = await _electronickshopContext.Products.ToListAsync();
                 await Task.Run(() =>
                 {
