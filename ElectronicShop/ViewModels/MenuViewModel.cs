@@ -56,7 +56,10 @@ namespace ElectronicShop.ViewModels
             "Видеонаблюдение",
             "Духовая печь",
             "Стиральная машина",
-            "Холодильник", 
+            "Холодильник"
+
+        };
+        public List<string> FiltersStatus { get; set; } = new() {
             "В наличии",
             "Нет в наличии",
             "Снят с продаж"
@@ -179,6 +182,7 @@ namespace ElectronicShop.ViewModels
                     currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower()) || p.Article.ToLower() == Search.ToLower()).ToList();
                 }
                 int z = 0;
+                int b = 0;
                 List<Product> newProduct = new List<Product>();
                     var checkProduct = currentProduct;
 
@@ -186,27 +190,54 @@ namespace ElectronicShop.ViewModels
                     {
                         if (!string.IsNullOrEmpty(strings1))
                         {
-                                for (int i = 0; i < Filters.Count - 1; i++)
+                                if (strings1 == "В наличии" || strings1 == "Нет в наличии" || strings1 == "Снят с продаж")
                                 {
-                                    if (strings1 == Filters[i])
+                                    for (int i = 0; i < FiltersStatus.Count - 1; i++)
                                     {
-                                        if (z == 0 && strings.Count <= 1)
+                                        if (strings1 == FiltersStatus[i])
                                         {
-                                            currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
-                                        }
-                                        else if (z == 0 && strings.Count > 1)
-                                        {
-                                            currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
-                                            z++;
-                                        }
-                                        else if (z > 0 && strings.Count > 1)
-                                        {
-                                            newProduct = checkProduct.Where(p => p.CategoryProduct == i).ToList();
-                                            currentProduct.AddRange(newProduct);
-                                            z++;
+                                            if (b == 0 && strings.Count <= 1)
+                                            {
+                                                currentProduct = currentProduct.Where(p => p.Status == i).ToList();
+                                            }
+                                            else if (b == 0 && strings.Count > 1)
+                                            {
+                                                currentProduct = currentProduct.Where(p => p.Status == i).ToList();
+                                                b++;
+                                            }
+                                            else if (b > 0 && strings.Count > 1)
+                                            {
+                                                newProduct = checkProduct.Where(p => p.Status == i).ToList();
+                                                currentProduct.AddRange(newProduct);
+                                                b++;
+                                            }
                                         }
                                     }
                                 }
+                                else {
+                                    for (int i = 0; i < Filters.Count - 1; i++)
+                                    {
+                                        if (strings1 == Filters[i])
+                                        {
+                                            if (z == 0 && strings.Count <= 1)
+                                            {
+                                                currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                                            }
+                                            else if (z == 0 && strings.Count > 1)
+                                            {
+                                                currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                                                z++;
+                                            }
+                                            else if (z > 0 && strings.Count > 1)
+                                            {
+                                                newProduct = checkProduct.Where(p => p.CategoryProduct == i).ToList();
+                                                currentProduct.AddRange(newProduct);
+                                                z++;
+                                            }
+                                        }
+                                    }
+                                }
+                                
                             
                         }
                     }
