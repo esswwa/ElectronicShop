@@ -7,7 +7,7 @@ public partial class Favourity
 {
     public int Idfavourities { get; set; }
 
-    public string IdProduct { get; set; } = null!;
+    public int IdProduct { get; set; }
 
     public int IdUser { get; set; }
 

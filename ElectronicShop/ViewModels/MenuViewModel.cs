@@ -249,9 +249,10 @@ namespace ElectronicShop.ViewModels
         {
             _pageService.ChangePage(new BasketPage());
         });
-        public DelegateCommand Favourite => new(() =>
+        public DelegateCommand Favourite => new(async () =>
         {
-            _pageService.ChangePage(new FavouritePage());
+            var currentProduct = await _productService.GetFavouriteProducts();
+            Products = currentProduct;
         });
         public DelegateCommand Order => new(() =>
         {

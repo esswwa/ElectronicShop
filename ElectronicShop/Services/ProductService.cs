@@ -56,7 +56,52 @@ namespace ElectronicShop.Services
             catch { }
             return products;
         }
-     
+
+        public async Task<List<Product>> GetFavouriteProducts()
+        {
+            List<Product> products = new();
+            try
+            {
+                _electronickshopContext.Statuses.ToList();
+                _electronickshopContext.Firms.ToList();
+                _electronickshopContext.Categories.ToList();
+                var product = await _electronickshopContext.Products.ToListAsync();
+                var productFavoutite = await _electronickshopContext.Favourities.Where(i => i.IdUser == Settings.Default.idUser).ToListAsync();
+                await Task.Run(() =>
+                {
+                    foreach (var item in product)
+                    {
+                        foreach (var item1 in productFavoutite) {
+                            if (item.IdProduct == item1.IdProduct)
+                                products.Add(new Product
+                                {
+                                    IdProduct = item.IdProduct,
+                                    NameProduct = item.NameProduct,
+                                    ImgProduct = Path.GetFullPath($@"Resources\Image\{item.ImgProduct}"),
+                                    FirmProduct = item.FirmProduct,
+                                    CostProduct = item.CostProduct,
+                                    CategoryProduct = item.CategoryProduct,
+                                    ReitingProduct = item.ReitingProduct,
+                                    CountProduct = item.CountProduct,
+                                    Status = item.Status,
+                                    Description = item.Description,
+                                    SecondNameProduct = item.SecondNameProduct,
+                                    Article = item.Article,
+                                    CategoryProductNavigation = item.CategoryProductNavigation,
+                                    FirmProductNavigation = item.FirmProductNavigation,
+                                    StatusNavigation = item.StatusNavigation
+
+                                }); ;
+                        }
+                       
+                    }
+                });
+
+            }
+            catch { }
+            return products;
+        }
+
         public async Task AddHelperBasket(int idHelper_basket, int idBasket, int idProduct, double cost)
         {
             await _electronickshopContext.HelperBaskets.AddAsync(new HelperBasket

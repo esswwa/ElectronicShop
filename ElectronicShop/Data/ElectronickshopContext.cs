@@ -101,10 +101,8 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.Idfavourities)
                 .ValueGeneratedNever()
                 .HasColumnName("idfavourities");
-            entity.Property(e => e.IdProduct)
-                .HasMaxLength(45)
-                .HasColumnName("idProduct");
-            entity.Property(e => e.IdUser).HasColumnName("idUser");
+
+            entity.Property(e => e.IdProduct).HasColumnName("idProduct");
 
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.Favourities)
                 .HasForeignKey(d => d.IdUser)
