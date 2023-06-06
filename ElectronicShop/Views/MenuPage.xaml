@@ -618,7 +618,7 @@
                                                                     Kind="ArrowLeft" />
                                         </Button>
                                         <TextBlock
-                                                  Margin="8,0,0,0"
+                                                  Margin="8 0 0 0"
                                                   VerticalAlignment="Center"
                                                   FontSize="16"
                                                   Text="Редактирование" />
@@ -626,7 +626,7 @@
                                 </materialDesign:ColorZone>
                                 <Grid   Grid.Row="1"
                                         MinWidth="150"
-                                        Margin="0,6,0,0"
+                                        Margin="0 6 0 0"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Top">
                                     <Grid.RowDefinitions>
@@ -636,18 +636,25 @@
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <TextBox
-                                            Margin="0,12,0,0"
+                                            Margin="0 12 0 0"
                                             materialDesign:HintAssist.Hint="Логин"
                                             FontSize="16"
                                             materialDesign:HintAssist.IsFloating="True"
                                             Text="{Binding LoginBack}" />
                                     <TextBox
                                             Grid.Row="1"
-                                            Margin="0,12,0,0"
+                                            Margin="0 12 0 0"
                                             FontSize="16"
                                             materialDesign:HintAssist.Hint="Почта"
                                             materialDesign:HintAssist.IsFloating="True"
                                             Text="{Binding Email}" />
+                                    <Button Grid.Row="2"
+                                            Margin="0 12 0 0"
+                                            HorizontalAlignment="Center"
+                                            Command="{Binding EditUser, IsAsync=True}"
+                                            Content="Отредактировать"
+                                            Foreground="#424874"
+                                            Style="{StaticResource MaterialDesignFlatButton}" />
                                 </Grid>
                             </Grid>
                         </materialDesign:Flipper.BackContent>
