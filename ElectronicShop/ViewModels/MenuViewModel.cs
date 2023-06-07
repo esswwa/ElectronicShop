@@ -245,10 +245,9 @@ namespace ElectronicShop.ViewModels
                     Products = currentProduct;
         }
 
-        public DelegateCommand Basket => new(() =>
-        {
-            _pageService.ChangePage(new BasketPage());
-        });
+        public DelegateCommand Basket => new(() => _pageService.ChangePage(new BasketPage()));
+        public DelegateCommand Order => new(() =>_pageService.ChangePage(new OrderPage()));
+
         public DelegateCommand buyProduct => new(() =>
         {
             _pageService.ChangePage(new ProductPage());
@@ -257,10 +256,6 @@ namespace ElectronicShop.ViewModels
         {
             var currentProduct = await _productService.GetFavouriteProducts();
             Products = currentProduct;
-        });
-        public DelegateCommand Order => new(() =>
-        {
-            _pageService.ChangePage(new OrderPage());
         });
         public DelegateCommand ExitAcc => new(() =>
         {
