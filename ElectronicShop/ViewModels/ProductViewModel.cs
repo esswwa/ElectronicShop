@@ -1,4 +1,5 @@
 ﻿using ElectronicShop.Data.Model;
+using ElectronicShop.Models;
 using ElectronicShop.Properties;
 using ElectronicShop.Services;
 using Microsoft.VisualBasic.Logging;
@@ -17,11 +18,33 @@ namespace ElectronicShop.ViewModels
         private readonly ProductService _productService;
         private readonly UserService _userService;
 
+        public string NameProduct { get; set; }
+        public string ImgProduct { get; set; }
+        public string SecondNameProduct { get; set; }
+        public string ReitingProduct1 { get; set; }
+        public float ReitingProduct { get; set; }
+        public string CostProduct { get; set; }
+        public bool IsCheckedButton { get; set; }
+        public string CountProduct { get; set; }
+        public string Description { get; set; }
+        public string CountFeedback { get; set; }
+
         public ProductViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
             _productService = productService;
             _userService = userService;
+
+            NameProduct = SelectProduct.product.NameProduct;
+            ImgProduct = SelectProduct.product.ImgProduct;
+            SecondNameProduct = SelectProduct.product.SecondNameProduct;
+            ReitingProduct1 = SelectProduct.product.ReitingProduct.ToString();
+            ReitingProduct = SelectProduct.product.ReitingProduct;
+            CostProduct = SelectProduct.product.CostProduct.ToString();
+            IsCheckedButton = false;
+            CountProduct = SelectProduct.product.CountProduct.ToString();
+            Description = SelectProduct.product.Description;
+            CountFeedback = "0";
         }
         public DelegateCommand Basket => new(() =>
         {
