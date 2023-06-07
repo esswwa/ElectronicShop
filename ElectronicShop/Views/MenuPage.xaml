@@ -52,6 +52,8 @@
                                   Command="{Binding addInBasket}"/>
                     <MenuItem Header="Добавить в избранные"
                                   Command="{Binding addInFavourite}"/>
+                    <MenuItem Header="Продукт"
+                                  Command="{Binding buyProduct}"/>
                 </ContextMenu>
             </ListView.ContextMenu>
 

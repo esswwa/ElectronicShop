@@ -15,10 +15,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.15*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
@@ -145,45 +144,66 @@
                 </TabItem>
             </TabControl>
         </materialDesign:Card>
-
+        <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2"
+                             Margin="15 0 0 0"
+                             VerticalAlignment="Center"
+                             Grid.Column="1"
+                             MinHeight="60"
+                             HorizontalContentAlignment="Center"
+                             VerticalContentAlignment="Center">
+            <TextBlock Text="{Binding NameProduct}"
+                       TextWrapping="Wrap"
+                       FontSize="26"
+                       Foreground="#424874"/>
+        </materialDesign:Card>
+        
         <ScrollViewer Grid.Row="1"
-                      Grid.Column="1">
-            <Grid >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                      Grid.Column="1"
+                      Margin="15 0 0 0"
+                      VerticalScrollBarVisibility="Hidden">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="{Binding NameProduct}"
-                       TextWrapping="Wrap"
-                       />
-                <Image Grid.Row="1"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   Source="{Binding ImgProduct}"/>
-                <Grid Grid.Row="1"
-                  Grid.Column="2"
-                  Grid.ColumnSpan="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0"
-                           TextWrapping="Wrap"
-                           Text="{Binding SecondNameProduct}"/>
-                    <StackPanel Grid.Row="1"
-                            Margin="0 6 0 0"
-                            Orientation="Horizontal">
-                        <materialDesign:RatingBar
+                <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2"
+                                     Margin="15"
+                                     Padding="16"
+                                     VerticalAlignment="Center">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="1"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Source="{Binding ImgProduct}"/>
+                        <Grid Grid.Row="1"
+                              Grid.Column="2"
+                              Grid.ColumnSpan="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       TextWrapping="Wrap"
+                                       Text="{Binding SecondNameProduct}"/>
+                            <StackPanel Grid.Row="1"
+                                        Margin="0 6 0 0"
+                                        Orientation="Horizontal">
+                                <materialDesign:RatingBar
                                         x:Name="BasicRatingBarFractionalPreview"
                                         IsReadOnly="True" 
                                         IsPreviewValueEnabled="True"
@@ -191,53 +211,79 @@
                                         Min="0" 
                                         ValueIncrements="0.1"
                                         Value="{Binding ReitingProduct}"/>
-                        <TextBlock Margin="0 5 0 0"
-                                   Text="{Binding ReitingProduct1}"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="2"
-                            Margin="0 6 0 0"
-                            Orientation="Horizontal">
-                        <TextBlock Text="{Binding CostProduct, StringFormat={}{0} ₽}"/>
-                        <ToggleButton Content="{materialDesign:PackIcon Kind=Heart,Size=21}"
+                                <TextBlock Margin="0 5 0 0"
+                                           Text="{Binding ReitingProduct1}"/>
+                            </StackPanel>
+                            <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2"
+                                                 Grid.Row="2"
+                                                 Padding="16">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0"
+                                        Margin="0 6 0 0"
+                                        Orientation="Horizontal">
+                                        <TextBlock Text="{Binding CostProduct, StringFormat={}{0} ₽}"/>
+                                        <ToggleButton Content="{materialDesign:PackIcon Kind=Heart,Size=21}"
                                         IsChecked="{Binding IsCheckedButton}"
                                         Foreground="#424874"
                                         Background="#CCE0FF"
                                         Margin="0 5 5 0"
                                         Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                                          />
-                        <Button Content="Добавить в корзину"
-                            Command="{Binding AddToBasket}"/>
-                    </StackPanel>
-                    <StackPanel Grid.Row="3"
-                            Margin="0 6 0 0"
-                            Orientation="Horizontal">
-                        <TextBlock Text="{Binding StatusNavigation.Status1, StringFormat={}Статус: {0}}"
-                               TextWrapping="Wrap"
-                               VerticalAlignment="Center"/>
-                        <TextBlock Text="{Binding CountProduct, StringFormat={}На складе: {0}}"
-                               TextWrapping="Wrap"
-                               VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Grid>
-                <Grid Grid.Row="2"
+                                        <Button Content="Добавить в корзину"
+                                        Command="{Binding AddToBasket}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1"
+                                        Margin="0 6 0 0"
+                                        Orientation="Horizontal">
+                                        <TextBlock Text="{Binding StatusNavigation.Status1, StringFormat={}Статус: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding CountProduct, StringFormat={}На складе: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+                        </Grid>
+                        
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2"
+                                     Margin="15"
+                                     Padding="16"
+                                     VerticalAlignment="Center"
+                                     Grid.Row="1">
+                    <Grid Grid.Row="2"
                       Grid.Column="1"
                       Grid.ColumnSpan="3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0"
+                        <Grid Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
                                Text="Описание"
                                />
-                        <TextBlock Grid.Row="1"
+                            <TextBlock Grid.Row="1"
                                Text="{Binding Description}"
                                TextWrapping="Wrap"/>
+                        </Grid>
+                        
                     </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2"
+                                     Grid.Row="2"
+                                     Margin="15"
+                                     Padding="16"
+                                     VerticalAlignment="Center">
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -321,7 +367,7 @@
                                 Grid.RowSpan="2"
                                 Grid.Column="4"/>
                     </Grid>
-                </Grid>
+                </materialDesign:Card>
             </Grid>
         </ScrollViewer>
     </Grid>
