@@ -75,8 +75,6 @@ namespace ElectronicShop.ViewModels
             Value3 = Value3 / Feedback.Count * 100;
             Value4 = Value4 / Feedback.Count * 100;
             Value5 = Value5 / Feedback.Count * 100;
-
-            MessageBox.Show(Value1.ToString() + "1", Value5.ToString() + "5");
         }
 
         private async void UpdateProduct()
