@@ -106,14 +106,14 @@ namespace ElectronicShop.Services
 
         public async void UpdateProductReiting()
         {
-            var currentOrders = await GetProducts1();
-            Users = new ObservableCollection<User>(currentOrders);
-            var item = Users.First(i => i.Iduser == Settings.Default.idUser);
-            var index = Users.IndexOf(item);
-            item.ExitCheck = Settings.Default.exitCheck;
-            Users.RemoveAt(index);
-            Users.Insert(index, item);
-            await _electronickshopContext.SaveChangesAsync();
+            //var currentOrders = await GetProducts1();
+            //Users = new ObservableCollection<User>(currentOrders);
+            //var item = Users.First(i => i.Iduser == Settings.Default.idUser);
+            //var index = Users.IndexOf(item);
+            //item.ExitCheck = Settings.Default.exitCheck;
+            //Users.RemoveAt(index);
+            //Users.Insert(index, item);
+            //await _electronickshopContext.SaveChangesAsync();
         }
 
         public async Task<List<Feedback>> getFeedbackProduct()
@@ -200,10 +200,10 @@ namespace ElectronicShop.Services
             return _electronickshopContext.HelperBaskets.ToObservableCollection<HelperBasket>();
         }
 
-        public Task<List<Product>> GetProducts1()
-        {
-            //return await _electronickshopContext.Products.ToListAsync();
-        }
+        //public Task<List<Product>> GetProducts1()
+        //{
+        //    //return await _electronickshopContext.Products.ToListAsync();
+        //}
 
         public HelperBasket getUserHelperBasket(Product SelectedProduct)
         {
