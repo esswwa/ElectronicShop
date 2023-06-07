@@ -2,6 +2,7 @@
 using ElectronicShop.Data.Model;
 using ElectronicShop.Models;
 using ElectronicShop.Properties;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,6 +104,18 @@ namespace ElectronicShop.Services
             return products;
         }
 
+        public async void UpdateProductReiting()
+        {
+            var currentOrders = await GetProducts1();
+            Users = new ObservableCollection<User>(currentOrders);
+            var item = Users.First(i => i.Iduser == Settings.Default.idUser);
+            var index = Users.IndexOf(item);
+            item.ExitCheck = Settings.Default.exitCheck;
+            Users.RemoveAt(index);
+            Users.Insert(index, item);
+            await _electronickshopContext.SaveChangesAsync();
+        }
+
         public async Task<List<Feedback>> getFeedbackProduct()
         {
             List<Feedback> feedbacks = new List<Feedback>();
@@ -185,6 +198,11 @@ namespace ElectronicShop.Services
         public ObservableCollection<HelperBasket> getAllHelperBasket()
         {
             return _electronickshopContext.HelperBaskets.ToObservableCollection<HelperBasket>();
+        }
+
+        public Task<List<Product>> GetProducts1()
+        {
+            //return await _electronickshopContext.Products.ToListAsync();
         }
 
         public HelperBasket getUserHelperBasket(Product SelectedProduct)
