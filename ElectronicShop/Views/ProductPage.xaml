@@ -145,44 +145,45 @@
                 </TabItem>
             </TabControl>
         </materialDesign:Card>
-        <Grid Grid.Row="1"
-              Grid.Column="1"
-              Background="White">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="{Binding NameProduct}"
-                       TextWrapping="Wrap"
-                       />
-            <Image Grid.Row="1"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   Source="{Binding ImgProduct}"/>
-            <Grid Grid.Row="1"
-                  Grid.Column="2"
-                  Grid.ColumnSpan="2">
+
+        <ScrollViewer Grid.Row="1"
+                      Grid.Column="1">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0"
+                <TextBlock Text="{Binding NameProduct}"
+                       TextWrapping="Wrap"
+                       />
+                <Image Grid.Row="1"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Source="{Binding ImgProduct}"/>
+                <Grid Grid.Row="1"
+                  Grid.Column="2"
+                  Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
                            TextWrapping="Wrap"
                            Text="{Binding SecondNameProduct}"/>
-                <StackPanel Grid.Row="1"
+                    <StackPanel Grid.Row="1"
                             Margin="0 6 0 0"
                             Orientation="Horizontal">
-                    <materialDesign:RatingBar
+                        <materialDesign:RatingBar
                                         x:Name="BasicRatingBarFractionalPreview"
                                         IsReadOnly="True" 
                                         IsPreviewValueEnabled="True"
@@ -190,74 +191,74 @@
                                         Min="0" 
                                         ValueIncrements="0.1"
                                         Value="{Binding ReitingProduct}"/>
-                    <TextBlock Margin="0 5 0 0"
+                        <TextBlock Margin="0 5 0 0"
                                                Text="{Binding ReitingProduct}"/>
-                </StackPanel>
-                <StackPanel Grid.Row="2"
+                    </StackPanel>
+                    <StackPanel Grid.Row="2"
                             Margin="0 6 0 0"
                             Orientation="Horizontal">
-                    <TextBlock Text="{Binding CostProduct, StringFormat={}{0} ₽}"/>
-                    <ToggleButton Content="{materialDesign:PackIcon Kind=Heart,Size=21}"
+                        <TextBlock Text="{Binding CostProduct, StringFormat={}{0} ₽}"/>
+                        <ToggleButton Content="{materialDesign:PackIcon Kind=Heart,Size=21}"
                                         IsChecked="{Binding IsCheckedButton}"
                                         Foreground="#424874"
                                         Background="#CCE0FF"
                                         Margin="0 5 5 0"
                                         Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
                                          />
-                    <Button Content="Добавить в корзину"
+                        <Button Content="Добавить в корзину"
                             Command="{Binding AddToBasket}"/>
-                </StackPanel>
-                <StackPanel Grid.Row="3"
+                    </StackPanel>
+                    <StackPanel Grid.Row="3"
                             Margin="0 6 0 0"
                             Orientation="Horizontal">
-                    <TextBlock Text="{Binding StatusNavigation.Status1, StringFormat={}Статус: {0}}"
+                        <TextBlock Text="{Binding StatusNavigation.Status1, StringFormat={}Статус: {0}}"
                                TextWrapping="Wrap"
                                VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding CountProduct, StringFormat={}На складе: {0}}"
+                        <TextBlock Text="{Binding CountProduct, StringFormat={}На складе: {0}}"
                                TextWrapping="Wrap"
                                VerticalAlignment="Center"/>
-                </StackPanel>
-            </Grid>
-            <Grid Grid.Row="2"
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="2"
                   Grid.Column="1"
                   Grid.ColumnSpan="3">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0"
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
                                Text="Описание"
                                />
-                    <TextBlock Grid.Row="1"
+                        <TextBlock Grid.Row="1"
                                Text="{Binding Description}"
                                TextWrapping="Wrap"/>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="{Binding NameProduct}"
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding NameProduct}"
                                TextWrapping="Wrap"
                                Grid.ColumnSpan="5"/>
-                    <TextBlock Text="{Binding ReitingProduct}"
+                        <TextBlock Text="{Binding ReitingProduct}"
                                TextWrapping="Wrap"
                                Grid.Row="1"/>
-                    <materialDesign:RatingBar Grid.Row="2"
+                        <materialDesign:RatingBar Grid.Row="2"
                                               x:Name="BasicRatingBarFractionalPreview1"
                                               IsReadOnly="True" 
                                               IsPreviewValueEnabled="True"
@@ -266,11 +267,62 @@
                                               ValueIncrements="0.1"
                                               Value="{Binding ReitingProduct}"/>
 
-                    <TextBlock Text="{Binding CountFed}"
+                        <TextBlock Text="{Binding CountFeedback}"
                                TextWrapping="Wrap"
-                               Grid.Row="1"/>
+                               Grid.Row="3"/>
+                        <Grid Grid.Column="1"
+                              Grid.RowSpan="4"
+                              Grid.ColumnSpan="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0"
+                                        Orientation="Horizontal">
+                                <TextBlock Text="5"/>
+                                <ProgressBar Height="10"
+                                             Margin="0 5 0 0"
+                                             Value="{Binding Value5}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1"
+                                        Orientation="Horizontal">
+                                <TextBlock Text="4"/>
+                                <ProgressBar Height="10"
+                                             Margin="0 5 0 0"
+                                             Value="{Binding Value4}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="2"
+                                        Orientation="Horizontal">
+                                <TextBlock Text="3"/>
+                                <ProgressBar Height="10"
+                                             Margin="0 5 0 0"
+                                             Value="{Binding Value3}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="3"
+                                        Orientation="Horizontal">
+                                <TextBlock Text="2"/>
+                                <ProgressBar Height="10"
+                                             Margin="0 5 0 0"
+                                             Value="{Binding Value2}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="4"
+                                        Orientation="Horizontal">
+                                <TextBlock Text="1"/>
+                                <ProgressBar Height="10"
+                                             Margin="0 5 0 0"
+                                             Value="{Binding Value1}" />
+                            </StackPanel>
+                        </Grid>
+                        <Button Content="Добавить отзыв"
+                                Grid.Row="1"
+                                Grid.RowSpan="2"
+                                Grid.Column="4"/>
+                    </Grid>
                 </Grid>
             </Grid>
-        </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>
