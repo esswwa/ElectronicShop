@@ -439,6 +439,7 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <TextBox Margin="0,12,0,0"
                                              materialDesign:HintAssist.Hint="Преимущества"
@@ -454,6 +455,17 @@
                                              materialDesign:HintAssist.Hint="Комментарий"
                                              materialDesign:HintAssist.IsFloating="True"
                                              Text="{Binding FeedbackText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <materialDesign:RatingBar x:Name="BasicRatingBarFractionalPreview2"
+                                                              Max="5"
+                                                              Grid.Row="3" 
+                                                              Margin="0,12,0,0"
+                                                              Min="0" 
+                                                              ValueIncrements="0.1"
+                                                              Value="{Binding ReitingAddProduct}"/>
+                                    <Button Grid.Row="4" 
+                                            Margin="0,12,0,0"
+                                            Content="Добавить отзыв"/>
+
                                 </Grid>
                             </Grid>
                         </materialDesign:Card>
