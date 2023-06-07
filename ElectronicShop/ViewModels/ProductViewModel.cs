@@ -38,6 +38,13 @@ namespace ElectronicShop.ViewModels
         public double Value1 { get; set; }
         public List<Feedback> Feedback { get; set; }
 
+
+        public string dignitiesText { get; set; }
+        public string downsideText { get; set; }
+        public string FeedbackText { get; set; }
+
+        public float ReitingAddProduct { get; set; }
+
         public ProductViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
@@ -53,10 +60,16 @@ namespace ElectronicShop.ViewModels
             IsCheckedButton = false;
             CountProduct = SelectProduct.product.CountProduct.ToString();
             Description = SelectProduct.product.Description;
+            UpdateProduct();
+        }
+
+        private async void UpdateProduct()
+        {
             Feedback = Task.Run(async () => await _productService.getFeedbackProduct()).Result;
             CountFeedback = Feedback.Count.ToString();
-            
-            foreach (var i in Feedback) {
+
+            foreach (var i in Feedback)
+            {
 
                 if (i.Reiting >= 0.5 && i.Reiting < 1.5)
                     Value1++;
@@ -76,10 +89,19 @@ namespace ElectronicShop.ViewModels
             Value4 = Value4 / Feedback.Count * 100;
             Value5 = Value5 / Feedback.Count * 100;
         }
+        
 
-        private async void UpdateProduct()
+        public DelegateCommand AddFeedback => new(async () =>
         {
-        }
+            double rounded = Math.Round(ReitingAddProduct, 1);
+            await _productService.addFeedback(downsideText, dignitiesText, FeedbackText, (float)rounded, SelectProduct.product.IdProduct);
+            downsideText = "";
+            dignitiesText = "";
+            FeedbackText = "";
+            ReitingAddProduct = 0;
+            MessageBox.Show("Комментарий добавлен");
+            UpdateProduct();
+        });
 
         public DelegateCommand Basket => new(() =>
         {

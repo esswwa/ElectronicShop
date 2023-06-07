@@ -132,6 +132,28 @@ namespace ElectronicShop.Services
             await _electronickshopContext.SaveChangesAsync();
         }
 
+        public async Task addFeedback(string downside, string dignities, string comment, float value, int idProduct)
+        {
+            int z = _electronickshopContext.Feedbacks.Max(i => i.Idfeedback) + 1;
+            var check = _electronickshopContext.Feedbacks.Select(i => i.IdProduct == idProduct && i.IdUser == Settings.Default.idUser).First();
+            if (check == false)
+            {
+                await _electronickshopContext.Feedbacks.AddAsync(new Feedback
+                {
+                    Idfeedback = z,
+                    IdProduct = idProduct,
+                    IdUser = Settings.Default.idUser,
+                    Feedbacks = comment,
+                    Reiting = value,
+                    Downside = downside,
+                    Dignities = dignities
+
+                });
+                
+            }
+            await _electronickshopContext.SaveChangesAsync();
+        }
+
         public async Task editHelperBasket(HelperBasket SelectedHelper, bool z)
         {
             ObservableCollection<HelperBasket> helperBasket = getAllHelperBasket();
