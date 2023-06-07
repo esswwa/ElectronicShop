@@ -1,5 +1,6 @@
 ﻿using ElectronicShop.Data;
 using ElectronicShop.Data.Model;
+using ElectronicShop.Models;
 using ElectronicShop.Properties;
 using System;
 using System.Collections.Generic;
@@ -100,6 +101,22 @@ namespace ElectronicShop.Services
             }
             catch { }
             return products;
+        }
+
+        public async Task<List<Feedback>> getFeedbackProduct()
+        {
+            List<Feedback> feedbacks = new List<Feedback>();
+            try
+            {
+                _electronickshopContext.Users.ToList();
+                _electronickshopContext.Feedbacks.ToList();
+                _electronickshopContext.Categories.ToList();
+                var feedbacks1 = await _electronickshopContext.Feedbacks.Where(i => i.IdProduct == SelectProduct.product.IdProduct).ToListAsync();
+                feedbacks = feedbacks1;
+                return feedbacks;
+
+            }
+            catch { return feedbacks; }
         }
 
         public async Task AddHelperBasket(int idHelper_basket, int idBasket, int idProduct, double cost)

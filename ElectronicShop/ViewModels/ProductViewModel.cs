@@ -2,6 +2,8 @@
 using ElectronicShop.Models;
 using ElectronicShop.Properties;
 using ElectronicShop.Services;
+using MaterialDesignColors;
+using Microsoft.VisualBasic;
 using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
@@ -29,6 +31,13 @@ namespace ElectronicShop.ViewModels
         public string Description { get; set; }
         public string CountFeedback { get; set; }
 
+        public double Value5 { get; set; }
+        public double Value4 { get; set; }
+        public double Value3 { get; set; }
+        public double Value2 { get; set; }
+        public double Value1 { get; set; }
+        public List<Feedback> Feedback { get; set; }
+
         public ProductViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
@@ -44,8 +53,36 @@ namespace ElectronicShop.ViewModels
             IsCheckedButton = false;
             CountProduct = SelectProduct.product.CountProduct.ToString();
             Description = SelectProduct.product.Description;
-            CountFeedback = "0";
+            Feedback = Task.Run(async () => await _productService.getFeedbackProduct()).Result;
+            CountFeedback = Feedback.Count.ToString();
+            
+            foreach (var i in Feedback) {
+
+                if (i.Reiting >= 0.5 && i.Reiting < 1.5)
+                    Value1++;
+                if (i.Reiting > 1.5 && i.Reiting < 2.5)
+                    Value2++;
+                if (i.Reiting > 2.5 && i.Reiting < 3.5)
+                    Value3++;
+                if (i.Reiting > 3.5 && i.Reiting < 4.5)
+                    Value4++;
+                if (i.Reiting > 4.5 && i.Reiting <= 5)
+                    Value5++;
+            }
+
+            Value1 = Value1 / Feedback.Count * 100;
+            Value2 = Value2 / Feedback.Count * 100;
+            Value3 = Value3 / Feedback.Count * 100;
+            Value4 = Value4 / Feedback.Count * 100;
+            Value5 = Value5 / Feedback.Count * 100;
+
+            MessageBox.Show(Value1.ToString() + "1", Value5.ToString() + "5");
         }
+
+        private async void UpdateProduct()
+        {
+        }
+
         public DelegateCommand Basket => new(() =>
         {
             _pageService.ChangePage(new BasketPage());

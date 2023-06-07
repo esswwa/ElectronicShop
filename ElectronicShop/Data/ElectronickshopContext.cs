@@ -124,8 +124,16 @@ public partial class ElectronickshopContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("idfeedback");
             entity.Property(e => e.Feedbacks)
-                .HasMaxLength(100)
+                .HasMaxLength(500)
                 .HasColumnName("feedbacks");
+
+            entity.Property(e => e.Downside)
+                .HasMaxLength(500)
+                .HasColumnName("downside");
+
+            entity.Property(e => e.Dignities)
+                .HasMaxLength(500)
+                .HasColumnName("dignities");
             entity.Property(e => e.IdProduct).HasColumnName("idProduct");
             entity.Property(e => e.IdUser).HasColumnName("idUser");
             entity.Property(e => e.Reiting).HasColumnName("reiting");
