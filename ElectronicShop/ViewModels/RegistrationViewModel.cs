@@ -15,6 +15,7 @@ namespace ElectronicShop.ViewModels
         public string Login { get; set; }
         public string Password { get; set; }
         public string ErrorMessage { get; set; }
+        public string adress { get; set; }
         private List<string> _userLogin { get; set; } = new();
         private List<string> _userEmail { get; set; } = new();
         public RegistrationViewModel(UserService userService, PageService pageService)

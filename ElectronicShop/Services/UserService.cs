@@ -28,6 +28,7 @@ namespace ElectronicShop.Services
                 Settings.Default.password = user.Password;
                 Settings.Default.email = user.Email;
                 Settings.Default.roleId = user.RoleId;
+                Settings.Default.Adress = user.Adress;
                 Settings.Default.exitCheck = 1;
                 return true;
             }

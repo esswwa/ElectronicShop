@@ -290,7 +290,7 @@ public partial class ElectronickshopContext : DbContext
                 .HasColumnName("description");
             entity.Property(e => e.FirmProduct).HasColumnName("firmProduct");
             entity.Property(e => e.ImgProduct)
-                .HasMaxLength(45)
+                .HasMaxLength(150)
                 .HasColumnName("imgProduct");
             entity.Property(e => e.NameProduct)
                 .HasMaxLength(150)
@@ -380,6 +380,9 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
                 .HasColumnName("password");
+            entity.Property(e => e.Adress)
+                .HasMaxLength(500)
+                .HasColumnName("adress");
             entity.Property(e => e.RoleId).HasColumnName("roleId");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
@@ -387,7 +390,7 @@ public partial class ElectronickshopContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_usRole");
         });
-
+        
         OnModelCreatingPartial(modelBuilder);
     }
 

@@ -24,6 +24,7 @@ namespace ElectronicShop.ViewModels
                 Settings.Default.password = user.Password;
                 Settings.Default.roleId = user.RoleId;
                 Settings.Default.exitCheck = 1;
+                Settings.Default.Adress = user.Adress;
 
                 _pageService.ChangePage(new MenuPage());
             }

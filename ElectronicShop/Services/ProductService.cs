@@ -1,4 +1,5 @@
-﻿using ElectronicShop.Data;
+﻿using DevExpress.Internal.WinApi.Windows.UI.Notifications;
+using ElectronicShop.Data;
 using ElectronicShop.Data.Model;
 using ElectronicShop.Models;
 using ElectronicShop.Properties;
@@ -21,7 +22,7 @@ namespace ElectronicShop.Services
 
         public async Task<List<Product>> GetProducts()
         {
-            List<Product> products = new();
+            List<Product> products1 = new();
             try
             {
                 _electronickshopContext.Statuses.ToList();
@@ -32,7 +33,7 @@ namespace ElectronicShop.Services
                 {
                     foreach (var item in product)
                     {
-                        products.Add(new Product
+                        products1.Add(new Product
                         {
                             IdProduct = item.IdProduct,
                             NameProduct = item.NameProduct,
@@ -50,13 +51,13 @@ namespace ElectronicShop.Services
                             FirmProductNavigation = item.FirmProductNavigation, 
                             StatusNavigation = item.StatusNavigation
 
-                        }); ;
+                        }); 
                     }
                 });
 
             }
             catch { }
-            return products;
+            return products1;
         }
 
         public async Task<List<Product>> GetFavouriteProducts()
@@ -67,7 +68,7 @@ namespace ElectronicShop.Services
                 _electronickshopContext.Statuses.ToList();
                 _electronickshopContext.Firms.ToList();
                 _electronickshopContext.Categories.ToList();
-                var product = await _electronickshopContext.Products.ToListAsync();
+                var product = _electronickshopContext.Products.ToList();
                 var productFavoutite = await _electronickshopContext.Favourities.Where(i => i.IdUser == Settings.Default.idUser).ToListAsync();
                 await Task.Run(() =>
                 {
@@ -93,7 +94,7 @@ namespace ElectronicShop.Services
                                     FirmProductNavigation = item.FirmProductNavigation,
                                     StatusNavigation = item.StatusNavigation
 
-                                }); ;
+                                });
                         }
                        
                     }
@@ -200,14 +201,55 @@ namespace ElectronicShop.Services
             return _electronickshopContext.HelperBaskets.ToObservableCollection<HelperBasket>();
         }
 
-        //public Task<List<Product>> GetProducts1()
-        //{
-        //    //return await _electronickshopContext.Products.ToListAsync();
-        //}
-
         public HelperBasket getUserHelperBasket(Product SelectedProduct)
         {
             return _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser && i.IdProduct == SelectedProduct.IdProduct).First();
+        }
+
+        public async Task<List<Product>> getUserHelperBasketList()
+        {
+            List<Product> products = new();
+            try
+            {
+                var z = _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser).ToList();
+                _electronickshopContext.Statuses.ToList();
+                _electronickshopContext.Firms.ToList();
+                _electronickshopContext.Categories.ToList();
+                var product = _electronickshopContext.Products.ToList();
+                await Task.Run(() =>
+                {
+                    foreach (var item in product)
+                    {
+                        foreach (var item1 in z)
+                        {
+                            if (item.IdProduct == item1.IdProduct)
+                                    products.Add(new Product
+                                    {
+                                        IdProduct = item.IdProduct,
+                                        NameProduct = item.NameProduct,
+                                        ImgProduct = Path.GetFullPath($@"Resources\Image\{item.ImgProduct}"),
+                                        FirmProduct = item.FirmProduct,
+                                        CostProduct = item.CostProduct,
+                                        CategoryProduct = item.CategoryProduct,
+                                        ReitingProduct = item.ReitingProduct,
+                                        CountProduct = item.CountProduct,
+                                        Status = item.Status,
+                                        Description = item.Description,
+                                        SecondNameProduct = item.SecondNameProduct,
+                                        Article = item.Article,
+                                        CategoryProductNavigation = item.CategoryProductNavigation,
+                                        FirmProductNavigation = item.FirmProductNavigation,
+                                        StatusNavigation = item.StatusNavigation
+
+                                    });
+                        }
+
+                    }
+                });
+
+            }
+            catch { }
+            return products;
         }
 
         public bool getUserHelper(Product product) {

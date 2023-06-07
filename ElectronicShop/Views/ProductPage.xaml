@@ -301,7 +301,7 @@
 
 
                 <materialDesign:Flipper
-                                     MinHeight="200"
+                                     MinHeight="250"
                                      MaxHeight="350"
                                      Grid.Row="2"
                                      Margin="24"
@@ -478,7 +478,7 @@
                 <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp4"
                                      Grid.Row="3"
                                      Margin="15"
-                                     Height="400"
+                                     Height="350"
                                      VerticalAlignment="Center">
                     <ListView FontFamily="{StaticResource pwsFont}"
                               ItemsSource="{Binding Feedback, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
