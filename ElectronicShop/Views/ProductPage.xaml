@@ -160,7 +160,7 @@
         <ScrollViewer Grid.Row="1"
                       Grid.Column="1"
                       Margin="15 0 0 0"
-                      VerticalScrollBarVisibility="Auto">
+                      VerticalScrollBarVisibility="Hidden">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -298,109 +298,199 @@
                         
                     </Grid>
                 </materialDesign:Card>
-                <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2"
+
+
+                <materialDesign:Flipper
+                                     Grid.Row="2"
+                                     Margin="15"
+                                     Padding="16"
+                        VerticalAlignment="Top">
+                    <materialDesign:Flipper.FrontContent>
+                        <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2"
                                      Grid.Row="2"
                                      Margin="15"
                                      Padding="16"
                                      VerticalAlignment="Center">
-                    <Grid Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding NameProduct}"
+                            <Grid Grid.Row="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding NameProduct}"
                                TextWrapping="Wrap"
                                FontSize="18"
                                FontStyle="Italic"
                                Grid.ColumnSpan="1"/>
-                        <StackPanel Grid.Row="1"
+                                <StackPanel Grid.Row="1"
                                     Orientation="Horizontal">
-                            <materialDesign:RatingBar x:Name="BasicRatingBarFractionalPreview1"
+                                    <materialDesign:RatingBar x:Name="BasicRatingBarFractionalPreview1"
                                                       IsReadOnly="True" 
                                                       IsPreviewValueEnabled="True"
                                                       Max="5"
                                                       Min="0" 
                                                       ValueIncrements="0.1"
                                                       Value="{Binding ReitingProduct}"/>
-                            <TextBlock Text="{Binding ReitingProduct1}"
+                                    <TextBlock Text="{Binding ReitingProduct1}"
                                        VerticalAlignment="Center"
                                        FontSize="14"
                                    TextWrapping="Wrap"/>
-                        </StackPanel>
-                        <TextBlock Text="{Binding CountFeedback, StringFormat={}Количество отзывов: {0}}"
+                                </StackPanel>
+                                <TextBlock Text="{Binding CountFeedback, StringFormat={}Количество отзывов: {0}}"
                                TextWrapping="Wrap"
                                Grid.Row="3"/>
-                        <Grid Grid.Column="1"
+                                <Grid Grid.Column="1"
                               Grid.RowSpan="4"
                               Margin="10"
                               Grid.ColumnSpan="2">
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0"
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Grid.Row="0"
                                         Orientation="Horizontal">
-                                <TextBlock Text="5"/>
-                                <ProgressBar Height="10"
+                                        <TextBlock Text="5"/>
+                                        <ProgressBar Height="10"
                                              Margin="5 5 0 0"
                                              MinWidth="100"
                                              Value="{Binding Value5}" />
-                            </StackPanel>
-                            <StackPanel Grid.Row="1"
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1"
                                         Orientation="Horizontal">
-                                <TextBlock Text="4"/>
-                                <ProgressBar Height="10"
+                                        <TextBlock Text="4"/>
+                                        <ProgressBar Height="10"
                                              Margin="5 5 0 0"
                                              MinWidth="100"
                                              Value="{Binding Value4}" />
-                            </StackPanel>
-                            <StackPanel Grid.Row="2"
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2"
                                         Orientation="Horizontal">
-                                <TextBlock Text="3"/>
-                                <ProgressBar Height="10"
+                                        <TextBlock Text="3"/>
+                                        <ProgressBar Height="10"
                                              Margin="5 5 0 0"
                                              MinWidth="100"
                                              Value="{Binding Value3}" />
-                            </StackPanel>
-                            <StackPanel Grid.Row="3"
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="3"
                                         Orientation="Horizontal">
-                                <TextBlock Text="2"/>
-                                <ProgressBar Height="10"
+                                        <TextBlock Text="2"/>
+                                        <ProgressBar Height="10"
                                              Margin="5 5 0 0"
                                              MinWidth="100"
                                              Value="{Binding Value2}" />
-                            </StackPanel>
-                            <StackPanel Grid.Row="4"
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="4"
                                         Orientation="Horizontal">
-                                <TextBlock Text="1"/>
-                                <ProgressBar Height="10"
+                                        <TextBlock Text="1"/>
+                                        <ProgressBar Height="10"
                                              Margin="5 5 0 0"
                                              MinWidth="100"
                                              Value="{Binding Value1}" />
-                            </StackPanel>
-                        </Grid>
-                        <Button Content="Добавить отзыв"
+                                    </StackPanel>
+                                </Grid>
+                                <Button Content="Добавить отзыв"
                                 Grid.Row="1"
                                 Grid.RowSpan="2"
+                                Command="{x:Static materialDesign:Flipper.FlipCommand}"
                                 Grid.Column="4"/>
-                    </Grid>
-                </materialDesign:Card>
+                            </Grid>
+                        </materialDesign:Card>
 
+                    </materialDesign:Flipper.FrontContent>
+                    <materialDesign:Flipper.BackContent>
+                        <Grid
+      Width="200"
+      Height="256">
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+          Height="Auto" />
+                                <RowDefinition
+          Height="*" />
+                            </Grid.RowDefinitions>
+                            <materialDesign:ColorZone
+        Padding="6"
+        Mode="SecondaryMid">
+                                <StackPanel
+          Orientation="Horizontal">
+                                    <Button
+            HorizontalAlignment="Left"
+            Command="{x:Static materialDesign:Flipper.FlipCommand}"
+            Style="{StaticResource MaterialDesignToolForegroundButton}">
+                                        <materialDesign:PackIcon
+              HorizontalAlignment="Right"
+              Kind="ArrowLeft" />
+                                    </Button>
+                                    <TextBlock
+            Margin="8,0,0,0"
+            VerticalAlignment="Center"
+            Text="EDIT USER" />
+                                </StackPanel>
+                            </materialDesign:ColorZone>
+                            <Grid
+        Grid.Row="1"
+        Width="172"
+        Margin="0,6,0,0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBox
+          Margin="0,12,0,0"
+          materialDesign:HintAssist.Hint="First name"
+          materialDesign:HintAssist.IsFloating="True"
+          Text="James" />
+                                <TextBox
+          Grid.Row="1"
+          Margin="0,12,0,0"
+          materialDesign:HintAssist.Hint="Last name"
+          materialDesign:HintAssist.IsFloating="True"
+          Text="Willock" />
+                                <StackPanel
+          Grid.Row="2"
+          Margin="0,12,0,0"
+          HorizontalAlignment="Right"
+          Orientation="Horizontal">
+                                    <TextBlock
+            VerticalAlignment="Center"
+            Text="Email Contact" />
+                                    <ToggleButton
+            Margin="8,0,0,0" />
+                                </StackPanel>
+                                <StackPanel
+          Grid.Row="3"
+          Margin="0,12,0,0"
+          HorizontalAlignment="Right"
+          Orientation="Horizontal">
+                                    <TextBlock
+            VerticalAlignment="Center"
+            Text="Telephone Contact" />
+                                    <ToggleButton
+            Margin="8,0,0,0" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Flipper.BackContent>
+                </materialDesign:Flipper>
+                
                 <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp4"
                                      Grid.Row="3"
                                      Margin="15"
+                                     Height="400"
                                      VerticalAlignment="Center">
                     <ListView FontFamily="{StaticResource pwsFont}"
                               ItemsSource="{Binding Feedback, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
