@@ -354,7 +354,7 @@
                                         Orientation="Horizontal">
                                 <TextBlock Text="5"/>
                                 <ProgressBar Height="10"
-                                             Margin="0 5 0 0"
+                                             Margin="5 5 0 0"
                                              MinWidth="100"
                                              Value="{Binding Value5}" />
                             </StackPanel>
@@ -362,7 +362,7 @@
                                         Orientation="Horizontal">
                                 <TextBlock Text="4"/>
                                 <ProgressBar Height="10"
-                                             Margin="0 5 0 0"
+                                             Margin="5 5 0 0"
                                              MinWidth="100"
                                              Value="{Binding Value4}" />
                             </StackPanel>
@@ -370,7 +370,7 @@
                                         Orientation="Horizontal">
                                 <TextBlock Text="3"/>
                                 <ProgressBar Height="10"
-                                             Margin="0 5 0 0"
+                                             Margin="5 5 0 0"
                                              MinWidth="100"
                                              Value="{Binding Value3}" />
                             </StackPanel>
@@ -378,7 +378,7 @@
                                         Orientation="Horizontal">
                                 <TextBlock Text="2"/>
                                 <ProgressBar Height="10"
-                                             Margin="0 5 0 0"
+                                             Margin="5 5 0 0"
                                              MinWidth="100"
                                              Value="{Binding Value2}" />
                             </StackPanel>
@@ -386,7 +386,7 @@
                                         Orientation="Horizontal">
                                 <TextBlock Text="1"/>
                                 <ProgressBar Height="10"
-                                             Margin="0 5 0 0"
+                                             Margin="5 5 0 0"
                                              MinWidth="100"
                                              Value="{Binding Value1}" />
                             </StackPanel>
