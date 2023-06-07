@@ -160,7 +160,7 @@
         <ScrollViewer Grid.Row="1"
                       Grid.Column="1"
                       Margin="15 0 0 0"
-                      VerticalScrollBarVisibility="Hidden">
+                      VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -398,102 +398,98 @@
                     </Grid>
                 </materialDesign:Card>
 
-                <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2"
+                <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp4"
                                      Grid.Row="3"
                                      Margin="15"
                                      VerticalAlignment="Center">
-                    <ScrollViewer Grid.Row="1"
-                                  Grid.RowSpan="2"
-                                  Grid.Column="1">
-                        <ListView FontFamily="{StaticResource pwsFont}"
+                    <ListView FontFamily="{StaticResource pwsFont}"
                               ItemsSource="{Binding Feedback, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               SelectedItem="{Binding SelectedFeedback, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                               HorizontalContentAlignment="Stretch"
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               d:ItemsSource="{d:SampleData ItemCount=5}">
 
-                            <ListView.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="Удалить"
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Удалить"
                                   Command="{Binding addInBasket}"/>
-                                    <MenuItem Header="Комментарий"
+                                <MenuItem Header="Комментарий"
                                   Command="{Binding addInBasket}"/>
-                                </ContextMenu>
-                            </ListView.ContextMenu>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
 
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <materialDesign:Card Background="White"
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <materialDesign:Card Background="White"
                                              Margin="30"
                                              Height="250"
                                              Padding="16"
                                              HorizontalContentAlignment="Stretch">
-                                        <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                                            <Grid VerticalAlignment="Center">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="auto"/>
-                                                    <RowDefinition Height="auto"/>
-                                                    <RowDefinition Height="auto"/>
-                                                    <RowDefinition Height="auto"/>
-                                                    <RowDefinition Height="auto"/>
-                                                    <RowDefinition Height="auto"/>
-                                                </Grid.RowDefinitions>
-                                                <StackPanel Grid.Row="0"
+                                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                                        <Grid VerticalAlignment="Center">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition Height="auto"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Grid.Row="0"
                                                         Orientation="Horizontal">
-                                                    <TextBlock TextWrapping="Wrap"
+                                                <TextBlock TextWrapping="Wrap"
                                                            FontSize="18"
                                                            FontStyle="Italic"
                                                            Margin="0 0 10 0"
                                                            Text="{Binding IdUserNavigation.Login}"/>
-                                                    <TextBlock Text="Оценка: "
+                                                <TextBlock Text="Оценка: "
                                                            VerticalAlignment="Center"/>
-                                                    <materialDesign:RatingBar x:Name="BasicRatingBarFractionalPreview"
+                                                <materialDesign:RatingBar x:Name="BasicRatingBarFractionalPreview"
                                                                       IsReadOnly="True" 
                                                                       IsPreviewValueEnabled="True"
                                                                       Max="5"
                                                                       Min="0" 
                                                                       ValueIncrements="0.1"
                                                                       Value="{Binding Reiting}"/>
-                                                    <TextBlock Margin="0 5 0 0"
+                                                <TextBlock Margin="0 5 0 0"
                                                        Text="{Binding Reiting}"/>
-                                                </StackPanel>
-                                                <StackPanel Grid.Row="2"
+                                            </StackPanel>
+                                            <StackPanel Grid.Row="2"
                                                     Orientation="Vertical"
                                                     Margin="0 15 0 0">
-                                                    <TextBlock FontSize="18"
+                                                <TextBlock FontSize="18"
                                                        FontStyle="Italic"
                                                        Text="Достоинства"/>
-                                                    <TextBlock Margin="0 5 0 0"
+                                                <TextBlock Margin="0 5 0 0"
                                                        Text="{Binding Dignities}"
                                                        TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                                <StackPanel Grid.Row="3"
+                                            </StackPanel>
+                                            <StackPanel Grid.Row="3"
                                                     Orientation="Vertical"
                                                     Margin="0 15 0 0">
-                                                    <TextBlock FontSize="18"
+                                                <TextBlock FontSize="18"
                                                        FontStyle="Italic"
                                                        Text="Недостатки"/>
-                                                    <TextBlock Margin="0 5 0 0"
+                                                <TextBlock Margin="0 5 0 0"
                                                        Text="{Binding Downside}"
                                                        TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                                <StackPanel Grid.Row="4"
+                                            </StackPanel>
+                                            <StackPanel Grid.Row="4"
                                                     Orientation="Vertical"
                                                     Margin="0 15 0 0">
-                                                    <TextBlock FontSize="18"
+                                                <TextBlock FontSize="18"
                                                        FontStyle="Italic"
                                                        Text="Комментарий"/>
-                                                    <TextBlock Margin="0 5 0 0"
+                                                <TextBlock Margin="0 5 0 0"
                                                        Text="{Binding Feedbacks}"
                                                        TextWrapping="Wrap"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </ScrollViewer>
-                                    </materialDesign:Card>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </ScrollViewer>
+                                            </StackPanel>
+                                        </Grid>
+                                    </ScrollViewer>
+                                </materialDesign:Card>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </materialDesign:Card>
             </Grid>
         </ScrollViewer>
