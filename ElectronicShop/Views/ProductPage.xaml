@@ -301,13 +301,15 @@
 
 
                 <materialDesign:Flipper
+                                     MinHeight="200"
+                                     MaxHeight="350"
                                      Grid.Row="2"
                                      Margin="24"
                                      Padding="16">
                     <materialDesign:Flipper.FrontContent>
                         <materialDesign:Card 
                                      Padding="16"
-                                     VerticalAlignment="Center">
+                                     VerticalAlignment="Bottom">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
