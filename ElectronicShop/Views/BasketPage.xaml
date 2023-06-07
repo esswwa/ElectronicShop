@@ -230,6 +230,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Оформление заказа"
                            FontSize="16"/>
@@ -239,11 +240,14 @@
                            Margin="0 5 0 0"/>
                 <TextBlock Grid.Row="2"
                            Margin="0 5 0 0"
-                           Text="{Binding CountProduct, StringFormat={}Товаров: {0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                           Text="{Binding CountProduct1, StringFormat={}Количество товаров: {0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Grid.Row="3"
                            Margin="0 5 0 0"
+                           Text="{Binding CountProduct, StringFormat={}Количество экземпляров товаров: {0}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Grid.Row="4"
+                           Margin="0 5 0 0"
                            Text="{Binding CostProduct, StringFormat={}Итого: {0} ₽, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                <Button Grid.Row="4"
+                <Button Grid.Row="5"
                            Margin="0 5 0 0"
                         Content="Перейти к оформлению"
                         Command="{Binding buyProduct}"/>

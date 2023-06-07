@@ -7,8 +7,10 @@ using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ElectronicShop.Services
 {
@@ -48,10 +50,10 @@ namespace ElectronicShop.Services
                             SecondNameProduct = item.SecondNameProduct,
                             Article = item.Article,
                             CategoryProductNavigation = item.CategoryProductNavigation,
-                            FirmProductNavigation = item.FirmProductNavigation, 
+                            FirmProductNavigation = item.FirmProductNavigation,
                             StatusNavigation = item.StatusNavigation
 
-                        }); 
+                        });
                     }
                 });
 
@@ -96,7 +98,7 @@ namespace ElectronicShop.Services
 
                                 });
                         }
-                       
+
                     }
                 });
 
@@ -163,7 +165,7 @@ namespace ElectronicShop.Services
                     Dignities = dignities
 
                 });
-                
+
             }
             await _electronickshopContext.SaveChangesAsync();
         }
@@ -186,12 +188,12 @@ namespace ElectronicShop.Services
                     item.Cost = item.Cost - SelectedHelper.IdProductNavigation.CostProduct;
                     helperBasket.RemoveAt(index);
                     helperBasket.Insert(index, item);
-                    
+
                 }
                 else {
                     helperBasket.RemoveAt(index);
                 }
-                
+
             }
             await _electronickshopContext.SaveChangesAsync();
         }
@@ -201,9 +203,14 @@ namespace ElectronicShop.Services
             return _electronickshopContext.HelperBaskets.ToObservableCollection<HelperBasket>();
         }
 
-        public HelperBasket getUserHelperBasket(Product SelectedProduct)
+        public HelperBasket getUserHelperBasket(Product IdProduct)
         {
-            return _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser && i.IdProduct == SelectedProduct.IdProduct).First();
+            return _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser && i.IdProduct == IdProduct.IdProduct).First();
+        }
+
+        public async Task<List<HelperBasket>> getAllHelperBasketUser() {
+
+            return await _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser).ToListAsync();
         }
 
         public async Task<List<Product>> getUserHelperBasketList()
@@ -260,69 +267,32 @@ namespace ElectronicShop.Services
             else
                 return false;
         }
-
-
         public int GetMaxHelper()
         {
 
             return _electronickshopContext.HelperBaskets.Max(u => u.IdhelperBasket);
         }
 
-        //public bool checkProduct() { 
+        public async Task deleteBasketProduct(HelperBasket SelectedProduct)
+        {
+            ObservableCollection<HelperBasket> Helpers = _electronickshopContext.HelperBaskets.ToObservableCollection();
 
-        //}
-
-        //public async Task<List<Product>> getBasket()
-        //{
-
-        //    List<Product> a = new();
-        //    var b = await GetProducts();
-
-        //    foreach (var item in Global.CurrentCart)
-        //    {
-        //        var product = b.SingleOrDefault(c => c.Article.Equals(item.ArticleName));
-        //        if (product != null)
-        //        {
-        //            product.Count = Global.CurrentCart.Single(a => a.ArticleName.Equals(product.Article)).Count;
-        //            a.Add(product);
-        //        }
-        //    }
-        //    return a;
-        //}
-        //public async Task<List<Point>> GetPoints() => await _electronickshopContext.Pickuppoints.AsNoTracking().ToListAsync();
-        //public async Task<int> AddOrder(Order order)
-        //{
-        //    await _electronickshopContext.Orderusers.AddAsync(order);
-        //    await _electronickshopContext.SaveChangesAsync();
-
-        //    foreach (var item in Global.CurrentCart)
-        //    {
-        //        await _electronickshopContext.Orderproducts.AddAsync(new Orderproduct
-        //        {
-        //            OrderId = order.OrderId,
-        //            ProductArticleNumber = item.ArticleName,
-        //            ProductCount = item.Count
-        //        });
-        //        await _electronickshopContext.SaveChangesAsync();
-        //    }
-        //    return order.OrderId;
-        //}
-
-        //public async Task<List<Product>> GetListFullInformation()
-        //{
-        //    var currentProduct = await GetProducts();
-        //    List<Product> product = new();
-        //    foreach (var item in currentProduct)
-        //    {
-        //        if (Global.CurrentCart.FirstOrDefault(c => c.ArticleName.Equals(item.Article)) != null)
-        //            product.Add(item);
-        //    }
-        //    return product;
-        //}
+            var item = Helpers.First(i => i.IdhelperBasket == SelectedProduct.IdhelperBasket);
+            var index = Helpers.IndexOf(item);
+            if (item.Count > 1)
+            {
+                double x = item.Cost;
+                x = x / (double)item.Count;
+                item.Count = item.Count - 1;
+                item.Cost = item.Cost - x;
+                Helpers.RemoveAt(index);
+                Helpers.Insert(index, item);
+            }
+            else {
+                System.Windows.MessageBox.Show("Remove");
+                Helpers.RemoveAt(index);
+            }
+            await _electronickshopContext.SaveChangesAsync();
+        }
     }
-
-
-
-
-
 }

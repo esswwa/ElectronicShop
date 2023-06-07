@@ -1,5 +1,6 @@
 ﻿using ElectronicShop.Models;
 using ElectronicShop.Properties;
+using ElectronicShop.Services;
 using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,8 @@ namespace ElectronicShop.ViewModels
 
         public string CostProduct { get; set; }
 
+        public string CountProduct1 { get; set; }
+
         public BasketViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
@@ -37,14 +40,23 @@ namespace ElectronicShop.ViewModels
         private async void UpdateProduct()
         {
             var currentProduct = await _productService.getUserHelperBasketList();
-           
             Products = currentProduct;
-            int cost = 0;
+            var Helpers = Task.Run(async () => await _productService.getAllHelperBasketUser()).Result;
+            double cost = 0;
+            int Count = 0;
             foreach (var product in Products)
             {
-                cost += product.CostProduct;
+                foreach (var index in Helpers) {
+
+                    if (index.IdProduct == product.IdProduct)
+                    {
+                        cost += index.Cost;
+                        Count += index.Count;
+                    }
+                }
             }
             CountProduct = Products.Count.ToString();
+            CountProduct1 = Count.ToString();
             CostProduct = cost.ToString();
             Adress = Settings.Default.Adress;
         }
@@ -66,5 +78,29 @@ namespace ElectronicShop.ViewModels
             _pageService.ChangePage(new OrderPage());
         });
 
+        public DelegateCommand buyFastProduct => new(() =>
+        {
+            _pageService.ChangePage(new OrderPage());
+        });
+
+        
+        public DelegateCommand addInBasket => new(async () =>
+        {
+            int maxHelper = _productService.GetMaxHelper() + 1;
+            bool z = _productService.getUserHelper(SelectedProduct);
+            if (z == true)
+                await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
+            else
+                await _productService.editHelperBasket(_productService.getUserHelperBasket(SelectedProduct), true);
+            UpdateProduct();
+        });
+        public DelegateCommand deleteFromBasket => new(async () =>
+        {
+            HelperBasket SelectedHelp = _productService.getUserHelperBasket(SelectedProduct);
+            await _productService.deleteBasketProduct(SelectedHelp);
+            UpdateProduct();
+        });
+
+        
     }
 }

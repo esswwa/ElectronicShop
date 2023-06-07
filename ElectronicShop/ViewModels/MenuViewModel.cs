@@ -112,7 +112,6 @@ namespace ElectronicShop.ViewModels
             }
             product1 = Task.Run(async () => await _productService.GetProducts()).Result;
             commandCategories = new DelegateCommand<string>(TheoryMethod);
-            UpdateProduct("gfd");
         }
         List<string> strings = new List<string>();
 
