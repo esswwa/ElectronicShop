@@ -35,7 +35,7 @@ namespace ElectronicShop.Services
             return false;
         }
 
-        public async Task RegistrationAsync(int idUser, string login, string email, string password)
+        public async Task RegistrationAsync(int idUser, string login, string email, string password, string adress)
         {
 
             await _electronickshopContext.Users.AddAsync(new User
@@ -45,7 +45,8 @@ namespace ElectronicShop.Services
                 Email = email,
                 Password = password,
                 RoleId = 0, 
-                ExitCheck = 0
+                ExitCheck = 0,
+                Adress= adress
             });
             await _electronickshopContext.SaveChangesAsync();
         }
