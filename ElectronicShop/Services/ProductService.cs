@@ -192,6 +192,7 @@ namespace ElectronicShop.Services
                 }
                 else {
                     helperBasket.RemoveAt(index);
+                    _electronickshopContext.HelperBaskets.Remove(item);
                 }
 
             }
@@ -269,30 +270,38 @@ namespace ElectronicShop.Services
         }
         public int GetMaxHelper()
         {
-
-            return _electronickshopContext.HelperBaskets.Max(u => u.IdhelperBasket);
-        }
-
-        public async Task deleteBasketProduct(HelperBasket SelectedProduct)
-        {
-            ObservableCollection<HelperBasket> Helpers = _electronickshopContext.HelperBaskets.ToObservableCollection();
-
-            var item = Helpers.First(i => i.IdhelperBasket == SelectedProduct.IdhelperBasket);
-            var index = Helpers.IndexOf(item);
-            if (item.Count > 1)
+            var z = _electronickshopContext.HelperBaskets.Select(u => u.IdhelperBasket).FirstOrDefault();
+            if (z != 0)
             {
-                double x = item.Cost;
-                x = x / (double)item.Count;
-                item.Count = item.Count - 1;
-                item.Cost = item.Cost - x;
-                Helpers.RemoveAt(index);
-                Helpers.Insert(index, item);
+
+                var b = _electronickshopContext.HelperBaskets.Max(u => u.IdhelperBasket);
+                return b;
             }
-            else {
-                System.Windows.MessageBox.Show("Remove");
-                Helpers.RemoveAt(index);
-            }
-            await _electronickshopContext.SaveChangesAsync();
+            else
+                return 0;
         }
+
+        //public async Task deleteBasketProduct(HelperBasket SelectedProduct)
+        //{
+        //    ObservableCollection<HelperBasket> Helpers = getAllHelperBasket();
+
+        //    var item = Helpers.First(i => i.IdhelperBasket == SelectedProduct.IdhelperBasket);
+        //    var index = Helpers.IndexOf(item);
+        //    if (item.Count > 1)
+        //    {
+        //        double x = item.Cost;
+        //        x = x / (double)item.Count;
+        //        item.Count = item.Count - 1;
+        //        item.Cost = item.Cost - x;
+        //        item.Cost = Math.Round(item.Cost, 2);
+        //        Helpers.RemoveAt(index);
+        //        Helpers.Insert(index, item);
+        //    }
+        //    else {
+        //        System.Windows.MessageBox.Show("Remove");
+        //        Helpers.RemoveAt(index);
+        //    }
+        //    await _electronickshopContext.SaveChangesAsync();
+        //}
     }
 }

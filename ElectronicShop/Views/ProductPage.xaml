@@ -251,7 +251,8 @@
                                     <Button Content="Добавить в корзину"
                                             Grid.Row="0"
                                             Grid.Column="3"
-                                            Command="{Binding AddToBasket}"/>
+                                            Command="{Binding AddToBasket}"
+                                            />
                                     <StackPanel Grid.Row="1"
                                         Margin="0 6 0 0"
                                         Orientation="Horizontal">

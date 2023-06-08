@@ -30,7 +30,10 @@ namespace ElectronicShop.ViewModels
                 if (await _userService.AuthorizationAsync(Username, Password))
                 {
                     _userService.UpdateProduct();
-                    await Application.Current.Dispatcher.InvokeAsync(async () => _pageService.ChangePage(new MenuPage()));
+                    await Application.Current.Dispatcher.InvokeAsync(async () => 
+                    {
+                        _pageService.ChangePage(new MenuPage());
+                    });
                     
                 }
                 else
@@ -52,9 +55,7 @@ namespace ElectronicShop.ViewModels
             return ErrorMessage == string.Empty;
         });
 
-        public DelegateCommand Registration => new(async () => {
 
-            await Application.Current.Dispatcher.InvokeAsync(async () => _pageService.ChangePage(new RegistrationPage()));
-        }); 
+        public DelegateCommand Registration => new(() => _pageService.ChangePage(new RegistrationPage()));
     }
 }

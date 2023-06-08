@@ -592,7 +592,7 @@
                                         Foreground="#424874"
                                         Style="{StaticResource MaterialDesignFlatButton}" />
                                     <Button HorizontalAlignment="Center"
-                                        Command="{Binding ExitAcc}"
+                                        Command="{Binding ExitAcc, IsAsync=True}"
                                         Content="Выйти из аккаунта"
                                         Foreground="#424874"
                                         Style="{StaticResource MaterialDesignFlatButton}" />

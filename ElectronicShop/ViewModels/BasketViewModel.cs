@@ -86,7 +86,11 @@ namespace ElectronicShop.ViewModels
         
         public DelegateCommand addInBasket => new(async () =>
         {
-            int maxHelper = _productService.GetMaxHelper() + 1;
+            int maxHelper = 0;
+            if (_productService.GetMaxHelper() > 0)
+                maxHelper = _productService.GetMaxHelper() + 1;
+            else
+                maxHelper = 0;
             bool z = _productService.getUserHelper(SelectedProduct);
             if (z == true)
                 await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
@@ -96,9 +100,18 @@ namespace ElectronicShop.ViewModels
         });
         public DelegateCommand deleteFromBasket => new(async () =>
         {
-            HelperBasket SelectedHelp = _productService.getUserHelperBasket(SelectedProduct);
-            await _productService.deleteBasketProduct(SelectedHelp);
+
+            //int maxHelper = _productService.GetMaxHelper() + 1;
+            //bool z = _productService.getUserHelper(SelectedProduct);
+            //if (z == true)
+            //    await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
+            //else
+            await _productService.editHelperBasket(_productService.getUserHelperBasket(SelectedProduct), false);
             UpdateProduct();
+
+            //HelperBasket SelectedHelp = _productService.getUserHelperBasket(SelectedProduct);
+            //await _productService.deleteBasketProduct(SelectedHelp);
+            //UpdateProduct();
         });
 
         
