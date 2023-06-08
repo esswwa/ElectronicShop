@@ -211,7 +211,7 @@
                                         Content="Купить быстро"
                                         BorderBrush="#CCE0FF"
                                         Background="#CCE0FF"
-                                        Command="{Binding buyFastProduct}"/>
+                                        Command="{Binding DataContext.buyFastProduct, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"/>
                             </Grid>
                         </Grid>
                     </materialDesign:Card>
