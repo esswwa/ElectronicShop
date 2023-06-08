@@ -109,6 +109,7 @@ namespace ElectronicShop.ViewModels
                 Email = Settings.Default.email;
             }
             //product1 = _productService.GetProducts();
+            UpdateProduct();
             commandCategories = new DelegateCommand<string>(TheoryMethod);
         }
         List<string> strings = new List<string>();
@@ -130,22 +131,19 @@ namespace ElectronicShop.ViewModels
                 if (z && strings.Count > 1)
                 {
                     strings.Remove(parametr);
-                    UpdateProduct();
                 }
                 else if (z && strings.Count == 1) {
                     strings.Remove(parametr);
-                    UpdateProduct();
                 }
                 else
                 {
                     strings.Add(parametr);
-                    UpdateProduct();
                 }
             }
             else {
                 strings.Add(parametr);
-                UpdateProduct();
             }
+            UpdateProduct();
         }
 
       
