@@ -6,6 +6,8 @@ using ElectronicShop.Properties;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -107,16 +109,22 @@ namespace ElectronicShop.Services
             return products;
         }
 
-        public async void UpdateProductReiting()
+        public async void UpdateProductReiting(int idProduct)
         {
-            //var currentOrders = await GetProducts1();
-            //Users = new ObservableCollection<User>(currentOrders);
-            //var item = Users.First(i => i.Iduser == Settings.Default.idUser);
-            //var index = Users.IndexOf(item);
-            //item.ExitCheck = Settings.Default.exitCheck;
-            //Users.RemoveAt(index);
-            //Users.Insert(index, item);
-            //await _electronickshopContext.SaveChangesAsync();
+            List<Feedback> cur = _electronickshopContext.Feedbacks.Where(i => i.IdProduct == idProduct).ToList();
+            double z = 0;
+            foreach (var i in cur)
+            {
+                z += (double)i.Reiting;
+            }
+            z = Math.Round(z / cur.Count, 2);
+            ObservableCollection<Product> prod = _electronickshopContext.Products.ToObservableCollection();
+            var item = prod.First(i => i.IdProduct == idProduct);
+            var index = prod.IndexOf(item);
+            item.ReitingProduct = (float)z;
+            prod.RemoveAt(index);
+            prod.Insert(index, item);
+            await _electronickshopContext.SaveChangesAsync();
         }
 
         public async Task<List<Feedback>> getFeedbackProduct()

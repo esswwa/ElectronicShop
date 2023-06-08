@@ -95,6 +95,7 @@ namespace ElectronicShop.ViewModels
         {
             double rounded = Math.Round(ReitingAddProduct, 1);
             await _productService.addFeedback(downsideText, dignitiesText, FeedbackText, (float)rounded, SelectProduct.product.IdProduct);
+            _productService.UpdateProductReiting(SelectProduct.product.IdProduct);
             downsideText = "";
             dignitiesText = "";
             FeedbackText = "";
