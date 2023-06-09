@@ -83,6 +83,7 @@
             else
                 maxHelper = 0;
             bool z = _productService.getUserHelper(SelectedProduct);
+            MessageBox.Show(maxHelper.ToString());
             if (z == true)
                 await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
             else

@@ -193,7 +193,7 @@ namespace ElectronicShop.Services
         }
         public async Task AddFavourites(int idProduct)
         {
-            var idHelp = _electronickshopContext.Favourities.Max(i => i.IdProduct);
+            var idHelp = _electronickshopContext.Favourities.Max(i => i.Idfavourities);
             await _electronickshopContext.Favourities.AddAsync(new Favourity
             {
                 Idfavourities = idHelp + 1,
@@ -233,6 +233,21 @@ namespace ElectronicShop.Services
             }
             await _electronickshopContext.SaveChangesAsync();
         }
+
+        public async Task deleteFavourite(Product SelectedFavourite)
+        {
+            ObservableCollection<Favourity> Favourite = _electronickshopContext.Favourities.ToObservableCollection();
+            var item = Favourite.First(i => i.IdProduct == SelectedFavourite.IdProduct && Settings.Default.idUser == i.IdUser);
+            if(item != null)
+            {
+                var index = Favourite.IndexOf(item);
+                Favourite.RemoveAt(index);
+                _electronickshopContext.Favourities.Remove(item);
+                await _electronickshopContext.SaveChangesAsync();
+            }
+            
+        }
+
 
         public async Task editHelperBasket(HelperBasket SelectedHelper, bool z)
         {
@@ -334,10 +349,9 @@ namespace ElectronicShop.Services
         }
         public int GetMaxHelper()
         {
-            var z = _electronickshopContext.HelperBaskets.Select(u => u.IdhelperBasket).FirstOrDefault();
+            var z = _electronickshopContext.HelperBaskets.Max(u => u.IdhelperBasket);
             if (z != 0)
             {
-
                 var b = _electronickshopContext.HelperBaskets.Max(u => u.IdhelperBasket);
                 return b;
             }

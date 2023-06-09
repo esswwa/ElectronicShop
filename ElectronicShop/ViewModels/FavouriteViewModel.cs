@@ -146,20 +146,6 @@ namespace ElectronicShop.ViewModels
             UpdateProduct();
         }
 
-
-        public DelegateCommand addInFavourite => new(() =>
-        {
-        });
-        public DelegateCommand addInBasket => new(async() =>
-        {
-            int maxHelper = _productService.GetMaxHelper() + 1;
-            bool z = _productService.getUserHelper(SelectedProduct);
-            if (z == true)
-                await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
-            else
-                await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), true);
-        });
-
         List<Product> currentProduct;
 
         private async void UpdateProduct()
@@ -239,6 +225,22 @@ namespace ElectronicShop.ViewModels
 
 
         }
+
+
+        public DelegateCommand deleteFavourite => new(async () =>
+        {
+            await _productService.deleteFavourite(SelectedProduct);
+            UpdateProduct();
+        });
+        public DelegateCommand addInBasket => new(async () =>
+        {
+            int maxHelper = _productService.GetMaxHelper() + 1;
+            bool z = _productService.getUserHelper(SelectedProduct);
+            if (z == true)
+                await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
+            else
+                await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), true);
+        });
 
         public DelegateCommand Basket => new(() => _pageService.ChangePage(new BasketPage()));
         public DelegateCommand Order => new(() => _pageService.ChangePage(new OrderPage()));

@@ -50,8 +50,8 @@
 
                     <MenuItem Header="Добавить в корзину"
                                   Command="{Binding addInBasket}"/>
-                    <MenuItem Header="Добавить в избранные"
-                                  Command="{Binding addInFavourite}"/>
+                    <MenuItem Header="Удалить из избранных"
+                                  Command="{Binding deleteFavourite}"/>
                     <MenuItem Header="Продукт"
                                   Command="{Binding buyProduct}"/>
                 </ContextMenu>
@@ -137,7 +137,7 @@
                                             BorderBrush="#CCE0FF"
                                             Background="#CCE0FF"
                                             Foreground="#424874"
-                                            Command="{Binding buyProduct}"/>
+                                            Command="{Binding DataContext.buyProduct,RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"/>
                                 </StackPanel>
                             </Grid>
                         </Grid>
