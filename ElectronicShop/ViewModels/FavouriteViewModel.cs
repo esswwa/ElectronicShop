@@ -150,14 +150,14 @@ namespace ElectronicShop.ViewModels
         public DelegateCommand addInFavourite => new(() =>
         {
         });
-        public DelegateCommand addInBasket => new(() =>
+        public DelegateCommand addInBasket => new(async() =>
         {
             int maxHelper = _productService.GetMaxHelper() + 1;
             bool z = _productService.getUserHelper(SelectedProduct);
             if (z == true)
-                _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
+                await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
             else
-                _productService.editHelperBasket(_productService.getUserHelperBasket(SelectedProduct), true);
+                await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), true);
         });
 
         List<Product> currentProduct;
@@ -247,6 +247,10 @@ namespace ElectronicShop.ViewModels
         {
             SelectProduct.product = SelectedProduct;
             _pageService.ChangePage(new ProductPage());
+        });
+        public DelegateCommand MenuPage => new(() =>
+        {
+            _pageService.ChangePage(new MenuPage());
         });
         public DelegateCommand ExitAcc => new(() =>
         {

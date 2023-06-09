@@ -1,27 +1,22 @@
 ﻿using DevExpress.Internal.WinApi.Windows.UI.Notifications;
-using ElectronicShop.Data;
-using ElectronicShop.Data.Model;
+using AutoMapper;
 using ElectronicShop.Models;
-using ElectronicShop.Properties;
-using Microsoft.VisualBasic.ApplicationServices;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using ElectronicShop.Data.Model;
 
 namespace ElectronicShop.Services
 {
     public class ProductService
     {
+        private readonly IMapper _mapper;
         private readonly ElectronickshopContext _electronickshopContext;
         public ProductService(ElectronickshopContext electronickshopContext)
         {
             _electronickshopContext = electronickshopContext;
+            _mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Product, DbProduct>();
+            }).CreateMapper();
+
         }
 
         public async Task<List<Product>> GetProducts()
@@ -78,7 +73,8 @@ namespace ElectronicShop.Services
                 {
                     foreach (var item in product)
                     {
-                        foreach (var item1 in productFavoutite) {
+                        foreach (var item1 in productFavoutite)
+                        {
                             if (item.IdProduct == item1.IdProduct)
                                 products.Add(new Product
                                 {
@@ -108,6 +104,46 @@ namespace ElectronicShop.Services
             catch { }
             return products;
         }
+
+        //public async Task<List<DbProduct>> GetProducts2()
+        //{
+        //    List<DbProduct> dbProduct = new();
+        //    try
+        //    {
+        //        await _electronickshopContext.Statuses.ToListAsync();
+        //        await _electronickshopContext.Firms.ToListAsync();
+        //        await _electronickshopContext.Categories.ToListAsync();
+        //        dbProduct = _mapper.Map<List<DbProduct>>(await _electronickshopContext.Products.ToListAsync());
+        //    }
+        //    catch { }
+        //    return dbProduct;
+        //}
+
+        //public async Task<List<DbProduct>> GetFavouriteProducts()
+        //{
+        //    List<DbProduct> dbProducts = new();
+        //    var currentProducts = await GetProducts2();
+        //    await Task.Delay(200);
+        //    var productFavoutite = await _electronickshopContext.Favourities.Where(i => i.IdUser == Settings.Default.idUser).AsNoTracking().ToListAsync();
+        //    foreach (var product in currentProducts)
+        //    {
+        //        foreach (var item in productFavoutite)
+        //        {
+        //            var productBasketCheck = await getUserHelperBasket(product);
+        //                if (item.IdProduct == product.IdProduct)
+        //                {
+        //                    product.IsChekedFavourite = true;
+        //                    if (productBasketCheck != null)
+        //                        product.IsChekedBasket = true;
+        //                    else
+        //                        product.IsChekedBasket = false;
+        //                    dbProducts.Add(product);
+        //                }
+        //        }
+        //    }
+
+        //    return dbProducts;
+        //}
 
         public async void UpdateProductReiting(int idProduct)
         {
@@ -154,6 +190,26 @@ namespace ElectronicShop.Services
                 Cost = cost
             });
             await _electronickshopContext.SaveChangesAsync();
+        }
+        public async Task AddFavourites(int idProduct)
+        {
+            var idHelp = _electronickshopContext.Favourities.Max(i => i.IdProduct);
+            await _electronickshopContext.Favourities.AddAsync(new Favourity
+            {
+                Idfavourities = idHelp + 1,
+                IdUser = Settings.Default.idUser,
+                IdProduct = idProduct
+            });
+            await _electronickshopContext.SaveChangesAsync();
+        }
+
+        public bool getAddFavourites(int idProduct)
+        {
+            var z = _electronickshopContext.Favourities.ToList();
+            if (z.Where(i => i.IdProduct == idProduct && i.IdUser == Settings.Default.idUser).FirstOrDefault() == null)
+                return true;
+            else
+                return false;
         }
 
         public async Task addFeedback(string downside, string dignities, string comment, float value, int idProduct)
@@ -212,9 +268,9 @@ namespace ElectronicShop.Services
             return _electronickshopContext.HelperBaskets.ToObservableCollection<HelperBasket>();
         }
 
-        public HelperBasket getUserHelperBasket(Product IdProduct)
+        public async Task<HelperBasket> getUserHelperBasket(Product IdProduct)
         {
-            return _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser && i.IdProduct == IdProduct.IdProduct).First();
+            return await _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser && i.IdProduct == IdProduct.IdProduct).FirstOrDefaultAsync();
         }
 
         public async Task<List<HelperBasket>> getAllHelperBasketUser() {

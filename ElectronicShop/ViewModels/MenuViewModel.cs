@@ -148,17 +148,19 @@ namespace ElectronicShop.ViewModels
         }
 
       
-        public DelegateCommand addInFavourite => new(() =>
+        public DelegateCommand addInFavourite => new(async() =>
         {
+            if (_productService.getAddFavourites(SelectedProduct.IdProduct))
+                await _productService.AddFavourites(SelectedProduct.IdProduct);
         });
-        public DelegateCommand addInBasket => new(() =>
+        public DelegateCommand addInBasket => new(async() =>
         {
             int maxHelper = _productService.GetMaxHelper() + 1;
             bool z = _productService.getUserHelper(SelectedProduct);
             if(z == true)
-                _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct ,SelectedProduct.CostProduct);
+                await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct ,SelectedProduct.CostProduct);
             else
-                _productService.editHelperBasket(_productService.getUserHelperBasket(SelectedProduct), true); 
+                await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), true); 
         });
 
         List<Product> currentProduct;
@@ -183,31 +185,7 @@ namespace ElectronicShop.ViewModels
                 {
                     if (!string.IsNullOrEmpty(strings1))
                     {
-                        if (strings1 == "В наличии" || strings1 == "Нет в наличии" || strings1 == "Снят с продаж")
-                        {
-                            for (int i = 0; i < FiltersStatus.Count - 1; i++)
-                            {
-                                if (strings1 == FiltersStatus[i])
-                                {
-                                    if (b == 0 && strings.Count <= 1)
-                                    {
-                                        currentProduct = currentProduct.Where(p => p.Status == i).ToList();
-                                    }
-                                    else if (b == 0 && strings.Count > 1)
-                                    {
-                                        currentProduct = currentProduct.Where(p => p.Status == i).ToList();
-                                        b++;
-                                    }
-                                    else if (b > 0 && strings.Count > 1)
-                                    {
-                                        newProduct = checkProduct.Where(p => p.Status == i).ToList();
-                                        currentProduct.AddRange(newProduct);
-                                        b++;
-                                    }
-                                }
-                            }
-                        }
-                        else
+                        if (strings1 != "В наличии" && strings1 != "Нет в наличии" && strings1 != "Снят с продаж")
                         {
                             for (int i = 0; i < Filters.Count - 1; i++)
                             {
@@ -230,6 +208,30 @@ namespace ElectronicShop.ViewModels
                                     }
                                 }
                             }
+                        }
+                        else
+                        {  for (int i = 0; i < FiltersStatus.Count - 1; i++)
+                            {
+                                if (strings1 == FiltersStatus[i])
+                                {
+                                    if (b == 0 && strings.Count <= 1)
+                                    {
+                                        currentProduct = currentProduct.Where(p => p.Status == i).ToList();
+                                    }
+                                    else if (b == 0 && strings.Count > 1)
+                                    {
+                                        currentProduct = currentProduct.Where(p => p.Status == i).ToList();
+                                        b++;
+                                    }
+                                    else if (b > 0 && strings.Count > 1)
+                                    {
+                                        newProduct = checkProduct.Where(p => p.Status == i).ToList();
+                                        currentProduct.AddRange(newProduct);
+                                        b++;
+                                    }
+                                }
+                            }
+                           
                         }
 
 

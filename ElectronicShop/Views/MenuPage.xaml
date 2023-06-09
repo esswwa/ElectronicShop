@@ -139,27 +139,6 @@
                                             Foreground="#424874"
                                             Command="{Binding buyProduct}"/>
                                 </StackPanel>
-                                <StackPanel Grid.Row="2"
-                                            Orientation="Horizontal"
-                                            HorizontalAlignment="Center"
-                                            Margin="0 5 0 0">
-                                    <ToggleButton
-                                        Content="{materialDesign:PackIcon Kind=Heart,Size=21}"
-                                        IsChecked="False"
-                                        Foreground="#424874"
-                                        Background="#CCE0FF"
-                                        Margin="0 0 5 0"
-                                        Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
-                                         />
-                                    <ToggleButton
-                                        Content="{materialDesign:PackIcon Kind=Basket,Size=21}"
-                                        IsChecked="False"
-                                        Background="#CCE0FF"
-                                        Foreground="#424874"
-                                        Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
-                                         />
-                                </StackPanel>
-
                             </Grid>
                         </Grid>
                     </materialDesign:Card>

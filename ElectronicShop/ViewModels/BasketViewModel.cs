@@ -1,16 +1,4 @@
-﻿using ElectronicShop.Models;
-using ElectronicShop.Properties;
-using ElectronicShop.Services;
-using Microsoft.VisualBasic.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
-
-namespace ElectronicShop.ViewModels
+﻿namespace ElectronicShop.ViewModels
 {
     public class BasketViewModel : BindableBase
     {
@@ -98,7 +86,7 @@ namespace ElectronicShop.ViewModels
             if (z == true)
                 await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
             else
-                await _productService.editHelperBasket(_productService.getUserHelperBasket(SelectedProduct), true);
+                await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), true);
             UpdateProduct();
         });
         public DelegateCommand deleteFromBasket => new(async () =>
@@ -108,7 +96,7 @@ namespace ElectronicShop.ViewModels
             //if (z == true)
             //    await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
             //else
-            await _productService.editHelperBasket(_productService.getUserHelperBasket(SelectedProduct), false);
+            await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), false);
             UpdateProduct();
 
             //2 вариантHelperBasket SelectedHelp = _productService.getUserHelperBasket(SelectedProduct);

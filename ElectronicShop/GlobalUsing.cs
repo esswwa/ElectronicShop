@@ -7,8 +7,8 @@
         global using Microsoft.Extensions.Configuration;
         global using Microsoft.Extensions.DependencyInjection;
         global using ElectronicShop.Data;
-        //global using ElectronicShop.Models;
-        //global using ElectronicShop.Properties;
+        global using ElectronicShop.Models;
+        global using ElectronicShop.Properties;
         global using ElectronicShop.Services;
         global using ElectronicShop.ViewModels;
         global using ElectronicShop.Views;
