@@ -20,7 +20,7 @@
             <ColumnDefinition Width="0.42*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="ELEISSIS"
+        <TextBlock Text="{Binding textHeader}"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Foreground="White"

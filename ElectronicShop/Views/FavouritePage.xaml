@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ElectronicShop.Views"      
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FavouritePage"
@@ -13,6 +12,722 @@
       Source={StaticResource ViewModelLocator}}">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.20*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.42*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="{Binding textHeader}"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Foreground="White"
+                   FontSize="32"
+                   FontFamily="Arial"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+        <Separator Grid.Row="0"
+                   Grid.ColumnSpan="3"
+                   Height="20"
+                   BorderBrush="White"
+                   BorderThickness="2"
+                   VerticalAlignment="Bottom"/>
+
+        <ListView FontFamily="{StaticResource pwsFont}"
+                      Grid.Row="1"
+                      Grid.RowSpan="2"
+                      Grid.Column="1"
+                      ItemsSource="{Binding Products,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      HorizontalContentAlignment="Stretch"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      d:ItemsSource="{d:SampleData ItemCount=5}">
+
+            <ListView.ContextMenu>
+                <ContextMenu>
+
+                    <MenuItem Header="Добавить в корзину"
+                                  Command="{Binding addInBasket}"/>
+                    <MenuItem Header="Добавить в избранные"
+                                  Command="{Binding addInFavourite}"/>
+                    <MenuItem Header="Продукт"
+                                  Command="{Binding buyProduct}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <materialDesign:Card Background="White"
+                                             Margin="30"
+                                             Height="200"
+                                             HorizontalContentAlignment="Stretch">
+                        <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0"
+                                    CornerRadius="12"
+                                    Width="180"
+                                    Height="150">
+                                <Image
+                                       Source="{Binding ImgProduct}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                            </Border>
+
+                            <Grid Grid.Column="1"
+                                      VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0"
+                                           TextWrapping="Wrap">
+                                    <TextBlock.Inlines>
+                                        <Run Text="{Binding NameProduct, StringFormat={}{0:C}, ConverterCulture=ru-RU}"/>
+                                        <Run Text="{Binding SecondNameProduct, StringFormat={}{0:C}, ConverterCulture=ru-RU, Mode=OneWay}"/>
+                                    </TextBlock.Inlines>
+                                </TextBlock>
+                                <StackPanel Grid.Row="1"
+                                            Orientation="Horizontal">
+                                    <materialDesign:RatingBar
+                                        x:Name="BasicRatingBarFractionalPreview"
+                                        IsReadOnly="True" 
+                                        IsPreviewValueEnabled="True"
+                                        Max="5"
+                                        Min="0" 
+                                        ValueIncrements="0.1"
+                                        Value="{Binding ReitingProduct}"/>
+                                    <TextBlock Margin="0 5 0 0"
+                                               Text="{Binding ReitingProduct}"/>
+                                </StackPanel>
+                                <TextBlock Grid.Row="2"
+                                           Text="{Binding StatusNavigation.Status1, StringFormat={}Статус: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0"
+                                           Text="{Binding CostProduct, StringFormat={}{0} ₽}"
+                                           HorizontalAlignment="Center"/>
+                                <StackPanel Grid.Row="1"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Center">
+
+                                    <Button Margin="0 10 0 0"
+                                            Content="Перейти"
+                                            BorderBrush="#CCE0FF"
+                                            Background="#CCE0FF"
+                                            Foreground="#424874"
+                                            Command="{Binding buyProduct}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Row="2"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            Margin="0 5 0 0">
+                                    <ToggleButton
+                                        Content="{materialDesign:PackIcon Kind=Heart,Size=21}"
+                                        IsChecked="{Binding DataContext.IsCheckedFavourite, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                        Foreground="#424874"
+                                        Background="#CCE0FF"
+                                        Margin="0 0 5 0"
+                                        Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                                         />
+                                    <ToggleButton
+                                        Content="{materialDesign:PackIcon Kind=Basket,Size=21}"
+                                        IsChecked="False"
+                                        Background="#CCE0FF"
+                                        Foreground="#424874"
+                                        Style="{StaticResource MaterialDesignFlatPrimaryToggleButton}"
+                                         />
+                                </StackPanel>
+
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Card>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <materialDesign:Card Grid.Row="2">
+            <TabControl
+                materialDesign:ColorZoneAssist.Mode="Standard"
+                materialDesign:ElevationAssist.Elevation="Dp0"
+                Style="{StaticResource MaterialDesignNavigationRailTabControl}">
+                <TabItem  Width="90">
+                    <TabItem.Header>
+                        <StackPanel
+                            Width="auto"
+                            Height="auto">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Kind="Folder" />
+                            <TextBlock
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Text="Фильтры"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ScrollViewer>
+                        <Grid Background="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <materialDesign:ColorZone
+                                    Grid.Row="0"
+                                    Margin="16"
+                                    Padding="8,4,8,4"
+                                    materialDesign:ElevationAssist.Elevation="Dp2"
+                                    CornerRadius="2"
+                                    Mode="Standard">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Style="{StaticResource MaterialDesignToolButton}"
+                                        Foreground="#424874">
+                                        <materialDesign:PackIcon
+                                                    Kind="Search"
+                                                    Foreground="#424874"
+                                                    Opacity=".56"/>
+                                    </Button>
+                                    <TextBox Foreground="#424874"
+                                         Grid.Column="1"
+                                         MinWidth="200"
+                                         Margin="8,0,0,0"
+                                         VerticalAlignment="Center"
+                                         materialDesign:HintAssist.Hint="Поиск"
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                         BorderThickness="0" 
+                                         Text="{Binding Search, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                </Grid>
+                            </materialDesign:ColorZone>
+                            <Expander HorizontalAlignment="Stretch"
+                            Grid.Row="1"
+                            Header="Категории"
+                            Margin="10"
+                            Foreground="#424874"
+                            FontFamily="{StaticResource font}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Expander HorizontalAlignment="Stretch"
+                                        Grid.Row="0"
+                                        Header="ПК, ноутбуки, периферия"
+                                        Margin="20 0 0 0"
+                                        Foreground="#424874"
+                                        FontFamily="{StaticResource font}">
+                                        <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
+                                            <TreeView>
+                                                <CheckBox
+                                                    Content="Персональный компьютер"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Персональный компьютер"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Ноутбук"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Ноутбук"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Периферия"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Периферия"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                            </TreeView>
+                                        </StackPanel>
+                                    </Expander>
+                                    <Expander HorizontalAlignment="Stretch"
+                                          Grid.Row="1"
+                                          Margin="20 0 0 0"
+                                          Header="Смартфоны и фототехника"
+                                          Foreground="#424874"
+                                          FontFamily="{StaticResource font}">
+                                        <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
+                                            <TreeView>
+                                                <CheckBox
+                                                    Content="Смартфон"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Смартфон"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Фототехника"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Фототехника"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                            </TreeView>
+                                        </StackPanel>
+                                    </Expander>
+                                    <Expander HorizontalAlignment="Stretch"
+                                          Grid.Row="2"
+                                          Margin="20 0 0 0"
+                                          Header="ТВ, консоли и аудио"
+                                          Foreground="#424874"
+                                          FontFamily="{StaticResource font}">
+                                        <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
+                                            <TreeView>
+                                                <CheckBox
+                                                    Content="Телевизор"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Телевизор"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Консоль"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Консоль"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Аудио"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Аудио"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                            </TreeView>
+                                        </StackPanel>
+                                    </Expander>
+                                    <Expander HorizontalAlignment="Stretch"
+                                          Grid.Row="3"
+                                          Margin="20 0 0 0"
+                                          Header="Комплектующие для ПК"
+                                          Foreground="#424874"
+                                          FontFamily="{StaticResource font}">
+                                        <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
+                                            <TreeView>
+                                                <CheckBox
+                                                    Content="Видеокарта"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Видеокарта"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Процессор"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Процессор"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Материнская плата"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Материнская плата"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+
+                                                <CheckBox
+                                                    Content="Оперативная память"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Оперативная память"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Корпус"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Корпус"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Блок питания"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Блок питания"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Накопитель"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Накопитель"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                            </TreeView>
+                                        </StackPanel>
+                                    </Expander>
+                                    <Expander HorizontalAlignment="Stretch"
+                                          Grid.Row="4"
+                                          Margin="20 0 0 0"
+                                          Header="Сетевое оборудование"
+                                          Foreground="#424874"
+                                          FontFamily="{StaticResource font}">
+                                        <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
+                                            <TreeView>
+                                                <CheckBox
+                                                    Content="Wi-Fi Роутер"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Wi-Fi Роутер"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Видеонаблюдение"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Видеонаблюдение"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                            </TreeView>
+                                        </StackPanel>
+                                    </Expander>
+                                    <Expander HorizontalAlignment="Stretch"
+                                          Grid.Row="5"
+                                          Margin="20 0 0 0"
+                                          Header="Бытовая техника"
+                                          Foreground="#424874"
+                                          FontFamily="{StaticResource font}">
+                                        <StackPanel Orientation="Vertical"
+                                                HorizontalAlignment="Stretch">
+                                            <TreeView>
+                                                <CheckBox
+                                                    Content="Духовая печь"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Духовая печь"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Стиральная машина"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Стиральная машина"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                                <CheckBox
+                                                    Content="Холодильник"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Холодильник"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                            </TreeView>
+                                        </StackPanel>
+                                    </Expander>
+                                </Grid>
+                            </Expander>
+                            <Expander HorizontalAlignment="Stretch"
+                                  Header="Статус"
+                                  Foreground="#424874"
+                                  
+                                  Margin="10"
+                                  Grid.Row="3"
+                                  FontFamily="{StaticResource font}">
+                                <StackPanel Orientation="Vertical"
+                                        HorizontalAlignment="Stretch">
+                                    <TreeView>
+                                        <CheckBox
+                                                    Content="В наличии"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="В наличии"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                        <CheckBox
+                                                    Content="Нет в наличии"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Нет в наличии"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                        <CheckBox
+                                                    Content="Снят с продаж"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Снят с продаж"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                    </TreeView>
+                                </StackPanel>
+                            </Expander>
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Width="90"
+                         Height="auto">
+                    <TabItem.Header>
+                        <StackPanel
+                            Width="auto"
+                            Height="auto">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Kind="Sort" />
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                Text="Сортировка" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem  Width="90">
+                    <TabItem.Header>
+                        <StackPanel
+                            Width="auto"
+                            Height="auto">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Kind="FaceManProfile" />
+                            <TextBlock
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Text="Профиль" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <materialDesign:Flipper materialDesign:ElevationAssist.Elevation="Dp0"
+                                            HorizontalAlignment="Stretch"
+                                            Height="Auto"
+                                            Width="Auto"
+                                            Margin="40"
+                                            VerticalAlignment="Top">
+                        <materialDesign:Flipper.FrontContent>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:ColorZone
+                                    VerticalAlignment="Stretch"
+                                    Background="#CCE0FF"
+                                    Mode="Custom">
+                                    <materialDesign:PackIcon
+                                        MinWidth="140"
+                                        MinHeight="140"
+                                        Foreground="#424874"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Kind="AccountCircle" />
+                                </materialDesign:ColorZone>
+                                <StackPanel
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Login}"
+                                               Foreground="#424874"
+                                               FontSize="20"
+                                               HorizontalAlignment="Center"/>
+                                    <Button HorizontalAlignment="Center"
+                                        Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                        Content="Редактировать"
+                                        Foreground="#424874"
+                                        Style="{StaticResource MaterialDesignFlatButton}" />
+                                    <Button HorizontalAlignment="Center"
+                                        Command="{Binding ExitAcc, IsAsync=True}"
+                                        Content="Выйти из аккаунта"
+                                        Foreground="#424874"
+                                        Style="{StaticResource MaterialDesignFlatButton}" />
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Flipper.FrontContent>
+                        <materialDesign:Flipper.BackContent>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <materialDesign:ColorZone
+                                    Padding="6"
+                                    Background="#CCE0FF"
+                                    Foreground="#424874"
+                                    Mode="Custom">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button
+                                               HorizontalAlignment="Left"
+                                               Command="{x:Static materialDesign:Flipper.FlipCommand}"
+                                               Style="{StaticResource MaterialDesignToolForegroundButton}">
+                                            <materialDesign:PackIcon
+                                                                    HorizontalAlignment="Right"
+                                                                    Kind="ArrowLeft" />
+                                        </Button>
+                                        <TextBlock
+                                                  Margin="8 0 0 0"
+                                                  VerticalAlignment="Center"
+                                                  FontSize="16"
+                                                  Text="Редактирование" />
+                                    </StackPanel>
+                                </materialDesign:ColorZone>
+                                <Grid   Grid.Row="1"
+                                        MinWidth="150"
+                                        Margin="0 6 0 0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Top">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <TextBox
+                                            Margin="0 12 0 0"
+                                            materialDesign:HintAssist.Hint="Логин"
+                                            FontSize="16"
+                                            materialDesign:HintAssist.IsFloating="True"
+                                            Text="{Binding LoginBack}" />
+                                    <TextBox
+                                            Grid.Row="1"
+                                            Margin="0 12 0 0"
+                                            FontSize="16"
+                                            materialDesign:HintAssist.Hint="Почта"
+                                            materialDesign:HintAssist.IsFloating="True"
+                                            Text="{Binding Email}" />
+                                    <Button Grid.Row="2"
+                                            Margin="0 12 0 0"
+                                            HorizontalAlignment="Center"
+                                            Command="{Binding EditUser, IsAsync=True}"
+                                            Content="Отредактировать"
+                                            Foreground="#424874"
+                                            Style="{StaticResource MaterialDesignFlatButton}" />
+                                </Grid>
+                            </Grid>
+                        </materialDesign:Flipper.BackContent>
+                    </materialDesign:Flipper>
+                </TabItem>
+                <TabItem  Width="90"
+                          Height="100">
+                    <TabItem.Header>
+                        <StackPanel
+                            Grid.Column="0"
+                            Width="auto"
+                            Margin="5"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                Command="{Binding Favourite}"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="Abacus" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                FontSize="14"
+                                Text="ELEISSIS" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem  Width="90"
+                          Height="100">
+                    <TabItem.Header>
+                        <StackPanel
+                            Margin="5"
+                            Grid.Column="1"
+                            Width="auto"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                Command="{Binding Basket}"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="Basket" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                FontSize="14"
+                                Text="Корзина" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem  Width="90"
+                          Height="100">
+                    <TabItem.Header>
+                        <StackPanel
+                            Margin="5"
+                            Grid.Column="2"
+                            Width="auto"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                Command="{Binding Order}"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="BasketUnfill" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                FontSize="14"
+                                Text="Заказы" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
+        </materialDesign:Card>
     </Grid>
 </Page>

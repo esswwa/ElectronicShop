@@ -77,6 +77,7 @@ namespace ElectronicShop.ViewModels
 
         public bool IsCheckedBasket { get; set; }
 
+        public string textHeader { get; set; }
 
         public string SelectedSort
         {
@@ -108,9 +109,9 @@ namespace ElectronicShop.ViewModels
                 LoginBack = Settings.Default.login;
                 Email = Settings.Default.email;
             }
-            //product1 = _productService.GetProducts();
             UpdateProduct();
             commandCategories = new DelegateCommand<string>(TheoryMethod);
+            textHeader = "ELEISSIS";
         }
         List<string> strings = new List<string>();
 
@@ -164,77 +165,80 @@ namespace ElectronicShop.ViewModels
 
         private async void UpdateProduct()
         {
-            currentProduct = await _productService.GetProducts();
-           if (currentProduct != null)
-               ListProduct.products = currentProduct;
-           else
-               currentProduct = ListProduct.products;
-           if (!string.IsNullOrEmpty(Search))
-               {
-                   currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower()) || p.Article.ToLower() ==    Search.ToLower()).ToList();
-               }
-           int z = 0;
-           int b = 0;
-           List<Product> newProduct = new List<Product>();
-           var checkProduct = currentProduct;
+                currentProduct = await _productService.GetProducts();
+                if (currentProduct != null)
+                    ListProduct.products = currentProduct;
+                else
+                    currentProduct = ListProduct.products;
+                if (!string.IsNullOrEmpty(Search))
+                {
+                    currentProduct = currentProduct.Where(p => p.NameProduct.ToLower().Contains(Search.ToLower()) || p.Article.ToLower() == Search.ToLower()).ToList();
+                }
+                int z = 0;
+                int b = 0;
+                List<Product> newProduct = new List<Product>();
+                var checkProduct = currentProduct;
 
-           foreach (var strings1 in strings)
-           {
-               if (!string.IsNullOrEmpty(strings1))
-               {
-                       if (strings1 == "В наличии" || strings1 == "Нет в наличии" || strings1 == "Снят с продаж")
-                       {
-                           for (int i = 0; i < FiltersStatus.Count - 1; i++)
-                           {
-                               if (strings1 == FiltersStatus[i])
-                               {
-                                   if (b == 0 && strings.Count <= 1)
-                                   {
-                                       currentProduct = currentProduct.Where(p => p.Status == i).ToList();
-                                   }
-                                   else if (b == 0 && strings.Count > 1)
-                                   {
-                                       currentProduct = currentProduct.Where(p => p.Status == i).ToList();
-                                       b++;
-                                   }
-                                   else if (b > 0 && strings.Count > 1)
-                                   {
-                                       newProduct = checkProduct.Where(p => p.Status == i).ToList();
-                                       currentProduct.AddRange(newProduct);
-                                       b++;
-                                   }
-                               }
-                           }
-                       }
-                       else {
-                           for (int i = 0; i < Filters.Count - 1; i++)
-                           {
-                               if (strings1 == Filters[i])
-                               {
-                                   if (z == 0 && strings.Count <= 1)
-                                   {
-                                       currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
-                                   }
-                                   else if (z == 0 && strings.Count > 1)
-                                   {
-                                       currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
-                                       z++;
-                                   }
-                                   else if (z > 0 && strings.Count > 1)
-                                   {
-                                       newProduct = checkProduct.Where(p => p.CategoryProduct == i).ToList();
-                                       currentProduct.AddRange(newProduct);
-                                       z++;
-                                   }
-                               }
-                           }
-                       }
-                       
-                   
-               }
-           }
+                foreach (var strings1 in strings)
+                {
+                    if (!string.IsNullOrEmpty(strings1))
+                    {
+                        if (strings1 == "В наличии" || strings1 == "Нет в наличии" || strings1 == "Снят с продаж")
+                        {
+                            for (int i = 0; i < FiltersStatus.Count - 1; i++)
+                            {
+                                if (strings1 == FiltersStatus[i])
+                                {
+                                    if (b == 0 && strings.Count <= 1)
+                                    {
+                                        currentProduct = currentProduct.Where(p => p.Status == i).ToList();
+                                    }
+                                    else if (b == 0 && strings.Count > 1)
+                                    {
+                                        currentProduct = currentProduct.Where(p => p.Status == i).ToList();
+                                        b++;
+                                    }
+                                    else if (b > 0 && strings.Count > 1)
+                                    {
+                                        newProduct = checkProduct.Where(p => p.Status == i).ToList();
+                                        currentProduct.AddRange(newProduct);
+                                        b++;
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < Filters.Count - 1; i++)
+                            {
+                                if (strings1 == Filters[i])
+                                {
+                                    if (z == 0 && strings.Count <= 1)
+                                    {
+                                        currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                                    }
+                                    else if (z == 0 && strings.Count > 1)
+                                    {
+                                        currentProduct = currentProduct.Where(p => p.CategoryProduct == i).ToList();
+                                        z++;
+                                    }
+                                    else if (z > 0 && strings.Count > 1)
+                                    {
+                                        newProduct = checkProduct.Where(p => p.CategoryProduct == i).ToList();
+                                        currentProduct.AddRange(newProduct);
+                                        z++;
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+
+                Products = currentProduct;
+            
            
-           Products = currentProduct;
         }
 
         public DelegateCommand Basket => new(() => _pageService.ChangePage(new BasketPage()));
@@ -247,8 +251,7 @@ namespace ElectronicShop.ViewModels
         });
         public DelegateCommand Favourite => new(async () =>
         {
-            var currentProduct = await _productService.GetFavouriteProducts();
-            Products = currentProduct;
+            _pageService.ChangePage(new FavouritePage());
         });
         public DelegateCommand ExitAcc => new(() =>
         {

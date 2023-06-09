@@ -29,12 +29,15 @@ namespace ElectronicShop.ViewModels
 
         public string CountProduct1 { get; set; }
 
+        public string textHeader { get; set; }
+
         public BasketViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
             _productService = productService;
             _userService = userService;
             UpdateProduct();
+            textHeader = "Корзина";
         }
 
         private async void UpdateProduct()
@@ -69,7 +72,7 @@ namespace ElectronicShop.ViewModels
         {
             _pageService.ChangePage(new MenuPage());
         });
-        public DelegateCommand Favourite => new(async () =>
+        public DelegateCommand Favourite => new(() =>
         {
             _pageService.ChangePage(new FavouritePage());
         });
@@ -100,8 +103,7 @@ namespace ElectronicShop.ViewModels
         });
         public DelegateCommand deleteFromBasket => new(async () =>
         {
-
-            //int maxHelper = _productService.GetMaxHelper() + 1;
+            // 1 вариант int maxHelper = _productService.GetMaxHelper() + 1;
             //bool z = _productService.getUserHelper(SelectedProduct);
             //if (z == true)
             //    await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
@@ -109,7 +111,7 @@ namespace ElectronicShop.ViewModels
             await _productService.editHelperBasket(_productService.getUserHelperBasket(SelectedProduct), false);
             UpdateProduct();
 
-            //HelperBasket SelectedHelp = _productService.getUserHelperBasket(SelectedProduct);
+            //2 вариантHelperBasket SelectedHelp = _productService.getUserHelperBasket(SelectedProduct);
             //await _productService.deleteBasketProduct(SelectedHelp);
             //UpdateProduct();
         });
