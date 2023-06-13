@@ -1,6 +1,4 @@
-﻿using ElectronicShop.Data;
-using ElectronicShop.Data.Model;
-using ElectronicShop.Properties;
+﻿using ElectronicShop.Properties;
 
 namespace ElectronicShop.Services
 {

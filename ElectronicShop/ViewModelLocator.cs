@@ -1,6 +1,4 @@
-﻿using ElectronicShop.Data;
-
-namespace ElectronicShop
+﻿namespace ElectronicShop
 {
     public class ViewModelLocator
     {
@@ -48,6 +46,7 @@ namespace ElectronicShop
             services.AddSingleton<PageService>();
             services.AddSingleton<UserService>();
             services.AddSingleton<ProductService>();
+            services.AddSingleton<DocumentService>();
 
             #endregion
 

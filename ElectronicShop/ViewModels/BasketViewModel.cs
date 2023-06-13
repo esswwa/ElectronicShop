@@ -13,6 +13,7 @@
 
         public string CountProduct { get; set; }
 
+        private static readonly Random rnd = new();
         public string CostProduct { get; set; }
 
         public string CountProduct1 { get; set; }
@@ -71,6 +72,12 @@
 
         public DelegateCommand buyFastProduct => new(() =>
         {
+            _pageService.ChangePage(new OrderPage());
+        });
+        public DelegateCommand buyProduct => new(async () =>
+        {
+            int code = rnd.Next(100, 999);
+            await _productService.addOrder(Products);
             _pageService.ChangePage(new OrderPage());
         });
 

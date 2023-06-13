@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace ElectronicShop.Data.Model;
 
+
 public partial class Category
 {
     public int Idcategory { get; set; }

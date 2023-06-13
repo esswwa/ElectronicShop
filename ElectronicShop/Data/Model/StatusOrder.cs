@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace ElectronicShop.Data.Model;
 
+
 public partial class StatusOrder
 {
     public int IdstatusOrder { get; set; }

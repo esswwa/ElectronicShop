@@ -44,7 +44,7 @@ public partial class ElectronickshopContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql("server=localhost;user=root;password=Qwerty123;database=electronickshop", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.31-mysql"));
+        => optionsBuilder.UseMySql("server=localhost;user=root;password=Qwerty123;database=electronickshop", ServerVersion.Parse("8.0.31-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -101,8 +101,8 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.Idfavourities)
                 .ValueGeneratedNever()
                 .HasColumnName("idfavourities");
-
             entity.Property(e => e.IdProduct).HasColumnName("idProduct");
+            entity.Property(e => e.IdUser).HasColumnName("idUser");
 
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.Favourities)
                 .HasForeignKey(d => d.IdUser)
@@ -123,17 +123,15 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.Idfeedback)
                 .ValueGeneratedNever()
                 .HasColumnName("idfeedback");
-            entity.Property(e => e.Feedbacks)
-                .HasMaxLength(500)
-                .HasColumnName("feedbacks");
-
-            entity.Property(e => e.Downside)
-                .HasMaxLength(500)
-                .HasColumnName("downside");
-
             entity.Property(e => e.Dignities)
                 .HasMaxLength(500)
                 .HasColumnName("dignities");
+            entity.Property(e => e.Downside)
+                .HasMaxLength(500)
+                .HasColumnName("downside");
+            entity.Property(e => e.Feedbacks)
+                .HasMaxLength(500)
+                .HasColumnName("feedbacks");
             entity.Property(e => e.IdProduct).HasColumnName("idProduct");
             entity.Property(e => e.IdUser).HasColumnName("idUser");
             entity.Property(e => e.Reiting).HasColumnName("reiting");
@@ -222,13 +220,13 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.Idorder)
                 .ValueGeneratedNever()
                 .HasColumnName("idorder");
-            entity.Property(e => e.DateOrder).HasColumnName("dateOrder");
-            entity.Property(e => e.IdUser).HasColumnName("idUser");
-            entity.Property(e => e.IdStatusOrder).HasColumnName("idStatusOrder");
-            entity.Property(e => e.DateReceipt).HasColumnName("dateReceipt");
-            entity.Property(e => e.Id_Order_Helper).HasColumnName("id_Order_Helper");
             entity.Property(e => e.AllCost).HasColumnName("allCost");
-            
+            entity.Property(e => e.DateOrder).HasColumnName("dateOrder");
+            entity.Property(e => e.DateReceipt).HasColumnName("dateReceipt");
+            entity.Property(e => e.IdOrderHelper).HasColumnName("id_Order_Helper");
+            entity.Property(e => e.IdStatusOrder).HasColumnName("idStatusOrder");
+            entity.Property(e => e.IdUser).HasColumnName("idUser");
+
             entity.HasOne(d => d.IdStatusOrderNavigation).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.IdStatusOrder)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -251,10 +249,10 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.IdorderHelper)
                 .ValueGeneratedNever()
                 .HasColumnName("idorder_helper");
+            entity.Property(e => e.Cost).HasColumnName("cost");
+            entity.Property(e => e.Count).HasColumnName("count");
             entity.Property(e => e.IdOrder).HasColumnName("id_order");
             entity.Property(e => e.IdProduct).HasColumnName("id_product");
-            entity.Property(e => e.Count).HasColumnName("count");
-            entity.Property(e => e.Cost).HasColumnName("cost");
 
             entity.HasOne(d => d.IdProductNavigation).WithMany(p => p.OrderHelpers)
                 .HasForeignKey(d => d.IdProduct)
@@ -366,6 +364,9 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.Iduser)
                 .ValueGeneratedNever()
                 .HasColumnName("iduser");
+            entity.Property(e => e.Adress)
+                .HasMaxLength(500)
+                .HasColumnName("adress");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
                 .HasColumnName("email");
@@ -376,9 +377,6 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
                 .HasColumnName("password");
-            entity.Property(e => e.Adress)
-                .HasMaxLength(500)
-                .HasColumnName("adress");
             entity.Property(e => e.RoleId).HasColumnName("roleId");
 
             entity.HasOne(d => d.Role).WithMany(p => p.Users)
@@ -386,7 +384,7 @@ public partial class ElectronickshopContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_usRole");
         });
-        
+
         OnModelCreatingPartial(modelBuilder);
     }
 

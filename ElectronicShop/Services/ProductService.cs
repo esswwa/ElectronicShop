@@ -1,7 +1,7 @@
 ﻿using DevExpress.Internal.WinApi.Windows.UI.Notifications;
 using AutoMapper;
 using ElectronicShop.Models;
-using ElectronicShop.Data.Model;
+using Org.BouncyCastle.Asn1.X500;
 
 namespace ElectronicShop.Services
 {
@@ -413,6 +413,73 @@ namespace ElectronicShop.Services
             }
             else
                 return 0;
+        }
+
+        private static readonly Random rnd = new();
+        public async Task addOrder(List<Product> product)
+        {
+            var helper = _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser).ToList();
+
+            List<double> cost = new List<double>();
+
+            List<int> count = new List<int>();
+
+            if (helper != null) {
+                foreach (var item in helper)
+                {
+
+                    cost.Add(item.Cost);
+                    count.Add(item.Count);
+                }
+            }
+           
+
+            int z = _electronickshopContext.Orders.Max(i => i.Idorder) + 1;
+            int z1 = 0;
+            int code = rnd.Next(2,14);
+
+            double allCost = 0;
+            foreach (var item in cost) {
+                allCost += item;
+            }
+
+            await _electronickshopContext.Orders.AddAsync(new Order
+            {
+                Idorder = z,
+                DateOrder = DateOnly.FromDateTime(DateTime.Now),
+                IdUser = Settings.Default.idUser,
+                IdStatusOrder = 0,
+                DateReceipt = DateOnly.FromDateTime(DateTime.Now.AddDays(code)),
+                IdOrderHelper = z,
+                AllCost = allCost
+
+            });
+            int l = 0;
+            foreach (var item in product) {
+                if (z1 == 0)
+                    z1 = _electronickshopContext.OrderHelpers.Max(i => i.IdorderHelper) + 1;
+                else
+                    z1 += z1;
+                await _electronickshopContext.OrderHelpers.AddAsync(new OrderHelper
+                {
+                    IdorderHelper = z1,
+                    IdOrder = z,
+                    IdProduct = item.IdProduct,
+                    Count = count[l],
+                    Cost = cost[l]
+                });
+                l++;
+            }
+
+            ObservableCollection<HelperBasket> Helpers = getAllHelperBasket();
+            foreach (var item2 in helper)
+            {
+                var item = Helpers.First(i => i.IdhelperBasket == item2.IdhelperBasket);
+                var index = Helpers.IndexOf(item);
+                Helpers.RemoveAt(index);
+                _electronickshopContext.HelperBaskets.Remove(item);
+            }
+                await _electronickshopContext.SaveChangesAsync();
         }
 
         //public async Task deleteBasketProduct(HelperBasket SelectedProduct)

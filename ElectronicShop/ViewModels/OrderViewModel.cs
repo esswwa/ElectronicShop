@@ -1,5 +1,4 @@
-﻿using ElectronicShop.Data.Model;
-using ElectronicShop.Services;
+﻿using ElectronicShop.Services;
 using MaterialDesignColors;
 using Microsoft.VisualBasic;
 using System;

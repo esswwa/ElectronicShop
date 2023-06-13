@@ -1,5 +1,4 @@
-﻿using ElectronicShop.Data;
-using ElectronicShop.Properties;
+﻿using ElectronicShop.Properties;
 
 namespace ElectronicShop.ViewModels
 {

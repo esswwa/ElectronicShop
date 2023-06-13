@@ -15,13 +15,11 @@ public partial class Order
 
     public DateOnly DateReceipt { get; set; }
 
-    public int Id_Order_Helper { get; set; }
+    public int IdOrderHelper { get; set; }
 
     public double AllCost { get; set; }
 
     public virtual StatusOrder IdStatusOrderNavigation { get; set; } = null!;
 
     public virtual User IdUserNavigation { get; set; } = null!;
-
-    public virtual ICollection<OrderHelper> OrderHelpers { get; } = new List<OrderHelper>();
 }

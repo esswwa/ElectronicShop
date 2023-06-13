@@ -1,5 +1,4 @@
 ﻿using DevExpress.Internal.WinApi;
-using ElectronicShop.Data.Model;
 using ElectronicShop.Models;
 using ElectronicShop.Properties;
 using ElectronicShop.Services;
