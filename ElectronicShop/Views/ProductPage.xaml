@@ -402,6 +402,7 @@
                                 <Button Content="Добавить отзыв"
                                         Grid.Row="1"
                                         Grid.RowSpan="2"
+                                        IsEnabled="{Binding IsEnabledCart, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         Command="{x:Static materialDesign:Flipper.FlipCommand}"
                                         Grid.Column="4"/>
                             </Grid>

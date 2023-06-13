@@ -629,7 +629,14 @@
                                             materialDesign:HintAssist.Hint="Почта"
                                             materialDesign:HintAssist.IsFloating="True"
                                             Text="{Binding Email}" />
-                                    <Button Grid.Row="2"
+                                    <TextBox
+                                            Grid.Row="2"
+                                            Margin="0 12 0 0"
+                                            FontSize="16"
+                                            materialDesign:HintAssist.Hint="Адрес"
+                                            materialDesign:HintAssist.IsFloating="True"
+                                            Text="{Binding Adress}" />
+                                    <Button Grid.Row="3"
                                             Margin="0 12 0 0"
                                             HorizontalAlignment="Center"
                                             Command="{Binding EditUser, IsAsync=True}"

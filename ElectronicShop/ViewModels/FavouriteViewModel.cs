@@ -18,6 +18,7 @@ namespace ElectronicShop.ViewModels
         public string LoginBack { get; set; }
         public string Email { get; set; }
 
+        public string Adress { get; set; }
         public bool CheckBox { get; set; }
         public DelegateCommand<string> commandCategories { get; set; }
 
@@ -244,6 +245,32 @@ namespace ElectronicShop.ViewModels
 
         public DelegateCommand Basket => new(() => _pageService.ChangePage(new BasketPage()));
         public DelegateCommand Order => new(() => _pageService.ChangePage(new OrderPage()));
+
+
+        private List<string> _userLogin { get; set; } = new();
+        private List<string> _userEmail { get; set; } = new();
+        public DelegateCommand EditUser => new(async () => {
+
+
+            _userLogin = await _userService.GetAllUser();
+            _userEmail = await _userService.GetAllEmail();
+
+            if (!_userLogin.Contains(LoginBack) && !_userEmail.Contains(Email))
+            {
+                Settings.Default.login = LoginBack;
+                Settings.Default.email = Email;
+                Settings.Default.Adress = Adress;
+                Login = LoginBack;
+                await _productService.editUser();
+            }
+            else
+            {
+                LoginBack = Settings.Default.login;
+                Email = Settings.Default.email;
+                Adress = Settings.Default.Adress;
+            }
+        });
+
 
         public DelegateCommand buyProduct => new(() =>
         {

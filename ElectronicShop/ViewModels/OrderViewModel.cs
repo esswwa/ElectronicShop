@@ -36,5 +36,11 @@ namespace ElectronicShop.ViewModels
         public DelegateCommand Basket => new(() => _pageService.ChangePage(new BasketPage()));
         public DelegateCommand CommandMenu => new(() => _pageService.ChangePage(new MenuPage()));
         public DelegateCommand Favourite => new(() => _pageService.ChangePage(new FavouritePage()));
+        public DelegateCommand cancelOrder => new(async() =>
+        {
+            await _productService.editOrderStatus(SelectedOrderHelper);
+            UpdateProduct();
+        });
+        
     }
 }

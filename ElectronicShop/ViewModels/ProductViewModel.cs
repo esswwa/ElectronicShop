@@ -36,7 +36,7 @@ namespace ElectronicShop.ViewModels
         public double Value3 { get; set; }
         public double Value2 { get; set; }
         public double Value1 { get; set; }
-        public List<Feedback> Feedback { get; set; }
+        public static List<Feedback> Feedback { get; set; }
 
 
         public string dignitiesText { get; set; }
@@ -44,6 +44,8 @@ namespace ElectronicShop.ViewModels
         public string FeedbackText { get; set; }
 
         public float ReitingAddProduct { get; set; }
+
+        public bool IsEnabledCart { get; set; }
 
         public ProductViewModel(PageService pageService, ProductService productService, UserService userService)
         {
@@ -61,8 +63,15 @@ namespace ElectronicShop.ViewModels
             CountProduct = SelectProduct.product.CountProduct.ToString();
             Description = SelectProduct.product.Description;
             UpdateProduct();
+            CheckEnabled();
         }
-
+        private void CheckEnabled(){
+            var z = Feedback.Where(c => c.IdUser == Settings.Default.idUser && c.IdProduct == SelectProduct.product.IdProduct);
+            if (z == null)
+                IsEnabledCart = true;
+            else
+                IsEnabledCart = false;
+        }
         private async void UpdateProduct()
         {
             Feedback = Task.Run(async () => await _productService.getFeedbackProduct()).Result;

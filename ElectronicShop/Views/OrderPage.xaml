@@ -124,8 +124,6 @@
                         <ContextMenu>
                             <MenuItem Header="Отменить заказ"
                                   Command="{Binding cancelOrder}"/>
-                            <MenuItem Header="Подтвердить доставку"
-                                  Command="{Binding confirmOrder}"/>
                         </ContextMenu>
                     </ListView.ContextMenu>
 

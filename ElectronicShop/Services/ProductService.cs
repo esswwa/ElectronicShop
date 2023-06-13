@@ -248,6 +248,29 @@ namespace ElectronicShop.Services
             
         }
 
+        public async Task editUser()
+        {
+            ObservableCollection<User> Users = _electronickshopContext.Users.ToObservableCollection();
+            var item = Users.First(i => i.Iduser == Settings.Default.idUser);
+            var index = Users.IndexOf(item);
+            item.Login = Settings.Default.login;
+            item.Email = Settings.Default.email;
+            item.Adress = Settings.Default.Adress;
+            Users.RemoveAt(index);
+            Users.Insert(index, item);
+            await _electronickshopContext.SaveChangesAsync();
+        }
+
+        public async Task editOrderStatus(Order OrderHelper)
+        {
+            ObservableCollection<Order> OrderHelper1 = _electronickshopContext.Orders.ToObservableCollection();
+            var item = OrderHelper1.First(i => i.IdStatusOrder == OrderHelper.IdStatusOrder);
+            var index = OrderHelper1.IndexOf(item);
+            item.IdStatusOrder = 4;
+            OrderHelper1.RemoveAt(index);
+            OrderHelper1.Insert(index, item);
+            await _electronickshopContext.SaveChangesAsync();
+        }
 
         public async Task editHelperBasket(HelperBasket SelectedHelper, bool z)
         {
@@ -348,7 +371,7 @@ namespace ElectronicShop.Services
                 _electronickshopContext.Users.ToList();
                 _electronickshopContext.Products.ToList();
                 _electronickshopContext.StatusOrders.ToList();
-                var feedbacks = await _electronickshopContext.Orders.Where(i => i.IdStatusOrderNavigation.NameStatus != "Выдан покупателю").ToListAsync();
+                var feedbacks = await _electronickshopContext.Orders.Where(i => i.IdStatusOrderNavigation.NameStatus != "Выдан покупателю" && i.IdStatusOrderNavigation.NameStatus != "Отменен").ToListAsync();
                 feedbacks1 = feedbacks;
                 return feedbacks1;
 
@@ -364,7 +387,7 @@ namespace ElectronicShop.Services
                 _electronickshopContext.Users.ToList();
                 _electronickshopContext.Products.ToList();
                 _electronickshopContext.StatusOrders.ToList();
-                var feedbacks = await _electronickshopContext.Orders.Where(i => i.IdStatusOrderNavigation.NameStatus == "Выдан покупателю").ToListAsync();
+                var feedbacks = await _electronickshopContext.Orders.Where(i => i.IdStatusOrderNavigation.NameStatus == "Выдан покупателю" || i.IdStatusOrderNavigation.NameStatus == "Отменен").ToListAsync();
                 feedbacks1 = feedbacks;
                 return feedbacks1;
 
