@@ -1,4 +1,6 @@
 ﻿using ElectronicShop.Services;
+using System.Net.Mail;
+using System.Net;
 
 namespace ElectronicShop.ViewModels
 {
@@ -81,8 +83,23 @@ namespace ElectronicShop.ViewModels
         {
             int code = rnd.Next(100, 999);
             await _productService.addOrder(Products); 
-
             await _documentService.GetCheck(code, _productService.GetMaxOrderHelper(), Products);
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress("qweq95346@gmail.com", "Отправитель");
+            message.To.Add(new MailAddress("nnice2015@yandex.ru", "Получатель"));
+            message.Subject = "Тема сообщения";
+            message.Body = "Тело сообщения";
+
+            //Attachment attachment = new Attachment(Path.GetFullPath("Товарный чек.pdf"));
+            //message.Attachments.Add(attachment);
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.Credentials = new System.Net.NetworkCredential("qweq95346@gmail.com", "Qwerty123*/");
+            client.EnableSsl = true;
+
+            await client.SendMailAsync(message);
+
             _pageService.ChangePage(new OrderPage());
         });
 
