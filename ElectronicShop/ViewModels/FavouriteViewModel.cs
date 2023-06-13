@@ -24,11 +24,8 @@ namespace ElectronicShop.ViewModels
 
 
         public List<string> Sorts { get; set; } = new() {
-            "По производителю",
             "По возрастанию (Цена)",
-            "По убыванию (Цена)",
-            "По возрастанию (Скидка)",
-            "По убыванию (Скидка)"
+            "По убыванию (Цена)"
         };
 
         public List<string> Filters { get; set; } = new() {
@@ -220,6 +217,22 @@ namespace ElectronicShop.ViewModels
 
 
                 }
+            }
+
+
+            if (!string.IsNullOrEmpty(SelectedSort))
+            {
+                switch (SelectedSort)
+                {
+                    case "По возрастанию (Цена)":
+                        currentProduct = currentProduct.OrderBy(p => p.CostProduct).ToList();
+                        break;
+                    case "По убыванию (Цена)":
+                        currentProduct = currentProduct.OrderByDescending(p => p.CostProduct).ToList();
+                        break;
+                }
+
+
             }
 
             Products = currentProduct;

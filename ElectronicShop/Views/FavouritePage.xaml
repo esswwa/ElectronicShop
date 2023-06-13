@@ -493,6 +493,27 @@
                                 Text="Сортировка" />
                         </StackPanel>
                     </TabItem.Header>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ComboBox Grid.Column="0"
+                                  Margin="15"
+                                  Width="Auto"
+                                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                                  HorizontalAlignment="Stretch"
+                                  materialDesign:HintAssist.Hint="Сортировка"
+                                  ItemsSource="{Binding Sorts}"
+                                  SelectedItem="{Binding SelectedSort}"/>
+
+                        <StackPanel Grid.Column="1"
+                                    Margin="0 15 0 0"
+                                    Orientation="Horizontal">
+                            <TextBox/>
+                        </StackPanel>
+                    </Grid>
                 </TabItem>
                 <TabItem  Width="90">
                     <TabItem.Header>
