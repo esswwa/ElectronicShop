@@ -229,7 +229,6 @@
                         <DataTemplate>
                             <materialDesign:Card Background="White"
                                              Margin="30"
-                                             Height="200"
                                              Padding="30"
                                              HorizontalContentAlignment="Stretch">
                                 <Grid HorizontalAlignment="Stretch"
