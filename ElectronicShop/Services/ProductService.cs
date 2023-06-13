@@ -371,7 +371,7 @@ namespace ElectronicShop.Services
                 _electronickshopContext.Users.ToList();
                 _electronickshopContext.Products.ToList();
                 _electronickshopContext.StatusOrders.ToList();
-                var feedbacks = await _electronickshopContext.Orders.Where(i => i.IdStatusOrderNavigation.NameStatus != "Выдан покупателю" && i.IdStatusOrderNavigation.NameStatus != "Отменен").ToListAsync();
+                var feedbacks = await _electronickshopContext.Orders.Where(i => i.IdStatusOrderNavigation.NameStatus != "Выдан покупателю" && i.IdStatusOrderNavigation.NameStatus != "Отменен" && i.IdUser == Settings.Default.idUser).ToListAsync();
                 feedbacks1 = feedbacks;
                 return feedbacks1;
 
@@ -387,7 +387,7 @@ namespace ElectronicShop.Services
                 _electronickshopContext.Users.ToList();
                 _electronickshopContext.Products.ToList();
                 _electronickshopContext.StatusOrders.ToList();
-                var feedbacks = await _electronickshopContext.Orders.Where(i => i.IdStatusOrderNavigation.NameStatus == "Выдан покупателю" || i.IdStatusOrderNavigation.NameStatus == "Отменен").ToListAsync();
+                var feedbacks = await _electronickshopContext.Orders.Where(i => i.IdStatusOrderNavigation.NameStatus == "Выдан покупателю" || i.IdStatusOrderNavigation.NameStatus == "Отменен" && i.IdUser == Settings.Default.idUser).ToListAsync();
                 feedbacks1 = feedbacks;
                 return feedbacks1;
 
