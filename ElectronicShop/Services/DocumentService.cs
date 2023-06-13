@@ -10,25 +10,15 @@ namespace ElectronicShop.Services
 {
     public class DocumentService
     {
-        public async Task GetCheck(Point PickupPoint, int OrderCode, int OrderNumber, List<Product> Products)
+        public async Task GetCheck(int OrderCode, int OrderNumber, List<Product> Products)
         {
-            Func<float> GetFullPrice = () =>
-            {
-                float ammount = 0;
-                foreach (var item in Products)
-                {
-                    //ammount += (float)item.CostProduct * Global.CurrentCart.First(c => c.ArticleName.Equals(item.Article)).Count;
-                }
-                return ammount;
-            };
-
             PdfWriter writer = new($"Товарный чек.pdf");
             PdfDocument pdf = new(writer);
             Document document = new(pdf);
 
             PdfFont comic = PdfFontFactory.CreateFont(@"C:\Windows\Fonts\Arial.ttf", PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.PREFER_NOT_EMBEDDED);
 
-            var content = new Paragraph($"PishiStiray")
+            var content = new Paragraph($"ElectronickShop")
                 .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
                 .SetFont(comic)
                 .SetFontSize(12);
@@ -101,17 +91,17 @@ namespace ElectronicShop.Services
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                     .SetFont(comic)
                     .SetFontSize(14));
-                table.AddCell(new Paragraph(Products[i].CountProduct.ToString())
+                table.AddCell(new Paragraph(ListProduct.counts[i].ToString())
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                     .SetFont(comic)
                     .SetFontSize(14));
 
-                table.AddCell(new Paragraph(Products[i].CostProduct.ToString())
+                table.AddCell(new Paragraph(Products[i].CostProduct.ToString() + " ₽")
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                     .SetFont(comic)
                     .SetFontSize(14));
 
-                table.AddCell(new Paragraph(Products[i].CostProduct.ToString() + "вся цена")
+                table.AddCell(new Paragraph((Products[i].CostProduct * ListProduct.counts[i]).ToString() + " ₽")
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                     .SetFont(comic)
                     .SetFontSize(14));
@@ -147,7 +137,7 @@ namespace ElectronicShop.Services
                 .SetFont(comic)
                 .SetFontSize(14));
 
-            table.AddCell(new Paragraph(string.Format("{0:C2}", GetFullPrice()))
+            table.AddCell(new Paragraph(string.Format("{0:C2}", ListProduct.cost + " ₽"))
                 .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                 .SetFont(comic)
                 .SetFontSize(14));

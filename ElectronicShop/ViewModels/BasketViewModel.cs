@@ -1,11 +1,13 @@
-﻿namespace ElectronicShop.ViewModels
+﻿using ElectronicShop.Services;
+
+namespace ElectronicShop.ViewModels
 {
     public class BasketViewModel : BindableBase
     {
         private readonly PageService _pageService;
         private readonly ProductService _productService;
         private readonly UserService _userService;
-
+        private readonly DocumentService _documentService;
         public List<Product> Products { get; set; }
         public Product SelectedProduct { get; set; }
 
@@ -20,11 +22,12 @@
 
         public string textHeader { get; set; }
 
-        public BasketViewModel(PageService pageService, ProductService productService, UserService userService)
+        public BasketViewModel(PageService pageService, ProductService productService, UserService userService, DocumentService documentService)
         {
             _pageService = pageService;
             _productService = productService;
             _userService = userService;
+            _documentService = documentService;
             UpdateProduct();
             textHeader = "Корзина";
         }
@@ -77,7 +80,9 @@
         public DelegateCommand buyProduct => new(async () =>
         {
             int code = rnd.Next(100, 999);
-            await _productService.addOrder(Products);
+            await _productService.addOrder(Products); 
+
+            await _documentService.GetCheck(code, _productService.GetMaxOrderHelper(), Products);
             _pageService.ChangePage(new OrderPage());
         });
 

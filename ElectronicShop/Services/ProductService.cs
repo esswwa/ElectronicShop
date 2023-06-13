@@ -1,7 +1,6 @@
 ﻿using DevExpress.Internal.WinApi.Windows.UI.Notifications;
 using AutoMapper;
 using ElectronicShop.Models;
-using Org.BouncyCastle.Asn1.X500;
 
 namespace ElectronicShop.Services
 {
@@ -416,6 +415,13 @@ namespace ElectronicShop.Services
         }
 
         private static readonly Random rnd = new();
+
+        public int GetMaxOrderHelper()
+        {
+            var b = _electronickshopContext.Orders.Max(i => i.Idorder) + 1;
+            return b;
+        }
+
         public async Task addOrder(List<Product> product)
         {
             var helper = _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser).ToList();
@@ -432,7 +438,7 @@ namespace ElectronicShop.Services
                     count.Add(item.Count);
                 }
             }
-           
+            ListProduct.counts = count;
 
             int z = _electronickshopContext.Orders.Max(i => i.Idorder) + 1;
             int z1 = 0;
@@ -442,7 +448,7 @@ namespace ElectronicShop.Services
             foreach (var item in cost) {
                 allCost += item;
             }
-
+            ListProduct.cost = allCost;
             await _electronickshopContext.Orders.AddAsync(new Order
             {
                 Idorder = z,
@@ -480,6 +486,8 @@ namespace ElectronicShop.Services
                 _electronickshopContext.HelperBaskets.Remove(item);
             }
                 await _electronickshopContext.SaveChangesAsync();
+
+
         }
 
         //public async Task deleteBasketProduct(HelperBasket SelectedProduct)
