@@ -11,11 +11,9 @@ public partial class OrderHelper
 
     public int IdProduct { get; set; }
 
-    public int? Count { get; set; }
+    public int Count { get; set; }
 
-    public double? Cost { get; set; }
-
-    public virtual Order IdOrderNavigation { get; set; } = null!;
+    public double Cost { get; set; }
 
     public virtual Product IdProductNavigation { get; set; } = null!;
 }

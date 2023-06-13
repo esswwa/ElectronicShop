@@ -339,6 +339,39 @@ namespace ElectronicShop.Services
             return products;
         }
 
+
+        public async Task<List<Order>> getOrderHelper()
+        {
+            List<Order> feedbacks1 = new List<Order>();
+            try
+            {
+                _electronickshopContext.Users.ToList();
+                _electronickshopContext.Products.ToList();
+                _electronickshopContext.StatusOrders.ToList();
+                var feedbacks = await _electronickshopContext.Orders.Where(i => i.IdStatusOrderNavigation.NameStatus != "Выдан покупателю").ToListAsync();
+                feedbacks1 = feedbacks;
+                return feedbacks1;
+
+            }
+            catch { return feedbacks1; }
+        }
+
+        public async Task<List<Order>> getOrderHelper1()
+        {
+            List<Order> feedbacks1 = new List<Order>();
+            try
+            {
+                _electronickshopContext.Users.ToList();
+                _electronickshopContext.Products.ToList();
+                _electronickshopContext.StatusOrders.ToList();
+                var feedbacks = await _electronickshopContext.Orders.Where(i => i.IdStatusOrderNavigation.NameStatus == "Выдан покупателю").ToListAsync();
+                feedbacks1 = feedbacks;
+                return feedbacks1;
+
+            }
+            catch { return feedbacks1; }
+        }
+
         public bool getUserHelper(Product product) {
 
            List<HelperBasket> help = _electronickshopContext.HelperBaskets.Where(i => i.IdBasketNavigation.IdUser == Settings.Default.idUser).ToList();

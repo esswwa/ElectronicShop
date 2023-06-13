@@ -251,7 +251,7 @@ namespace ElectronicShop.ViewModels
             SelectProduct.product = SelectedProduct;
             _pageService.ChangePage(new ProductPage());
         });
-        public DelegateCommand Favourite => new(async () =>
+        public DelegateCommand Favourite => new(() =>
         {
             _pageService.ChangePage(new FavouritePage());
         });

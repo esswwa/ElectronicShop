@@ -11,8 +11,297 @@
       Title="OrderPage"
       DataContext="{Binding OrderViewModel, 
       Source={StaticResource ViewModelLocator}}">
-
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.15*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <materialDesign:Card Grid.Column="0">
+            <TabControl
+                materialDesign:ColorZoneAssist.Mode="Standard"
+                materialDesign:ElevationAssist.Elevation="Dp0"
+                Style="{StaticResource MaterialDesignNavigationRailTabControl}">
+                <TabItem  Width="90"
+                          Height="100">
+                    <TabItem.Header>
+                        <StackPanel
+                            Grid.Column="0"
+                            Width="auto"
+                            Margin="5"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                Command="{Binding CommandMenu}"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="Abacus" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                FontSize="14"
+                                Text="ELEISSIS"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem  Width="90"
+                          Height="100">
+                    <TabItem.Header>
+                        <StackPanel
+                            Grid.Column="0"
+                            Width="auto"
+                            Margin="5"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                Command="{Binding Favourite}"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="Heart" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                FontSize="14"
+                                Text="Избранные" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem  Width="90"
+                          Height="100">
+                    <TabItem.Header>
+                        <StackPanel
+                            Margin="5"
+                            Grid.Column="2"
+                            Width="auto"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                Command="{Binding Basket}"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="Basket" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                FontSize="14"
+                                Text="Корзина" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
+        </materialDesign:Card>
+        <TabControl materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                    Grid.Column="1">
+            <TabItem Header="Активные">
+                <ListView FontFamily="{StaticResource pwsFont}"
+                      ItemsSource="{Binding OrderHelper,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedOrderHelper, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      HorizontalContentAlignment="Stretch"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      d:ItemsSource="{d:SampleData ItemCount=5}">
+
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Отменить заказ"
+                                  Command="{Binding cancelOrder}"/>
+                            <MenuItem Header="Подтвердить доставку"
+                                  Command="{Binding confirmOrder}"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card Background="White"
+                                             Margin="30"
+                                             Padding="30"
+                                             HorizontalContentAlignment="Stretch">
+                                <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0"
+                                      VerticalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0"
+                                           TextWrapping="Wrap"
+                                           Text="{Binding Idorder, StringFormat={}Заказ №{0}}"/>
+                                        <TextBlock Grid.Row="1"
+                                           Margin="0 5 0 0"
+                                           Text="{Binding IdUserNavigation.Adress, StringFormat={}Будет доставлен по адресу: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="2"
+                                                   Margin="0 5 0 0"
+                                                   Text="Получатель заказа:"/>
+                                        <TextBlock Grid.Row="3"
+                                           Margin="0 5 0 0"
+                                           Text="{Binding IdUserNavigation.Login, StringFormat={}Login: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="4"
+                                           Margin="0 5 0 0"
+                                           Text="{Binding IdUserNavigation.Email, StringFormat={}Email: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="5"
+                                           Margin="0 5 0 0"
+                                           Text="{Binding DateOrder, StringFormat={}Дата заказа: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="6"
+                                           Margin="0 5 0 0"
+                                           Text="{Binding DateReceipt, StringFormat={}Дата доставки: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0"
+                                           Text="{Binding IdStatusOrderNavigation.NameStatus, StringFormat={}Статус: {0}}"
+                                           HorizontalAlignment="Left"/>
+                                        <TextBlock Grid.Row="1"
+                                           Margin="0 5 0 0"
+                                           Text="{Binding AllCost, StringFormat={}Общая стоимость заказа: {0}₽}"
+                                           HorizontalAlignment="Left"/>
+                                      
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Архив">
+                <ListView FontFamily="{StaticResource pwsFont}"
+                      ItemsSource="{Binding OrderHelper1,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedOrderHelper1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      HorizontalContentAlignment="Stretch"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      d:ItemsSource="{d:SampleData ItemCount=5}">
+
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Отменить заказ"
+                                  Command="{Binding cancelOrder}"/>
+                            <MenuItem Header="Подтвердить доставку"
+                                  Command="{Binding confirmOrder}"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card Background="White"
+                                             Margin="30"
+                                             Height="200"
+                                             Padding="30"
+                                             HorizontalContentAlignment="Stretch">
+                                <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                 
+                                    <Grid Grid.Column="0"
+                                      VerticalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0"
+                                           TextWrapping="Wrap"
+                                           Text="{Binding IdOrder, StringFormat={}Заказ №{0:C}, ConverterCulture=ru-RU}"/>
+                                        <TextBlock Grid.Row="1"
+                                           Margin="0 5 0 0"
+                                           Text="{Binding IdUserNavigation.Adress, StringFormat={}Был доставлен по адресу: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="2"
+                                                   Margin="0 5 0 0"
+                                                   Text="Получатель заказа:"/>
+                                        <TextBlock Grid.Row="3"
+                                           Margin="0 5 0 0"
+                                           Text="{Binding IdUserNavigation.Login, StringFormat={}Login: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="4"
+                                           Margin="0 5 0 0"
+                                           Text="{Binding IdUserNavigation.Email, StringFormat={}Email: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="5"
+                                           Margin="0 5 0 0"
+                                           Text="{Binding DateReceipt, StringFormat={}Дата получения: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0"
+                                           Text="{Binding IdStatusOrderNavigation.NameStatus, StringFormat={}Статус: {0}}"
+                                           HorizontalAlignment="Left"/>
+                                        <TextBlock Grid.Row="1"
+                                           Margin="0 5 0 0"
+                                           Text="{Binding AllCost, StringFormat={}Общая стоимость заказа: {0}₽}"
+                                           HorizontalAlignment="Left"/>
+
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>

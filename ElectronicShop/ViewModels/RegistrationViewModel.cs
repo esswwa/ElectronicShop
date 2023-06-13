@@ -49,7 +49,7 @@ namespace ElectronicShop.ViewModels
             return ErrorMessage == string.Empty;
         });
 
-        public DelegateCommand Authorization => new(async () => {
+        public DelegateCommand Authorization => new(() => {
 
             _pageService.ChangePage(new AuthorizationPage());
         });

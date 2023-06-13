@@ -7,11 +7,17 @@ public partial class Order
 {
     public int Idorder { get; set; }
 
-    public DateOnly Date { get; set; }
+    public DateOnly DateOrder { get; set; }
 
     public int IdUser { get; set; }
 
     public int IdStatusOrder { get; set; }
+
+    public DateOnly DateReceipt { get; set; }
+
+    public int Id_Order_Helper { get; set; }
+
+    public double AllCost { get; set; }
 
     public virtual StatusOrder IdStatusOrderNavigation { get; set; } = null!;
 

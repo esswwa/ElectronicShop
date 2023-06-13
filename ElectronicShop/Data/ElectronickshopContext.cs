@@ -222,10 +222,13 @@ public partial class ElectronickshopContext : DbContext
             entity.Property(e => e.Idorder)
                 .ValueGeneratedNever()
                 .HasColumnName("idorder");
-            entity.Property(e => e.Date).HasColumnName("date");
-            entity.Property(e => e.IdStatusOrder).HasColumnName("idStatusOrder");
+            entity.Property(e => e.DateOrder).HasColumnName("dateOrder");
             entity.Property(e => e.IdUser).HasColumnName("idUser");
-
+            entity.Property(e => e.IdStatusOrder).HasColumnName("idStatusOrder");
+            entity.Property(e => e.DateReceipt).HasColumnName("dateReceipt");
+            entity.Property(e => e.Id_Order_Helper).HasColumnName("id_Order_Helper");
+            entity.Property(e => e.AllCost).HasColumnName("allCost");
+            
             entity.HasOne(d => d.IdStatusOrderNavigation).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.IdStatusOrder)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -243,22 +246,15 @@ public partial class ElectronickshopContext : DbContext
 
             entity.ToTable("order_helper");
 
-            entity.HasIndex(e => e.IdOrder, "fk_id_order_from_helper_idx");
-
             entity.HasIndex(e => e.IdProduct, "fk_id_product_from_helper_idx");
 
             entity.Property(e => e.IdorderHelper)
                 .ValueGeneratedNever()
                 .HasColumnName("idorder_helper");
-            entity.Property(e => e.Cost).HasColumnName("cost");
-            entity.Property(e => e.Count).HasColumnName("count");
             entity.Property(e => e.IdOrder).HasColumnName("id_order");
             entity.Property(e => e.IdProduct).HasColumnName("id_product");
-
-            entity.HasOne(d => d.IdOrderNavigation).WithMany(p => p.OrderHelpers)
-                .HasForeignKey(d => d.IdOrder)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_id_order_from_helper");
+            entity.Property(e => e.Count).HasColumnName("count");
+            entity.Property(e => e.Cost).HasColumnName("cost");
 
             entity.HasOne(d => d.IdProductNavigation).WithMany(p => p.OrderHelpers)
                 .HasForeignKey(d => d.IdProduct)
