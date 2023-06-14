@@ -5,12 +5,226 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ElectronicShop.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       DataContext="{Binding EditAndAddsProducts, 
       Source={StaticResource ViewModelLocator}}"
       Title="EditAndAddsProducts">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.15*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.4*"/>
+        </Grid.ColumnDefinitions>
+        <materialDesign:Card Grid.Column="0">
+            <TabControl
+                materialDesign:ColorZoneAssist.Mode="Standard"
+                materialDesign:ElevationAssist.Elevation="Dp0"
+                Style="{StaticResource MaterialDesignNavigationRailTabControl}">
+                <TabItem  Width="90"
+                          Height="100">
+                    <TabItem.Header>
+                        <StackPanel
+                            Margin="5"
+                            Grid.Column="2"
+                            Width="auto"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                Command="{Binding Basket}"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="Basket" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                FontSize="14"
+                                Text="Продукты" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem  Width="90"
+                          Height="100">
+                    <TabItem.Header>
+                        <StackPanel
+                            Margin="5"
+                            Grid.Column="2"
+                            Width="auto"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
+                                Command="{Binding Exit}"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="Door" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                FontSize="14"
+                                Text="Выход" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+            </TabControl>
+        </materialDesign:Card>
+
+        <ListView FontFamily="{StaticResource pwsFont}"
+                      Grid.Row="1"
+                      Grid.RowSpan="2"
+                      Grid.Column="1"
+                      ItemsSource="{Binding Products,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      HorizontalContentAlignment="Stretch"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      d:ItemsSource="{d:SampleData ItemCount=5}">
+
+            <ListView.ContextMenu>
+                <ContextMenu>
+
+                    <MenuItem Header="Редактировать"
+                                  Command="{Binding addInBasket}"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <materialDesign:Card Background="White"
+                                             Margin="30"
+                                             Height="200"
+                                             HorizontalContentAlignment="Stretch">
+                        <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0"
+                                    CornerRadius="12"
+                                    Width="180"
+                                    Height="150">
+                                <Image
+                                       Source="{Binding ImgProduct}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"/>
+                            </Border>
+
+                            <Grid Grid.Column="1"
+                                      VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Row="0"
+                                           TextWrapping="Wrap">
+                                    <TextBlock.Inlines>
+                                        <Run Text="{Binding NameProduct, StringFormat={}{0:C}, ConverterCulture=ru-RU}"/>
+                                        <Run Text="{Binding SecondNameProduct, StringFormat={}{0:C}, ConverterCulture=ru-RU, Mode=OneWay}"/>
+                                    </TextBlock.Inlines>
+                                </TextBlock>
+                                <StackPanel Grid.Row="1"
+                                            Orientation="Horizontal">
+                                    <materialDesign:RatingBar
+                                        x:Name="BasicRatingBarFractionalPreview"
+                                        IsReadOnly="True" 
+                                        IsPreviewValueEnabled="True"
+                                        Max="5"
+                                        Min="0" 
+                                        ValueIncrements="0.1"
+                                        Value="{Binding ReitingProduct}"/>
+                                    <TextBlock Margin="0 5 0 0"
+                                               Text="{Binding ReitingProduct}"/>
+                                </StackPanel>
+                                <TextBlock Grid.Row="2"
+                                           Text="{Binding StatusNavigation.Status1, StringFormat={}Статус: {0}}"
+                                           TextWrapping="Wrap"
+                                           VerticalAlignment="Center"/>
+                            </Grid>
+
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0"
+                                           Text="{Binding CostProduct, StringFormat={}{0} ₽}"
+                                           HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Card>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2"
+                                     Padding="16"
+                                     Margin="16"
+                                     Grid.Column="2"
+                                     Visibility="{Binding boolVisibility}">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Редактирование заказа"
+                       FontSize="18"
+                       Margin="16"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Grid.Row="0"/>
+                <TextBox   Text="{Binding IdOrder}"
+                       FontSize="18"
+                       materialDesign:HintAssist.Hint="Номер заказа"
+                       Margin="0 10 0 0"
+                       IsEnabled="False"
+                       TextAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Grid.Row="1"/>
+                <DatePicker SelectedDate="{Binding DateReceipt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       Margin="0 10 0 0"
+                       Grid.Row="2"
+                       materialDesign:HintAssist.Hint="Дата доставки"
+                       SelectedDateFormat="Short"/>
+                <ComboBox  materialDesign:TextFieldAssist.HasClearButton="True"
+                           ItemsSource="{Binding StatusOrder}"
+                           SelectedItem="{Binding StatusesOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                           DisplayMemberPath="NameStatus"
+                           materialDesign:HintAssist.Hint="Статус"
+                           FontSize="18"
+                           Margin="0 10 0 0"
+                           Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                           Grid.Row="3"/>
+                <Button Grid.Row="4"
+                        Content="Редактировать"
+                        Command="{Binding EditOrder}"
+                        Margin="10"/>
+            </Grid>
+        </materialDesign:Card>
     </Grid>
 </Page>
