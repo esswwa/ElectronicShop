@@ -23,6 +23,8 @@
             services.AddTransient<FavouriteViewModel>();
             services.AddTransient<OrderViewModel>();
             services.AddTransient<ProductViewModel>();
+            services.AddTransient<OrderAdminViewModel>();
+            services.AddTransient<EditAndAddsProducts>();
 
             #endregion
 
@@ -60,6 +62,8 @@
         public MenuViewModel? MenuViewModel => _provider?.GetRequiredService<MenuViewModel>();
         public ProductViewModel? ProductViewModel => _provider?.GetRequiredService<ProductViewModel>();
         public RegistrationViewModel? RegistrationViewModel => _provider?.GetRequiredService<RegistrationViewModel>();
+        public OrderAdminViewModel? OrderAdminViewModel => _provider?.GetRequiredService<OrderAdminViewModel>();
+        public EditAndAddsProducts? EditAndAddsProducts => _provider?.GetRequiredService<EditAndAddsProducts>();
 
     }
     
