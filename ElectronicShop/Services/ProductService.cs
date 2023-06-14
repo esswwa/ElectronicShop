@@ -1,6 +1,7 @@
 ﻿using DevExpress.Internal.WinApi.Windows.UI.Notifications;
 using AutoMapper;
 using ElectronicShop.Models;
+using ElectronicShop.Data.Model;
 
 namespace ElectronicShop.Services
 {
@@ -378,6 +379,22 @@ namespace ElectronicShop.Services
             catch { return feedbacks1; }
         }
 
+        public async Task<List<Order>> getOrderAdminHelper()
+        {
+            List<Order> feedbacks1 = new List<Order>();
+            try
+            {
+                _electronickshopContext.Users.ToList();
+                _electronickshopContext.Products.ToList();
+                _electronickshopContext.StatusOrders.ToList();
+                var feedbacks = await _electronickshopContext.Orders.ToListAsync();
+                feedbacks1 = feedbacks;
+                return feedbacks1;
+
+            }
+            catch { return feedbacks1; }
+        }
+
         public async Task<List<Order>> getOrderHelper1()
         {
             List<Order> feedbacks1 = new List<Order>();
@@ -392,6 +409,25 @@ namespace ElectronicShop.Services
 
             }
             catch { return feedbacks1; }
+        }
+
+        public List<StatusOrder> getAllStatuses()
+        {
+            return _electronickshopContext.StatusOrders.ToList();
+        }
+
+        public async Task editOrder(Order order)
+        {
+            ObservableCollection<Order> Orders = _electronickshopContext.Orders.ToObservableCollection();
+            var item = Orders.First(i => i.Idorder == order.Idorder);
+            var index = Orders.IndexOf(item);
+
+            item.DateReceipt = order.DateReceipt;
+            item.IdStatusOrder = order.IdStatusOrder;
+
+            Orders.RemoveAt(index);
+            Orders.Insert(index, item);
+            await _electronickshopContext.SaveChangesAsync();
         }
 
         public bool getUserHelper(Product product) {

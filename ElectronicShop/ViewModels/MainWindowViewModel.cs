@@ -24,8 +24,10 @@ namespace ElectronicShop.ViewModels
                 Settings.Default.roleId = user.RoleId;
                 Settings.Default.exitCheck = 1;
                 Settings.Default.Adress = user.Adress;
-
-                _pageService.ChangePage(new MenuPage());
+                if(user.RoleId == 0)
+                    _pageService.ChangePage(new MenuPage());
+                else
+                    _pageService.ChangePage(new OrderAdmin());
             }
         }
 

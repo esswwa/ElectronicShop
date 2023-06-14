@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ElectronicShop.Data.Model;
+using ElectronicShop.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,26 +19,32 @@ namespace ElectronicShop.ViewModels
 
         public string textHeader { get; set; }
         public string IdOrder { get; set; }
-        public string DateReceipt { get; set; }
-        public List<string> StatusOrder { get; set; }
-        public string StatusesOrder { get;set; }
+        public DateTime DateReceipt { get; set; }
+        public List<StatusOrder> StatusOrder { get; set; }
+        public StatusOrder StatusesOrder { get;set; }
 
-        public bool boolVisibility { get; set; }
+        public Visibility boolVisibility { get; set; }
         public OrderAdminViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
             _productService = productService;
-            _userService = userService; 
-            boolVisibility = false;
+            _userService = userService;
+            boolVisibility = Visibility.Hidden;
             UpdateProduct();
         }
         private async void UpdateProduct()
         {
-            OrderHelper = await _productService.getOrderHelper();
+            OrderHelper = await _productService.getOrderAdminHelper();
         }
-        public DelegateCommand Basket => new(() => _pageService.ChangePage(new BasketPage()));
-        public DelegateCommand CommandMenu => new(() => _pageService.ChangePage(new MenuPage()));
-        public DelegateCommand Favourite => new(() => _pageService.ChangePage(new FavouritePage()));
+        public DelegateCommand Basket => new(() => _pageService.ChangePage(new EditAndAddsProducts()));
+
+        public DelegateCommand Exit => new(() =>
+        {
+            _pageService.ChangePage(new AuthorizationPage());
+            _userService.UpdateProductNull();
+        });
+
+        
         public DelegateCommand cancelOrder => new(async () =>
         {
             await _productService.editOrderStatus(SelectedOrderHelper);
@@ -46,18 +54,24 @@ namespace ElectronicShop.ViewModels
         
         public DelegateCommand editOrders => new(async () =>
         {
-            boolVisibility = true;
+            boolVisibility = Visibility.Visible;
             IdOrder = SelectedOrderHelper.Idorder.ToString();
-            DateReceipt = SelectedOrderHelper.DateReceipt.ToString();
-            StatusesOrder = SelectedOrderHelper.Idorder.ToString();
+            DateOnly date = SelectedOrderHelper.DateReceipt;
+            DateReceipt = date.ToDateTime(new TimeOnly());
+
+            List<StatusOrder> Statuses = _productService.getAllStatuses();
+            StatusOrder = Statuses;
+            StatusesOrder = SelectedOrderHelper.IdStatusOrderNavigation;
 
         });
         public DelegateCommand EditOrder => new(async () =>
         {
-           
+            SelectedOrderHelper.IdStatusOrder = StatusesOrder.IdstatusOrder;
+            SelectedOrderHelper.DateReceipt = DateOnly.FromDateTime(DateReceipt);
+            await _productService.editOrder(SelectedOrderHelper);
+            boolVisibility = Visibility.Hidden;
+            UpdateProduct();
         });
-
-        
 
     }
 }

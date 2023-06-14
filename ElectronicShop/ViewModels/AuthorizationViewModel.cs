@@ -33,7 +33,10 @@ namespace ElectronicShop.ViewModels
                     _userService.UpdateProduct();
                     await Application.Current.Dispatcher.InvokeAsync(async () => 
                     {
-                        _pageService.ChangePage(new MenuPage());
+                        if(Settings.Default.roleId == 0)
+                            _pageService.ChangePage(new MenuPage());
+                        else
+                            _pageService.ChangePage(new OrderAdmin());
                     });
                     
                 }
