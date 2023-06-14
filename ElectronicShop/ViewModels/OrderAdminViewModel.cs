@@ -49,6 +49,7 @@ namespace ElectronicShop.ViewModels
         {
             await _productService.editOrderStatus(SelectedOrderHelper);
             UpdateProduct();
+            boolVisibility = Visibility.Hidden;
         });
 
         
