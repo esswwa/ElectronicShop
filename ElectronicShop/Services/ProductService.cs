@@ -458,6 +458,8 @@ namespace ElectronicShop.Services
             return b;
         }
 
+
+
         public async Task addOrder(List<Product> product)
         {
             var helper = _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser).ToList();

@@ -18,7 +18,7 @@ namespace ElectronicShop.Services
 
             PdfFont comic = PdfFontFactory.CreateFont(@"C:\Windows\Fonts\Arial.ttf", PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.PREFER_NOT_EMBEDDED);
 
-            var content = new Paragraph($"ElectronickShop")
+            var content = new Paragraph($"ELEISSIS")
                 .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
                 .SetFont(comic)
                 .SetFontSize(12);

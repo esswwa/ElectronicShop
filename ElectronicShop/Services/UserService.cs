@@ -1,4 +1,5 @@
 ﻿using ElectronicShop.Properties;
+using System.Linq;
 
 namespace ElectronicShop.Services
 {
@@ -33,6 +34,19 @@ namespace ElectronicShop.Services
             return false;
         }
 
+
+        public string checkPassword()
+        {
+            var user = _electronickshopContext.Users.Where(u => u.Login == "admin").SingleOrDefault();
+            return user.Password;
+        }
+
+        public string checkAdress()
+        {
+            var user = _electronickshopContext.Users.Where(u => u.Login == "admin").SingleOrDefault();
+            return user.Email;
+        }
+
         public async Task RegistrationAsync(int idUser, string login, string email, string password, string adress)
         {
 
@@ -48,6 +62,8 @@ namespace ElectronicShop.Services
             });
             await _electronickshopContext.SaveChangesAsync();
         }
+
+
         public async Task BasketAsync(int basket, int user)
         {
 

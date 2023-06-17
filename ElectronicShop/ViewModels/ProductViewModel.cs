@@ -66,7 +66,7 @@ namespace ElectronicShop.ViewModels
         }
         private void CheckEnabled(){
             var z = Feedback.Where(c => c.IdUser == Settings.Default.idUser && c.IdProduct == SelectProduct.product.IdProduct);
-            if (z == null)
+            if (!z.Any())
                 IsEnabledCart = true;
             else
                 IsEnabledCart = false;

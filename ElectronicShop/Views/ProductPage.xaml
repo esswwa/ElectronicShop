@@ -212,6 +212,8 @@
                                         IsPreviewValueEnabled="True"
                                         Max="5"
                                         Min="0" 
+                                        Background="#CCE0FF"
+                                        Foreground="#424874"
                                         ValueIncrements="0.1"
                                         Value="{Binding ReitingProduct}"/>
                                 <TextBlock Margin="0 5 0 0"
@@ -305,7 +307,7 @@
                                      MinHeight="250"
                                      MaxHeight="350"
                                      Grid.Row="2"
-                                     Margin="24"
+                                     Margin="24 24 24 0"
                                      Padding="16">
                     <materialDesign:Flipper.FrontContent>
                         <materialDesign:Card 
@@ -325,12 +327,18 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
+                                <TextBlock Text="Отзывы о товаре"
+                                           TextWrapping="Wrap"
+                                           FontSize="22"
+                                           Margin="0 0 0 20"
+                                           />
                                 <TextBlock Text="{Binding NameProduct}"
                                            TextWrapping="Wrap"
                                            FontSize="18"
                                            FontStyle="Italic"
+                                           Grid.Row="1"
                                            Grid.ColumnSpan="1"/>
-                                <StackPanel Grid.Row="1"
+                                <StackPanel Grid.Row="2"
                                             Orientation="Horizontal">
                                     <materialDesign:RatingBar x:Name="BasicRatingBarFractionalPreview1"
                                                               IsReadOnly="True" 
@@ -349,6 +357,7 @@
                                            Grid.Row="3"/>
                                 <Grid Grid.Column="1"
                                       Grid.RowSpan="4"
+                                      Grid.Row="1"
                                       Margin="10"
                                       Grid.ColumnSpan="2">
                                     <Grid.RowDefinitions>
@@ -479,7 +488,7 @@
                 
                 <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp4"
                                      Grid.Row="3"
-                                     Margin="15"
+                                     Margin="15 0 15 15"
                                      Height="350"
                                      VerticalAlignment="Center">
                     <ListView FontFamily="{StaticResource pwsFont}"

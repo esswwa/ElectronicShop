@@ -79,11 +79,29 @@ namespace ElectronicShop.ViewModels
         {
             _pageService.ChangePage(new OrderPage());
         });
+        //533
         public DelegateCommand buyProduct => new(async () =>
         {
             int code = rnd.Next(100, 999);
+            int orderCode = _productService.GetMaxOrderHelper();
             await _productService.addOrder(Products); 
             await _documentService.GetCheck(code, _productService.GetMaxOrderHelper(), Products);
+
+            MailAddress from = new MailAddress(_userService.checkAdress(), "ELEISSIS");
+            MailAddress to = new MailAddress(Settings.Default.email);
+            MailMessage m = new MailMessage(from, to);
+            m.Subject = $"Чек по заказу №{orderCode} от {DateTime.Now.Date}";
+            m.Body = $"Здравствуйте, {Settings.Default.login}!\n\nВаш заказ успешно оформлен. Спасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.\n\n"
+            +
+            "Отправлено с помощью MailAdress и SMTP-client.";
+            string fileName = "Товарный чек.pdf";
+            string path = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+            m.Attachments.Add(new Attachment(path));
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential(_userService.checkAdress(), _userService.checkPassword());
+            smtp.EnableSsl = true;
+            await smtp.SendMailAsync(m);
+
 
             //MailMessage message = new MailMessage();
             //message.From = new MailAddress("qweq95346@gmail.com", "Отправитель");
@@ -91,8 +109,8 @@ namespace ElectronicShop.ViewModels
             //message.Subject = "Тема сообщения";
             //message.Body = "Тело сообщения";
 
-            ////Attachment attachment = new Attachment(Path.GetFullPath("Товарный чек.pdf"));
-            ////message.Attachments.Add(attachment);
+            //Attachment attachment = new Attachment(Path.GetFullPath("Товарный чек.pdf"));
+            //message.Attachments.Add(attachment);
 
             //SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
             //client.Credentials = new System.Net.NetworkCredential("qweq95346@gmail.com", "Qwerty123*/");
