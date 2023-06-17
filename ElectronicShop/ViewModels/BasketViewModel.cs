@@ -90,7 +90,7 @@ namespace ElectronicShop.ViewModels
             MailAddress from = new MailAddress(_userService.checkAdress(), "ELEISSIS");
             MailAddress to = new MailAddress(Settings.Default.email);
             MailMessage m = new MailMessage(from, to);
-            m.Subject = $"Чек по заказу №{orderCode} от {DateTime.Now.Date}";
+            m.Subject = $"Чек по заказу №{orderCode} от {DateOnly.FromDateTime(DateTime.Now).ToString("D")}";
             m.Body = $"Здравствуйте, {Settings.Default.login}!\n\nВаш заказ успешно оформлен. Спасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.\n\n"
             +
             "Отправлено с помощью MailAdress и SMTP-client.";
