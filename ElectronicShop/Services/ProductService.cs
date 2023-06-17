@@ -503,7 +503,7 @@ namespace ElectronicShop.Services
                 if (z1 == 0)
                     z1 = _electronickshopContext.OrderHelpers.Max(i => i.IdorderHelper) + 1;
                 else
-                    z1 += z1;
+                    z1 = z1 + 1;
                 await _electronickshopContext.OrderHelpers.AddAsync(new OrderHelper
                 {
                     IdorderHelper = z1,
