@@ -16,6 +16,7 @@ namespace ElectronicShop.ViewModels
     {
         private readonly PageService _pageService;
         private readonly ProductService _productService;
+        private readonly UserService _userService;
         public List<Product> Products { get; set; }
         public Product SelectedProduct { get; set; }
 
@@ -49,10 +50,11 @@ namespace ElectronicShop.ViewModels
         public Status ProductStatus1 { get; set; }
 
 
-        public EditAndAddsProductsViewModel(PageService pageService, ProductService productService)
+        public EditAndAddsProductsViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
             _productService = productService;
+            _userService = userService;
             UpdateProduct();
         }
         private async void UpdateProduct()
@@ -218,5 +220,21 @@ namespace ElectronicShop.ViewModels
                 return false;
             return true;
         });
+
+        public DelegateCommand deleteProduct => new(async () =>
+        {
+            await _productService.deleteProduct(SelectedProduct);
+            UpdateProduct();
+        });
+        public DelegateCommand Order => new(() =>
+        {
+            _pageService.ChangePage(new OrderAdmin());
+        });
+        public DelegateCommand Exit => new(() =>
+        {
+            _pageService.ChangePage(new AuthorizationPage());
+            _userService.UpdateProductNull();
+        });
+        
     }
 }

@@ -253,7 +253,7 @@
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignFloatingActionButton}"
                                 Background="#CCE0FF"
-                                Command="{Binding Basket}"
+                                Command="{Binding Order}"
                                 BorderBrush="#CCE0FF">
                                 <materialDesign:PackIcon
                                                     Background="#CCE0FF"
@@ -319,6 +319,8 @@
                         <ContextMenu>
                             <MenuItem Header="Редактировать"
                                   Command="{Binding editProduct}"/>
+                            <MenuItem Header="Удалить"
+                                  Command="{Binding deleteProduct}"/>
                         </ContextMenu>
                     </ListView.ContextMenu>
 

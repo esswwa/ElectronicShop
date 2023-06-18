@@ -481,6 +481,20 @@ namespace ElectronicShop.Services
             await _electronickshopContext.SaveChangesAsync();
         }
 
+        public async Task deleteProduct(Product product)
+        {
+            ObservableCollection<Product> Products = _electronickshopContext.Products.ToObservableCollection();
+            var item = Products.First(i => i.IdProduct == product.IdProduct);
+            var index = Products.IndexOf(item);
+
+            item.Status = 2;
+
+            Products.RemoveAt(index);
+            Products.Insert(index, item);
+
+            await _electronickshopContext.SaveChangesAsync();
+        }
+
         public async Task editCategory(int idcategory, string categoryName, string categoryNameDeep)
         {
             ObservableCollection<Category> Categories = _electronickshopContext.Categories.ToObservableCollection();
@@ -569,7 +583,16 @@ namespace ElectronicShop.Services
             return b;
         }
 
+        public bool checkFavourite(int idProduct)
+        {
+            var b = _electronickshopContext.Favourities.Where(i => i.IdUser == Settings.Default.idUser && i.IdProduct == idProduct).FirstOrDefault();
+            if (b != null)
+                return true;
+            else
+                return false;
+        }
 
+        
 
         public async Task addOrder(List<Product> product)
         {

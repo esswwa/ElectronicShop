@@ -52,13 +52,15 @@ namespace ElectronicShop.ViewModels
             _productService = productService;
             _userService = userService;
 
+            var df = _productService.checkFavourite(SelectProduct.product.IdProduct);
+
             NameProduct = SelectProduct.product.NameProduct;
             ImgProduct = SelectProduct.product.ImgProduct;
             SecondNameProduct = SelectProduct.product.SecondNameProduct;
             ReitingProduct1 = SelectProduct.product.ReitingProduct.ToString();
             ReitingProduct = SelectProduct.product.ReitingProduct;
             CostProduct = SelectProduct.product.CostProduct.ToString();
-            IsCheckedButton = false;
+            IsCheckedButton = df;
             CountProduct = SelectProduct.product.CountProduct.ToString();
             Description = SelectProduct.product.Description;
             UpdateProduct();
@@ -127,6 +129,29 @@ namespace ElectronicShop.ViewModels
         public DelegateCommand Order => new(() =>
         {
             _pageService.ChangePage(new OrderPage());
+        });
+        public DelegateCommand addFavourite => new(async () =>
+        {
+            if (IsCheckedButton == true)
+            {
+                if (_productService.getAddFavourites(SelectProduct.product.IdProduct))
+                    await _productService.AddFavourites(SelectProduct.product.IdProduct);
+            }
+            else {
+                if (!_productService.getAddFavourites(SelectProduct.product.IdProduct))
+                    await _productService.deleteFavourite(SelectProduct.product);
+            }
+        });
+        
+
+        public DelegateCommand AddToBasket => new(async () =>
+        {
+            int maxHelper = _productService.GetMaxHelper() + 1;
+            bool z = _productService.getUserHelper(SelectProduct.product);
+            if (z == true)
+                await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectProduct.product.IdProduct, SelectProduct.product.CostProduct);
+            else
+                await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectProduct.product), true);
         });
     }
 }
