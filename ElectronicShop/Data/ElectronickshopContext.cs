@@ -27,8 +27,6 @@ public partial class ElectronickshopContext : DbContext
 
     public virtual DbSet<HelperBasket> HelperBaskets { get; set; }
 
-    public virtual DbSet<Imageproduct> Imageproducts { get; set; }
-
     public virtual DbSet<Order> Orders { get; set; }
 
     public virtual DbSet<OrderHelper> OrderHelpers { get; set; }
@@ -188,23 +186,6 @@ public partial class ElectronickshopContext : DbContext
                 .HasForeignKey(d => d.IdProduct)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_idproduct_from_helper_to_product");
-        });
-
-        modelBuilder.Entity<Imageproduct>(entity =>
-        {
-            entity.HasKey(e => e.IdimageProduct).HasName("PRIMARY");
-
-            entity.ToTable("imageproduct");
-
-            entity.Property(e => e.IdimageProduct)
-                .ValueGeneratedNever()
-                .HasColumnName("idimageProduct");
-            entity.Property(e => e.IdProduct)
-                .HasMaxLength(45)
-                .HasColumnName("idProduct");
-            entity.Property(e => e.Image)
-                .HasMaxLength(45)
-                .HasColumnName("image");
         });
 
         modelBuilder.Entity<Order>(entity =>

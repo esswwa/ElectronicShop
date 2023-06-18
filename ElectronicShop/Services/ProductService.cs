@@ -2,6 +2,7 @@
 using AutoMapper;
 using ElectronicShop.Models;
 using ElectronicShop.Data.Model;
+using System.Windows.Forms;
 
 namespace ElectronicShop.Services
 {
@@ -306,11 +307,26 @@ namespace ElectronicShop.Services
             return _electronickshopContext.HelperBaskets.ToObservableCollection<HelperBasket>();
         }
 
+
+        public List<Firm> getFirms()
+        {
+            return _electronickshopContext.Firms.ToList();
+        }
+
+        public List<Status> getStatuses() { 
+
+            return _electronickshopContext.Statuses.ToList();
+        }
+
+        public List<Category> getCategories()
+        {
+            return _electronickshopContext.Categories.ToList();
+        }
+
         public async Task<HelperBasket> getUserHelperBasket(Product IdProduct)
         {
             return await _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser && i.IdProduct == IdProduct.IdProduct).FirstOrDefaultAsync();
         }
-
         public async Task<List<HelperBasket>> getAllHelperBasketUser() {
 
             return await _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser).ToListAsync();
@@ -427,6 +443,101 @@ namespace ElectronicShop.Services
 
             Orders.RemoveAt(index);
             Orders.Insert(index, item);
+            await _electronickshopContext.SaveChangesAsync();
+        }
+
+        public async Task editProduct(string Article, string NameProduct, string SecondNameProduct, string ImgProduct, Firm FirmProduct, int CostProduct, Category CategoryProduct, float ReitingProduct, int CountProduct, Status Status, string Description)
+        {
+            ObservableCollection<Product> Products = _electronickshopContext.Products.ToObservableCollection();
+            var item = Products.First(i => i.Article == Article);
+            var index = Products.IndexOf(item);
+
+            item.Article = Article;
+            item.NameProduct = NameProduct;
+            item.SecondNameProduct = SecondNameProduct;
+            item.ImgProduct = ImgProduct;
+            item.FirmProduct = FirmProduct.Idfirms;
+            item.CostProduct = CostProduct;
+            item.CategoryProduct = CategoryProduct.Idcategory;
+            item.ReitingProduct = ReitingProduct;
+            item.CountProduct = CountProduct;
+            item.Status = Status.Idstatus;
+            item.Description = Description;
+
+            Products.RemoveAt(index);
+            Products.Insert(index, item);
+            await _electronickshopContext.SaveChangesAsync();
+        }
+        public async Task editFirm(int IdFirms, string Firm)
+        {
+            ObservableCollection<Firm> Firms = _electronickshopContext.Firms.ToObservableCollection();
+            var item = Firms.First(i => i.Idfirms == IdFirms);
+            var index = Firms.IndexOf(item);
+
+            item.Firm1 = Firm;
+
+            Firms.RemoveAt(index);
+            Firms.Insert(index, item);
+            await _electronickshopContext.SaveChangesAsync();
+        }
+
+        public async Task editCategory(int idcategory, string categoryName, string categoryNameDeep)
+        {
+            ObservableCollection<Category> Categories = _electronickshopContext.Categories.ToObservableCollection();
+            var item = Categories.First(i => i.Idcategory == idcategory);
+            var index = Categories.IndexOf(item);
+
+            item.CategoryName = categoryName;
+            item.CategoryNameDeep = categoryNameDeep;
+
+            Categories.RemoveAt(index);
+            Categories.Insert(index, item);
+            await _electronickshopContext.SaveChangesAsync();
+        }
+        public async Task AddCategory(string categoryName, string categoryNameDeep)
+        {
+            var idCategory = _electronickshopContext.Categories.Max(i => i.Idcategory);
+            await _electronickshopContext.Categories.AddAsync(new Category
+            {
+                Idcategory = idCategory + 1,
+                CategoryName = categoryName,
+                CategoryNameDeep = categoryNameDeep
+
+            });
+            await _electronickshopContext.SaveChangesAsync();
+        }
+        public async Task AddFirm(string Firm)
+        {
+            var idFirm = _electronickshopContext.Firms.Max(i => i.Idfirms);
+            await _electronickshopContext.Firms.AddAsync(new Firm
+            {
+                Idfirms = idFirm + 1,
+                Firm1 = Firm
+
+            });
+            await _electronickshopContext.SaveChangesAsync();
+        }
+
+
+        public async Task AddProduct(string Article, string NameProduct, string SecondNameProduct, string ImgProduct, Firm FirmProduct, int CostProduct, Category CategoryProduct, float ReitingProduct, int CountProduct, Status Status, string Description)
+        {
+            var idProduct = _electronickshopContext.Products.Max(i => i.IdProduct);
+            await _electronickshopContext.Products.AddAsync(new Product
+            {
+                IdProduct = idProduct + 1,
+                Article = Article,
+                NameProduct = NameProduct,
+                SecondNameProduct = SecondNameProduct,
+                ImgProduct = ImgProduct,
+                FirmProduct = FirmProduct.Idfirms,
+                CostProduct = CostProduct,
+                CategoryProduct = CategoryProduct.Idcategory,
+                ReitingProduct = ReitingProduct,
+                CountProduct = CountProduct,
+                Status = Status.Idstatus,
+                Description = Description
+
+            });
             await _electronickshopContext.SaveChangesAsync();
         }
 

@@ -7,15 +7,14 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      DataContext="{Binding EditAndAddsProducts, 
+      DataContext="{Binding EditAndAddsProductsViewModel, 
       Source={StaticResource ViewModelLocator}}"
       Title="EditAndAddsProducts">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.15*"/>
+            <ColumnDefinition Width="0.6*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.4*"/>
         </Grid.ColumnDefinitions>
         <materialDesign:Card Grid.Column="0">
             <TabControl
@@ -26,30 +25,221 @@
                           Height="100">
                     <TabItem.Header>
                         <StackPanel
-                            Margin="5"
-                            Grid.Column="2"
                             Width="auto"
                             Height="auto">
-                            <Button
-                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                Style="{StaticResource MaterialDesignFloatingActionButton}"
-                                Background="#CCE0FF"
-                                Command="{Binding Basket}"
-                                BorderBrush="#CCE0FF">
-                                <materialDesign:PackIcon
-                                                    Background="#CCE0FF"
-                                                    Foreground="#424874"
-                                                    Width="24"
-                                                    Height="24"
-                                                    Kind="Basket" />
-                            </Button>
-                            <TextBlock
-                                HorizontalAlignment="Center"
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
                                 Foreground="#424874"
-                                FontSize="14"
-                                Text="Продукты" />
+                                HorizontalAlignment="Center"
+                                Kind="Folder" />
+                            <TextBlock
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Text="Изменения"
+                                TextAlignment="Center"
+                                TextWrapping="Wrap"/>
                         </StackPanel>
                     </TabItem.Header>
+                    <ScrollViewer>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Expander HorizontalAlignment="Stretch"
+                                  Grid.Row="0"
+                                  Header="Продукты"
+                                  Margin="10"
+                                  Foreground="#424874"
+                                  Padding="24"
+                                  FontFamily="{StaticResource font}">
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0"
+                                           Text="{Binding TextHead, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           FontSize="24"
+                                           HorizontalAlignment="Center"
+                                           Margin="0 0 0 20"/>
+                                    <TextBox Grid.Row="1"
+                                         Text="{Binding Article, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Артикль"
+                                         Margin="0 0 0 5"/>
+                                    <TextBox Grid.Row="2"
+                                         Text="{Binding NameProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Название"
+                                         TextWrapping="Wrap"
+                                         Margin="0 0 0 5"/>
+                                    <TextBox Grid.Row="3"
+                                         Text="{Binding SecondNameProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Второе название"
+                                         TextWrapping="Wrap"
+                                         Margin="0 0 0 5"/>
+                                    <TextBox Grid.Row="4"
+                                         Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Описание"
+                                         TextWrapping="Wrap"
+                                         Margin="0 0 0 5"/>
+                                    <ComboBox
+                                         Grid.Row="5"
+                                         materialDesign:HintAssist.Hint="Категории"
+                                         materialDesign:TextFieldAssist.HasClearButton="True"
+                                         ItemsSource="{Binding ProductCategory}"
+                                         DisplayMemberPath="CategoryNameDeep"    
+                                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                         SelectedItem="{Binding ProductCategory1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Margin="0 0 0 5"/>
+                                    <ComboBox
+                                         Grid.Row="7"
+                                         materialDesign:HintAssist.Hint="Фирма"
+                                         materialDesign:TextFieldAssist.HasClearButton="True"
+                                         ItemsSource="{Binding ProductFirm}"
+                                         DisplayMemberPath="Firm1"
+                                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                         SelectedItem="{Binding ProductFirm1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Margin="0 0 0 5"/>
+                                    <TextBox Grid.Row="8"
+                                         Text="{Binding CostProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Стоимость"
+                                         Margin="0 0 0 5"/>
+                                    <TextBox Grid.Row="10"
+                                         Text="{Binding CountProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Количество на складе"
+                                         Margin="0 0 0 5"/>
+                                    <ComboBox
+                                         Grid.Row="11"
+                                         materialDesign:HintAssist.Hint="Статус"
+                                         materialDesign:TextFieldAssist.HasClearButton="True"
+                                         ItemsSource="{Binding ProductStatus}"
+                                         Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                         DisplayMemberPath="Status1"
+                                         SelectedItem="{Binding ProductStatus1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Margin="0 0 0 5"/>
+                                    <StackPanel Grid.Row="12"
+                                            Orientation="Horizontal">
+                                        <Button Content="Изменить"
+                                            Foreground="White"
+                                            materialDesign:ButtonAssist.CornerRadius="15"
+                                            Margin="0 0 15 0"
+                                            Command="{Binding EditCommand, IsAsync=True}"/>
+                                        <Button Content="Добавить"
+                                            Foreground="White"
+                                            materialDesign:ButtonAssist.CornerRadius="15"
+                                            Command="{Binding AddCommand, IsAsync=True}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Expander>
+                            <Expander HorizontalAlignment="Stretch"
+                                  Grid.Row="1"
+                                  Margin="10"
+                                  Header="Категории"
+                                  Padding="24"
+                                  Foreground="#424874"
+                                  FontFamily="{StaticResource font}">
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0"
+                                           Text="{Binding TextHead1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           FontSize="24"
+                                           HorizontalAlignment="Center"
+                                           Margin="0 0 0 20"/>
+                                    <TextBox Grid.Row="1"
+                                         Text="{Binding idCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Номер"
+                                         IsEnabled="False"
+                                         Margin="0 0 0 5"/>
+                                    <TextBox Grid.Row="2"
+                                         Text="{Binding CategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Категория"
+                                         TextWrapping="Wrap"
+                                         Margin="0 0 0 5"/>
+                                    <TextBox Grid.Row="3"
+                                         Text="{Binding CategoryNameDeep, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Подкатегория"
+                                         TextWrapping="Wrap"
+                                         Margin="0 0 0 5"/>
+                                    <StackPanel Grid.Row="4"
+                                            Orientation="Horizontal">
+                                        <Button Content="Изменить"
+                                            Foreground="White"
+                                            materialDesign:ButtonAssist.CornerRadius="15"
+                                            Margin="0 0 15 0"
+                                            Command="{Binding EditCommand1, IsAsync=True}"/>
+                                        <Button Content="Добавить"
+                                            Foreground="White"
+                                            materialDesign:ButtonAssist.CornerRadius="15"
+                                            Command="{Binding AddCommand1, IsAsync=True}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Expander>
+                            <Expander HorizontalAlignment="Stretch"
+                                  Grid.Row="2"
+                                  Margin="10"
+                                  Header="Фирмы"
+                                  Padding="24"
+                                  Foreground="#424874"
+                                  FontFamily="{StaticResource font}">
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0"
+                                           Text="{Binding TextHead2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                           FontSize="24"
+                                           HorizontalAlignment="Center"
+                                           Margin="0 0 0 20"/>
+                                    <TextBox Grid.Row="1"
+                                         Text="{Binding idFirm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Номер"
+                                         IsEnabled="False"
+                                         Margin="0 0 0 5"/>
+                                    <TextBox Grid.Row="2"
+                                         Text="{Binding Firm1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         materialDesign:HintAssist.Hint="Фирма"
+                                         TextWrapping="Wrap"
+                                         Margin="0 0 0 5"/>
+                                    <StackPanel Grid.Row="3"
+                                            Orientation="Horizontal">
+                                        <Button Content="Изменить"
+                                            Foreground="White"
+                                            materialDesign:ButtonAssist.CornerRadius="15"
+                                            Margin="0 0 15 0"
+                                            Command="{Binding EditCommand2, IsAsync=True}"/>
+                                        <Button Content="Добавить"
+                                            Foreground="White"
+                                            materialDesign:ButtonAssist.CornerRadius="15"
+                                            Command="{Binding AddCommand2, IsAsync=True}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Expander>
+                        </Grid>
+                    </ScrollViewer>
                 </TabItem>
                 <TabItem  Width="90"
                           Height="100">
@@ -76,36 +266,7 @@
                                 HorizontalAlignment="Center"
                                 Foreground="#424874"
                                 FontSize="14"
-                                Text="Редактировать" />
-                        </StackPanel>
-                    </TabItem.Header>
-                </TabItem>
-                <TabItem  Width="90"
-                          Height="100">
-                    <TabItem.Header>
-                        <StackPanel
-                            Margin="5"
-                            Grid.Column="2"
-                            Width="auto"
-                            Height="auto">
-                            <Button
-                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                                Style="{StaticResource MaterialDesignFloatingActionButton}"
-                                Background="#CCE0FF"
-                                Command="{Binding Basket}"
-                                BorderBrush="#CCE0FF">
-                                <materialDesign:PackIcon
-                                                    Background="#CCE0FF"
-                                                    Foreground="#424874"
-                                                    Width="24"
-                                                    Height="24"
-                                                    Kind="Basket" />
-                            </Button>
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                Foreground="#424874"
-                                FontSize="14"
-                                Text="Добавить" />
+                                Text="Заказы" />
                         </StackPanel>
                     </TabItem.Header>
                 </TabItem>
@@ -140,8 +301,11 @@
                 </TabItem>
             </TabControl>
         </materialDesign:Card>
-
-        <ListView FontFamily="{StaticResource pwsFont}"
+        <TabControl Grid.Row="1"
+                    Grid.RowSpan="2"
+                    Grid.Column="1">
+            <TabItem Header="Продукты">
+                <ListView FontFamily="{StaticResource pwsFont}"
                       Grid.Row="1"
                       Grid.RowSpan="2"
                       Grid.Column="1"
@@ -151,59 +315,58 @@
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       d:ItemsSource="{d:SampleData ItemCount=5}">
 
-            <ListView.ContextMenu>
-                <ContextMenu>
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Редактировать"
+                                  Command="{Binding editProduct}"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
 
-                    <MenuItem Header="Редактировать"
-                                  Command="{Binding addInBasket}"/>
-                </ContextMenu>
-            </ListView.ContextMenu>
-
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <materialDesign:Card Background="White"
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card Background="White"
                                              Margin="30"
                                              Height="200"
                                              HorizontalContentAlignment="Stretch">
-                        <Grid HorizontalAlignment="Stretch"
+                                <Grid HorizontalAlignment="Stretch"
                                   VerticalAlignment="Center">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="3*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
 
-                            <Border Grid.Column="0"
-                                    CornerRadius="12"
-                                    Width="180"
-                                    Height="150">
-                                <Image
+                                    <Border Grid.Column="0"
+                                            CornerRadius="12"
+                                            Width="180"
+                                            Height="150">
+                                        <Image
                                        Source="{Binding ImgProduct}"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"/>
-                            </Border>
+                                    </Border>
 
-                            <Grid Grid.Column="1"
+                                    <Grid Grid.Column="1"
                                       VerticalAlignment="Center">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
 
-                                <TextBlock Grid.Row="0"
+                                        <TextBlock Grid.Row="0"
                                            TextWrapping="Wrap">
-                                    <TextBlock.Inlines>
-                                        <Run Text="{Binding NameProduct, StringFormat={}{0:C}, ConverterCulture=ru-RU}"/>
-                                        <Run Text="{Binding SecondNameProduct, StringFormat={}{0:C}, ConverterCulture=ru-RU, Mode=OneWay}"/>
-                                    </TextBlock.Inlines>
-                                </TextBlock>
-                                <StackPanel Grid.Row="1"
+                                            <TextBlock.Inlines>
+                                                <Run Text="{Binding NameProduct, StringFormat={}{0:C}, ConverterCulture=ru-RU}"/>
+                                                <Run Text="{Binding SecondNameProduct, StringFormat={}{0:C}, ConverterCulture=ru-RU, Mode=OneWay}"/>
+                                            </TextBlock.Inlines>
+                                        </TextBlock>
+                                        <StackPanel Grid.Row="1"
                                             Orientation="Horizontal">
-                                    <materialDesign:RatingBar
+                                            <materialDesign:RatingBar
                                         x:Name="BasicRatingBarFractionalPreview"
                                         IsReadOnly="True" 
                                         IsPreviewValueEnabled="True"
@@ -211,78 +374,153 @@
                                         Min="0" 
                                         ValueIncrements="0.1"
                                         Value="{Binding ReitingProduct}"/>
-                                    <TextBlock Margin="0 5 0 0"
+                                            <TextBlock Margin="0 5 0 0"
                                                Text="{Binding ReitingProduct}"/>
-                                </StackPanel>
-                                <TextBlock Grid.Row="2"
+                                        </StackPanel>
+                                        <TextBlock Grid.Row="2"
                                            Text="{Binding StatusNavigation.Status1, StringFormat={}Статус: {0}}"
                                            TextWrapping="Wrap"
                                            VerticalAlignment="Center"/>
-                            </Grid>
+                                    </Grid>
 
-                            <Grid Grid.Column="2">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0"
+                                    <Grid Grid.Column="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Row="0"
                                            Text="{Binding CostProduct, StringFormat={}{0} ₽}"
                                            HorizontalAlignment="Center"/>
-                            </Grid>
-                        </Grid>
-                    </materialDesign:Card>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Категории">
+                <ListView FontFamily="{StaticResource pwsFont}"
+                                  Grid.Row="1"
+                                  Grid.Column="0"
+                                  ItemsSource="{Binding Categories,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding SelectedCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  HorizontalContentAlignment="Stretch"
+                                  d:ItemsSource="{d:SampleData ItemCount=5}"
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Редактировать"
+                                            Command="{Binding editCategory}"
+                                            CommandParameter="Редактировать"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
 
-        <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp2"
-                                     Padding="16"
-                                     Margin="16"
-                                     Grid.Column="2"
-                                     Visibility="{Binding boolVisibility}">
-            <Grid >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="Редактирование заказа"
-                       FontSize="18"
-                       Margin="16"
-                       TextAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Grid.Row="0"/>
-                <TextBox   Text="{Binding IdOrder}"
-                       FontSize="18"
-                       materialDesign:HintAssist.Hint="Номер заказа"
-                       Margin="0 10 0 0"
-                       IsEnabled="False"
-                       TextAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Grid.Row="1"/>
-                <DatePicker SelectedDate="{Binding DateReceipt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                       Margin="0 10 0 0"
-                       Grid.Row="2"
-                       materialDesign:HintAssist.Hint="Дата доставки"
-                       SelectedDateFormat="Short"/>
-                <ComboBox  materialDesign:TextFieldAssist.HasClearButton="True"
-                           ItemsSource="{Binding StatusOrder}"
-                           SelectedItem="{Binding StatusesOrder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                           DisplayMemberPath="NameStatus"
-                           materialDesign:HintAssist.Hint="Статус"
-                           FontSize="18"
-                           Margin="0 10 0 0"
-                           Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                           Grid.Row="3"/>
-                <Button Grid.Row="4"
-                        Content="Редактировать"
-                        Command="{Binding EditOrder}"
-                        Margin="10"/>
-            </Grid>
-        </materialDesign:Card>
+                    <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="2">
+                                </UniformGrid>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card   Padding="8"
+                                                   Height="120"
+                                                   HorizontalContentAlignment="Stretch">
+                                <Grid HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="1"
+                                                        VerticalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0"
+                                                                 FontWeight="Bold"
+                                                                 Text="{Binding Idcategory, StringFormat={}Номер категории: {0}}"/>
+                                        <TextBlock Grid.Row="1"
+                                                                 Text="{Binding CategoryName, StringFormat={}Категория: {0}}"
+                                                                 TextWrapping="Wrap"/>
+                                        <TextBlock Grid.Row="2"
+                                                                 Text="{Binding CategoryNameDeep, StringFormat={}Подкатегория: {0}}"
+                                                                 TextWrapping="Wrap"/>
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Header="Фирмы">
+                <ListView FontFamily="{StaticResource pwsFont}"
+                                  Grid.Row="1"
+                                  Grid.Column="0"
+                                  ItemsSource="{Binding Firms,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  SelectedItem="{Binding SelectedFirm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  HorizontalContentAlignment="Stretch"
+                                  d:ItemsSource="{d:SampleData ItemCount=5}"
+                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Редактировать"
+                                            Command="{Binding editFirm}"
+                                            CommandParameter="Редактировать"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="2">
+                            </UniformGrid>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card   Padding="8"
+                                                   Height="120"
+                                                   HorizontalContentAlignment="Stretch">
+                                <Grid HorizontalAlignment="Stretch"
+                                                    VerticalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="1"
+                                                        VerticalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0"
+                                                                 FontWeight="Bold"
+                                                                 Text="{Binding Idfirms, StringFormat={}Номер категории: {0}}"/>
+                                        <TextBlock Grid.Row="1"
+                                                                 Text="{Binding Firm1, StringFormat={}Категория: {0}}"
+                                                                 TextWrapping="Wrap"/>
+                                    </Grid>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>
