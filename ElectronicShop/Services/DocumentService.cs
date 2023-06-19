@@ -29,7 +29,6 @@ namespace ElectronicShop.Services
                 .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                 .SetFont(comic)
                 .SetFontSize(16);
-
             document.Add(content);
 
             var table = new Table(7)
@@ -152,6 +151,8 @@ namespace ElectronicShop.Services
 
             document.Add(content);
 
+           
+
             content = new Paragraph(string.Format("Код получения:\n {0}", OrderCode))
                 .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                 .SetFont(comic)
@@ -159,6 +160,12 @@ namespace ElectronicShop.Services
 
             document.Add(content);
 
+            content = new Paragraph($"Большое спасибо за покупку, дорогой {Settings.Default.login}!")
+              .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
+              .SetFont(comic)
+              .SetFontSize(16);
+
+            document.Add(content);
             document.Close();
 
             await Task.CompletedTask;
