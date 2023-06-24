@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ElectronicShop.Services;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,10 +16,13 @@ namespace ElectronicShop.ViewModels
         public string Password { get; set; }
         public string ErrorMessage { get; set; }
         public string ErrorMessageButton { get; set; }
+
+        public bool IsCheckedSaveAcc { get; set; }
         public AuthorizationViewModel(UserService userService, PageService pageService)
         {
             _userService = userService;
             _pageService = pageService;
+            IsCheckedSaveAcc = true;
         }
 
 
@@ -30,13 +34,14 @@ namespace ElectronicShop.ViewModels
 
                 if (await _userService.AuthorizationAsync(Username, Password))
                 {
-                    _userService.UpdateProduct();
+                    if (IsCheckedSaveAcc == true)
+                        _userService.UpdateProduct();
                     await Application.Current.Dispatcher.InvokeAsync(async () => 
                     {
                         if(Settings.Default.roleId == 0)
                             _pageService.ChangePage(new MenuPage());
                         else
-                            _pageService.ChangePage(new OrderAdmin());
+                            _pageService.ChangePage(new EditAndAddsProducts());
                     });
                     
                 }
@@ -58,8 +63,6 @@ namespace ElectronicShop.ViewModels
 
             return ErrorMessage == string.Empty;
         });
-
-
         public DelegateCommand Registration => new(() => _pageService.ChangePage(new RegistrationPage()));
     }
 }

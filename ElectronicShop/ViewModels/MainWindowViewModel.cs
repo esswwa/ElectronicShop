@@ -27,7 +27,7 @@ namespace ElectronicShop.ViewModels
                 if(user.RoleId == 0)
                     _pageService.ChangePage(new MenuPage());
                 else
-                    _pageService.ChangePage(new OrderAdmin());
+                    _pageService.ChangePage(new EditAndAddsProducts());
             }
         }
 

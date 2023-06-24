@@ -21,7 +21,7 @@
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="350"/>
+                <RowDefinition Height="380"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -31,6 +31,7 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -60,6 +61,14 @@
                                  Foreground="#0096EB"
                                  materialDesign:PasswordBoxAssist.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                  Style="{StaticResource MaterialDesignOutlinedPasswordBox}"/>
+                    <CheckBox Content="Сохранить аккаунт?"
+                              Foreground="#424874"
+                              Grid.Row="4"
+                              HorizontalAlignment="Center"
+                              IsChecked="{Binding IsCheckedSaveAcc}"
+                              Command="{Binding saveAcc}"
+                              CommandParameter="Смартфон"
+                              Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
                     <TextBlock Grid.Row="3"
                                Margin="0 10 0 0"
                        Style="{StaticResource pwsTextBlockError}"
@@ -73,15 +82,15 @@
                        HorizontalAlignment="Center"
                        Text="{Binding ErrorMessageButton, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                    <Button Grid.Row="4"
+                    <Button Grid.Row="5"
                             Style="{StaticResource ButtonStyle1}"
                             Content="Войти"
                             Command="{Binding Authorization, IsAsync=True}"
-                            Margin="50,0,50,0"
+                            Margin="50,10,50,0"
                             Width="200"
                             FontFamily="font" Height="32" VerticalAlignment="Bottom"/>
 
-                    <Button Grid.Row="5"
+                    <Button Grid.Row="6"
                             Margin="0 10 0 0"
                             Foreground="#0096EB"
                             Style="{StaticResource ButtonToText}" 
