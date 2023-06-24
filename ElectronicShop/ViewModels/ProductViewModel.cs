@@ -146,12 +146,32 @@ namespace ElectronicShop.ViewModels
 
         public DelegateCommand AddToBasket => new(async () =>
         {
-            int maxHelper = _productService.GetMaxHelper() + 1;
-            bool z = _productService.getUserHelper(SelectProduct.product);
-            if (z == true)
-                await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectProduct.product.IdProduct, SelectProduct.product.CostProduct);
+            var abc = await _productService.getUserHelperBasket(SelectProduct.product);
+            if (abc == null)
+            {
+                int maxHelper = _productService.GetMaxHelper() + 1;
+                bool z = _productService.getUserHelper(SelectProduct.product);
+                if (z == true)
+                    await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectProduct.product.IdProduct, SelectProduct.product.CostProduct);
+                else
+                    await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectProduct.product), true);
+            }
             else
-                await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectProduct.product), true);
+            {
+               if (SelectProduct.product.CountProduct > abc.Count)
+               {
+                    int maxHelper = _productService.GetMaxHelper() + 1;
+                    bool z = _productService.getUserHelper(SelectProduct.product);
+                    if (z == true)
+                        await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectProduct.product.IdProduct, SelectProduct.product.CostProduct);
+                    else
+                        await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectProduct.product), true);
+               }
+               else
+               {
+                   MessageBox.Show("Товар закончился");
+               }
+            }
         });
     }
 }

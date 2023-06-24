@@ -79,13 +79,16 @@ namespace ElectronicShop.ViewModels
         {
             _pageService.ChangePage(new OrderPage());
         });
-        //533
         public DelegateCommand buyProduct => new(async () =>
         {
             int code = rnd.Next(100, 999);
             int orderCode = _productService.GetMaxOrderHelper();
+            await _productService.editProductCount();
             await _productService.addOrder(Products); 
             await _documentService.GetCheck(code, _productService.GetMaxOrderHelper(), Products);
+            _pageService.ChangePage(new OrderPage());
+
+            await Task.Delay(500);
 
             MailAddress from = new MailAddress(_userService.checkAdress(), "ELEISSIS");
             MailAddress to = new MailAddress(Settings.Default.email);
@@ -101,55 +104,46 @@ namespace ElectronicShop.ViewModels
             smtp.Credentials = new NetworkCredential(_userService.checkAdress(), _userService.checkPassword());
             smtp.EnableSsl = true;
             await smtp.SendMailAsync(m);
-
-
-            //MailMessage message = new MailMessage();
-            //message.From = new MailAddress("qweq95346@gmail.com", "Отправитель");
-            //message.To.Add(new MailAddress("nnice2015@yandex.ru", "Получатель"));
-            //message.Subject = "Тема сообщения";
-            //message.Body = "Тело сообщения";
-
-            //Attachment attachment = new Attachment(Path.GetFullPath("Товарный чек.pdf"));
-            //message.Attachments.Add(attachment);
-
-            //SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
-            //client.Credentials = new System.Net.NetworkCredential("qweq95346@gmail.com", "Qwerty123*/");
-            //client.EnableSsl = true;
-
-            //await client.SendMailAsync(message);
-
-            _pageService.ChangePage(new OrderPage());
         });
 
         
         public DelegateCommand addInBasket => new(async () =>
         {
-            int maxHelper = 0;
-            if (_productService.GetMaxHelper() > 0)
-                maxHelper = _productService.GetMaxHelper() + 1;
+            var abc = await _productService.getUserHelperBasket(SelectedProduct);
+            if (abc == null)
+            {
+                int maxHelper = _productService.GetMaxHelper() + 1;
+                bool z = _productService.getUserHelper(SelectedProduct);
+                if (z == true)
+                    await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
+                else
+                    await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), true);
+                UpdateProduct();
+            }
             else
-                maxHelper = 0;
-            bool z = _productService.getUserHelper(SelectedProduct);
-            MessageBox.Show(maxHelper.ToString());
-            if (z == true)
-                await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
-            else
-                await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), true);
-            UpdateProduct();
+            {
+                if (SelectedProduct.CountProduct > abc.Count)
+                {
+                    int maxHelper = _productService.GetMaxHelper() + 1;
+                    bool z = _productService.getUserHelper(SelectedProduct);
+                    MessageBox.Show(maxHelper.ToString());
+                    if (z == true)
+                        await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
+                    else
+                        await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), true);
+                    UpdateProduct();
+                }
+                else
+                {
+                    MessageBox.Show("Товар закончился");
+                }
+            }
+                
         });
         public DelegateCommand deleteFromBasket => new(async () =>
         {
-            // 1 вариант int maxHelper = _productService.GetMaxHelper() + 1;
-            //bool z = _productService.getUserHelper(SelectedProduct);
-            //if (z == true)
-            //    await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
-            //else
             await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), false);
             UpdateProduct();
-
-            //2 вариантHelperBasket SelectedHelp = _productService.getUserHelperBasket(SelectedProduct);
-            //await _productService.deleteBasketProduct(SelectedHelp);
-            //UpdateProduct();
         });
 
         

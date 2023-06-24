@@ -248,12 +248,32 @@ namespace ElectronicShop.ViewModels
         });
         public DelegateCommand addInBasket => new(async () =>
         {
-            int maxHelper = _productService.GetMaxHelper() + 1;
-            bool z = _productService.getUserHelper(SelectedProduct);
-            if (z == true)
-                await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
+            var abc = await _productService.getUserHelperBasket(SelectedProduct);
+            if (abc == null)
+            {
+                int maxHelper = _productService.GetMaxHelper() + 1;
+                bool z = _productService.getUserHelper(SelectedProduct);
+                if (z == true)
+                    await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
+                else
+                    await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), true);
+            }
             else
-                await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), true);
+            {
+                if (SelectedProduct.CountProduct > abc.Count)
+                {
+                    int maxHelper = _productService.GetMaxHelper() + 1;
+                    bool z = _productService.getUserHelper(SelectedProduct);
+                    if (z == true)
+                        await _productService.AddHelperBasket(maxHelper, Settings.Default.idUser, SelectedProduct.IdProduct, SelectedProduct.CostProduct);
+                    else
+                        await _productService.editHelperBasket(await _productService.getUserHelperBasket(SelectedProduct), true);
+                }
+                else
+                {
+                    MessageBox.Show("Товар закончился");
+                }
+            }
         });
 
         public DelegateCommand Basket => new(() => _pageService.ChangePage(new BasketPage()));

@@ -446,6 +446,26 @@ namespace ElectronicShop.Services
             await _electronickshopContext.SaveChangesAsync();
         }
 
+        public async Task editProductCount()
+        {
+            ObservableCollection<Product> Products = _electronickshopContext.Products.ToObservableCollection();
+            var orders = await _electronickshopContext.HelperBaskets.Where(i => i.IdBasket == Settings.Default.idUser).ToListAsync();
+            foreach(var it in orders)
+            {
+                var item = Products.First(i => i.IdProduct == it.IdProduct);
+                var index = Products.IndexOf(item);
+
+                item.CountProduct -= it.Count;
+                if (item.CountProduct == 0)
+                    item.Status = 1;
+                Products.RemoveAt(index);
+                Products.Insert(index, item);
+            }
+            await _electronickshopContext.SaveChangesAsync();
+        }
+
+        
+
         public async Task editProduct(string Article, string NameProduct, string SecondNameProduct, string ImgProduct, Firm FirmProduct, int CostProduct, Category CategoryProduct, float ReitingProduct, int CountProduct, Status Status, string Description)
         {
             ObservableCollection<Product> Products = _electronickshopContext.Products.ToObservableCollection();
