@@ -499,15 +499,6 @@
                               ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                               d:ItemsSource="{d:SampleData ItemCount=5}">
 
-                        <ListView.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Header="Удалить"
-                                  Command="{Binding addInBasket}"/>
-                                <MenuItem Header="Комментарий"
-                                  Command="{Binding addInBasket}"/>
-                            </ContextMenu>
-                        </ListView.ContextMenu>
-
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <materialDesign:Card Background="White"
