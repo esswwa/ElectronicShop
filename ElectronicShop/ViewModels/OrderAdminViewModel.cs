@@ -7,6 +7,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using ElectronicShop.Models;
 
 namespace ElectronicShop.ViewModels
 {
@@ -24,7 +25,7 @@ namespace ElectronicShop.ViewModels
         public DateTime DateReceipt { get; set; }
         public List<StatusOrder> StatusOrder { get; set; }
         public StatusOrder StatusesOrder { get;set; }
-
+        public string ErrorMessage { get; set; }
         public Visibility boolVisibility { get; set; }
         public OrderAdminViewModel(PageService pageService, ProductService productService, UserService userService)
         {
@@ -66,7 +67,7 @@ namespace ElectronicShop.ViewModels
             StatusesOrder = SelectedOrderHelper.IdStatusOrderNavigation;
 
         });
-        public DelegateCommand EditOrder => new(async () =>
+        public AsyncCommand EditOrder => new(async () =>
         {
             SelectedOrderHelper.IdStatusOrder = StatusesOrder.IdstatusOrder;
             SelectedOrderHelper.DateReceipt = DateOnly.FromDateTime(DateReceipt);
@@ -103,6 +104,19 @@ namespace ElectronicShop.ViewModels
             smtp.EnableSsl = true;
             await smtp.SendMailAsync(m);
 
+        }, bool () =>
+        {
+            if (StatusesOrder == null)
+            {
+                ErrorMessage = "Пустые поля";
+                return false;
+            }
+            else
+            {
+                ErrorMessage = string.Empty;
+            }
+
+            return true;
         });
 
     }
