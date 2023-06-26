@@ -133,6 +133,9 @@ namespace ElectronicShop.ViewModels
             || string.IsNullOrWhiteSpace(Description)
             || string.IsNullOrWhiteSpace(CostProduct)
             || string.IsNullOrWhiteSpace(CountProduct)
+            || ProductCategory1 == null
+            || ProductFirm1 == null
+            || ProductStatus1 == null
             || TextHead == "Добавление")
             {
                 if (TextHead == "Добавление")
@@ -173,7 +176,10 @@ namespace ElectronicShop.ViewModels
             || string.IsNullOrWhiteSpace(SecondNameProduct)
             || string.IsNullOrWhiteSpace(Description)
             || string.IsNullOrWhiteSpace(CostProduct)
-            || string.IsNullOrWhiteSpace(CountProduct)
+            || string.IsNullOrWhiteSpace(CountProduct) 
+            || ProductCategory1 == null
+            || ProductFirm1 == null
+            || ProductStatus1 == null
             || TextHead != "Добавление")
             {
                 if (TextHead == "Редактирование")
