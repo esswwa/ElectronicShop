@@ -48,8 +48,12 @@ namespace ElectronicShop.ViewModels
         public Category ProductCategory1 { get; set; }
         public Firm ProductFirm1 { get; set; }
         public Status ProductStatus1 { get; set; }
-
-
+        public string ErrorMessage { get; set; }
+        public string ErrorMessage1 { get; set; }
+        public string ErrorMessage2 { get; set; }
+        public string ErrorMessageTwo { get; set; }
+        public string ErrorMessageTwo1 { get; set; }
+        public string ErrorMessageTwo2 { get; set; }
         public EditAndAddsProductsViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
@@ -130,8 +134,20 @@ namespace ElectronicShop.ViewModels
             || string.IsNullOrWhiteSpace(CostProduct)
             || string.IsNullOrWhiteSpace(CountProduct)
             || TextHead == "Добавление")
+            {
+                if (TextHead == "Добавление")
+                    ErrorMessage = string.Empty;
+                else
+                    ErrorMessage = "Пустые поля";
                 return false;
-            return true;
+            }
+            else
+            {
+                ErrorMessage = string.Empty;
+                ErrorMessageTwo = string.Empty;
+            }
+
+            return true; 
         });
 
         public AsyncCommand AddCommand => new(async() =>
@@ -159,7 +175,19 @@ namespace ElectronicShop.ViewModels
             || string.IsNullOrWhiteSpace(CostProduct)
             || string.IsNullOrWhiteSpace(CountProduct)
             || TextHead != "Добавление")
+            {
+                if (TextHead == "Редактирование")
+                    ErrorMessageTwo = string.Empty;
+                else
+                    ErrorMessageTwo = "Пустые поля";
                 return false;
+            }
+            else
+            {
+                ErrorMessage = string.Empty;
+                ErrorMessageTwo = string.Empty;
+            }
+
             return true;
         });
 
@@ -175,7 +203,19 @@ namespace ElectronicShop.ViewModels
             if (string.IsNullOrWhiteSpace(CategoryName)
                 || string.IsNullOrWhiteSpace(CategoryNameDeep)
                 || TextHead1 != "Редактирование")
-                return false;
+                {
+                    if (TextHead1 == "Добавление")
+                        ErrorMessage1 = string.Empty;
+                    else
+                        ErrorMessage1 = "Пустые поля";
+                    return false;
+                }
+            else
+            {
+                ErrorMessage1 = string.Empty;
+                ErrorMessageTwo1 = string.Empty;
+            }
+
             return true;
         });
 
@@ -190,7 +230,19 @@ namespace ElectronicShop.ViewModels
             if (string.IsNullOrWhiteSpace(CategoryName)
                 || string.IsNullOrWhiteSpace(CategoryNameDeep)
                 || TextHead1 != "Добавление")
-                return false;
+                {
+                    if (TextHead1 != "Добавление")
+                        ErrorMessageTwo1 = string.Empty;
+                    else
+                        ErrorMessageTwo1 = "Пустые поля";
+                    return false;
+                }
+            else
+            {
+                ErrorMessage1 = string.Empty;
+                ErrorMessageTwo1 = string.Empty;
+            }
+
             return true;
         });
         public AsyncCommand EditCommand2 => new(async () =>
@@ -203,7 +255,19 @@ namespace ElectronicShop.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Firm1)
                 || TextHead2 != "Редактирование")
+            {
+                if (TextHead2 == "Добавление")
+                    ErrorMessageTwo2 = string.Empty;
+                else
+                    ErrorMessageTwo2 = "Пустые поля";
                 return false;
+            }
+            else
+            {
+                ErrorMessage2 = string.Empty;
+                ErrorMessageTwo2 = string.Empty;
+            }
+
             return true;
         });
 
@@ -217,7 +281,19 @@ namespace ElectronicShop.ViewModels
         {
             if (string.IsNullOrWhiteSpace(Firm1)
                 || TextHead2 != "Добавление")
+            {
+                if (TextHead2 != "Добавление")
+                    ErrorMessage2 = string.Empty;
+                else
+                    ErrorMessage2 = "Пустые поля";
                 return false;
+            }
+            else
+            {
+                ErrorMessage2 = string.Empty;
+                ErrorMessageTwo2 = string.Empty;
+            }
+
             return true;
         });
 
@@ -235,6 +311,9 @@ namespace ElectronicShop.ViewModels
             _pageService.ChangePage(new AuthorizationPage());
             _userService.UpdateProductNull();
         });
-        
+
+
+    
+
     }
 }

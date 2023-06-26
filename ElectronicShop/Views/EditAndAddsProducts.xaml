@@ -70,6 +70,7 @@
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0"
                                            Text="{Binding TextHead, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -130,8 +131,19 @@
                                          DisplayMemberPath="Status1"
                                          SelectedItem="{Binding ProductStatus1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          Margin="0 0 0 5"/>
-                                    <StackPanel Grid.Row="12"
-                                            Orientation="Horizontal">
+                                    <TextBlock Grid.Row="12"
+                                               Margin="0 5 0 0"
+                                               Style="{StaticResource pwsTextBlockError}"
+                                               HorizontalAlignment="Center"
+                                               Text="{Binding ErrorMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock Grid.Row="12"
+                                               Margin="0 5 0 0"
+                                               Style="{StaticResource pwsTextBlockError}"
+                                               HorizontalAlignment="Center"
+                                               Text="{Binding ErrorMessageTwo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <StackPanel Grid.Row="13"
+                                            Orientation="Horizontal"
+                                                HorizontalAlignment="Center">
                                         <Button Content="Изменить"
                                             Foreground="White"
                                             materialDesign:ButtonAssist.CornerRadius="15"
@@ -160,6 +172,7 @@
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0"
                                            Text="{Binding TextHead1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -181,8 +194,19 @@
                                          materialDesign:HintAssist.Hint="Подкатегория"
                                          TextWrapping="Wrap"
                                          Margin="0 0 0 5"/>
-                                    <StackPanel Grid.Row="4"
-                                            Orientation="Horizontal">
+                                    <TextBlock Grid.Row="4"
+                                               Margin="0 5 0 0"
+                                               Style="{StaticResource pwsTextBlockError}"
+                                               HorizontalAlignment="Center"
+                                               Text="{Binding ErrorMessage1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock Grid.Row="4"
+                                               Margin="0 5 0 0"
+                                               Style="{StaticResource pwsTextBlockError}"
+                                               HorizontalAlignment="Center"
+                                               Text="{Binding ErrorMessageTwo1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <StackPanel Grid.Row="5"
+                                            Orientation="Horizontal"
+                                                HorizontalAlignment="Center">
                                         <Button Content="Изменить"
                                             Foreground="White"
                                             materialDesign:ButtonAssist.CornerRadius="15"
@@ -208,6 +232,7 @@
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0"
                                            Text="{Binding TextHead2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -224,8 +249,19 @@
                                          materialDesign:HintAssist.Hint="Фирма"
                                          TextWrapping="Wrap"
                                          Margin="0 0 0 5"/>
-                                    <StackPanel Grid.Row="3"
-                                            Orientation="Horizontal">
+                                    <TextBlock Grid.Row="3"
+                                               Margin="0 5 0 0"
+                                               Style="{StaticResource pwsTextBlockError}"
+                                               HorizontalAlignment="Center"
+                                               Text="{Binding ErrorMessage2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <TextBlock Grid.Row="3"
+                                               Margin="0 5 0 0"
+                                               Style="{StaticResource pwsTextBlockError}"
+                                               HorizontalAlignment="Center"
+                                               Text="{Binding ErrorMessageTwo2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <StackPanel Grid.Row="4"
+                                                Orientation="Horizontal"
+                                                HorizontalAlignment="Center">
                                         <Button Content="Изменить"
                                             Foreground="White"
                                             materialDesign:ButtonAssist.CornerRadius="15"
