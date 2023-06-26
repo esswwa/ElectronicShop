@@ -108,7 +108,9 @@ namespace ElectronicShop.ViewModels
             idFirm = SelectedFirm.Idfirms.ToString();
             Firm1 = SelectedFirm.Firm1;
         });
-
+        public DelegateCommand ResetCommand => new(() => {
+            UpdateProduct();
+        });
         public AsyncCommand EditCommand => new(async () =>
         {
             await _productService.editProduct(Article, NameProduct, SecondNameProduct,

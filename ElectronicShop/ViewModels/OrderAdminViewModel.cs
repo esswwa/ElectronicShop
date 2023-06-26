@@ -47,7 +47,10 @@ namespace ElectronicShop.ViewModels
             _userService.UpdateProductNull();
         });
 
-        
+        public DelegateCommand ResetCommand => new(() => {
+            UpdateProduct();
+        });
+
         public DelegateCommand cancelOrder => new(async () =>
         {
             await _productService.editOrderStatus(SelectedOrderHelper);

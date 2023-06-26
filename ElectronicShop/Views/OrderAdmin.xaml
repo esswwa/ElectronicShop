@@ -62,6 +62,35 @@
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignFloatingActionButton}"
                                 Background="#CCE0FF"
+                                Command="{Binding ResetCommand}"
+                                BorderBrush="#CCE0FF">
+                                <materialDesign:PackIcon
+                                                    Background="#CCE0FF"
+                                                    Foreground="#424874"
+                                                    Width="24"
+                                                    Height="24"
+                                                    Kind="Restart" />
+                            </Button>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                Foreground="#424874"
+                                FontSize="14"
+                                Text="Обновить" />
+                        </StackPanel>
+                    </TabItem.Header>
+                </TabItem>
+                <TabItem  Width="90"
+                          Height="100">
+                    <TabItem.Header>
+                        <StackPanel
+                            Margin="5"
+                            Grid.Column="2"
+                            Width="auto"
+                            Height="auto">
+                            <Button
+                                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                Background="#CCE0FF"
                                 Command="{Binding Exit}"
                                 BorderBrush="#CCE0FF">
                                 <materialDesign:PackIcon
@@ -81,7 +110,6 @@
                 </TabItem>
             </TabControl>
         </materialDesign:Card>
-        
         <ListView FontFamily="{StaticResource pwsFont}"
                   Grid.Column="1"
                   ItemsSource="{Binding OrderHelper,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

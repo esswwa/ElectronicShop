@@ -491,6 +491,12 @@
                                     </TreeView>
                                 </StackPanel>
                             </Expander>
+                            <Button Content="Перезагрузка"
+                                    Grid.Row="4"
+                                    Foreground="White"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    Margin="15"
+                                    Command="{Binding ResetCommand}"/>
                         </Grid>
                     </ScrollViewer>
                 </TabItem>

@@ -274,7 +274,10 @@ namespace ElectronicShop.ViewModels
             
            
         }
-
+        public DelegateCommand ResetCommand => new(() => {
+            UpdateProduct();
+        });
+        
         public DelegateCommand Basket => new(() => _pageService.ChangePage(new BasketPage()));
         public DelegateCommand Order => new(() =>_pageService.ChangePage(new OrderPage()));
 
