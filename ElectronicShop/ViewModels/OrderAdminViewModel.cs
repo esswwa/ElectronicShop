@@ -81,24 +81,7 @@ namespace ElectronicShop.ViewModels
             MailAddress to = new MailAddress(SelectedOrderHelper.IdUserNavigation.Email);
             MailMessage m = new MailMessage(from, to);
             m.Subject = $"Изменение в заказе №{SelectedOrderHelper.Idorder}";
-            //if (SelectedOrderHelper1.IdStatusOrder != StatusesOrder.IdstatusOrder && SelectedOrderHelper1.DateReceipt != DateOnly.FromDateTime(DateReceipt))
-            //{
-                m.Body = $"Здравствуйте, {SelectedOrderHelper.IdUserNavigation.Login}!\n\nВ вашем заказе произошли изменения.\n\n Заказ будет доставлен: {DateOnly.FromDateTime(DateReceipt)} c 9:00 до 18:00.\n Статус заказа: {StatusesOrder.NameStatus}.\n\n Спасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.\n\n";
-            //}
-            //else if (SelectedOrderHelper1.IdStatusOrder != StatusesOrder.IdstatusOrder)
-            //{
-            //    m.Body = $"Здравствуйте, {SelectedOrderHelper.IdUserNavigation.Login}!\n\nВ вашем заказе изменен статус заказа.\n Статус заказа: {StatusesOrder.NameStatus}.\n\n Заказ будет доставлен: {DateOnly.FromDateTime(DateReceipt)} c 9:00 до 18:00.\n\nСпасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.\n\n"
-            //      +
-            //      "Отправлено с помощью MailAdress и SMTP-client.";
-            //}
-            //else if (SelectedOrderHelper1.DateReceipt != DateOnly.FromDateTime(DateReceipt))
-            //{
-            //    m.Body = $"Здравствуйте, {SelectedOrderHelper.IdUserNavigation.Login}!\n\nВ вашем заказе изменена дата доставки.\nЗаказ будет доставлен: {DateOnly.FromDateTime(DateReceipt)} c 9:00 до 18:00.\n\n Статус заказа: {StatusesOrder.NameStatus}.\n\nСпасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.\n\n"
-            //      +
-            //      "Отправлено с помощью MailAdress и SMTP-client.";
-            //}
-            //MessageBox.Show(SelectedOrderHelper1.IdStatusOrder + " kkkkkkkkkk " + SelectedOrderHelper.IdStatusOrder);
-            //MessageBox.Show(m.Body);
+            m.Body = $"Здравствуйте, {SelectedOrderHelper.IdUserNavigation.Login}!\n\nВ вашем заказе произошли изменения.\n\n Заказ будет доставлен: {DateOnly.FromDateTime(DateReceipt)} c 9:00 до 18:00.\n Статус заказа: {StatusesOrder.NameStatus}.\n\n Спасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.\n\n";
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.Credentials = new NetworkCredential(_userService.checkAdress(), _userService.checkPassword());
             smtp.EnableSsl = true;
