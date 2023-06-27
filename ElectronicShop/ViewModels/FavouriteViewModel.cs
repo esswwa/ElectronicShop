@@ -54,7 +54,8 @@ namespace ElectronicShop.ViewModels
         public List<string> FiltersStatus { get; set; } = new() {
             "В наличии",
             "Нет в наличии",
-            "Снят с продаж"
+            "Снят с продаж",
+            "1"
 
         };
         public bool IsEnabledCart { get; set; }

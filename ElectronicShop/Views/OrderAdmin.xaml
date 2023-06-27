@@ -12,7 +12,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.15*"/>
+            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="0.4*"/>
         </Grid.ColumnDefinitions>
@@ -21,6 +21,98 @@
                 materialDesign:ColorZoneAssist.Mode="Standard"
                 materialDesign:ElevationAssist.Elevation="Dp0"
                 Style="{StaticResource MaterialDesignNavigationRailTabControl}">
+                <TabItem  Width="90">
+                    <TabItem.Header>
+                        <StackPanel
+                            Width="auto"
+                            Height="auto">
+                            <materialDesign:PackIcon
+                                Width="24"
+                                Height="24"
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Kind="Folder" />
+                            <TextBlock
+                                Foreground="#424874"
+                                HorizontalAlignment="Center"
+                                Text="Фильтры"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ScrollViewer>
+                        <Grid Background="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Expander HorizontalAlignment="Stretch"
+                                  Header="Статус"
+                                  Foreground="#424874"
+                                  Margin="10"
+                                  FontFamily="{StaticResource font}">
+                                <StackPanel Orientation="Vertical"
+                                        HorizontalAlignment="Stretch">
+                                    <TreeView>
+                                        <CheckBox
+                                                    Content="В обработке"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="В обработке"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                        <CheckBox
+                                                    Content="Принят"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Принят"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                        <CheckBox
+                                                    Content="Отправлен"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Отправлен"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                        <CheckBox
+                                                    Content="Выдан покупателю"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Выдан покупателю"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" />
+                                        <CheckBox
+                                                    Content="Отменен"
+                                                    Foreground="#424874"
+                                                    IsChecked="False"
+                                                    Command="{Binding commandCategories}"
+                                                    CommandParameter="Отменен"
+                                                    Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" /> 
+                                    </TreeView>
+                                </StackPanel>
+                            </Expander>
+                            <ComboBox Grid.Row="1"
+                                  Margin="15"
+                                  Width="Auto"
+                                  Foreground="#424874"
+                                  BorderBrush="#424874"
+                                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                                  HorizontalAlignment="Stretch"
+                                  materialDesign:HintAssist.Hint="Сортировка"
+                                  ItemsSource="{Binding Sorts}"
+                                  SelectedItem="{Binding SelectedSort}"/>
+                            <Button Content="Перезагрузка"
+                                    Grid.Row="2"
+                                    Foreground="White"
+                                    materialDesign:ButtonAssist.CornerRadius="10"
+                                    Margin="15"
+                                    Command="{Binding ResetCommand}"/>
+                        </Grid>
+                    </ScrollViewer>
+                </TabItem>
                 <TabItem  Width="90"
                           Height="100">
                     <TabItem.Header>

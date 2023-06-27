@@ -27,6 +27,30 @@ namespace ElectronicShop.ViewModels
         public StatusOrder StatusesOrder { get;set; }
         public string ErrorMessage { get; set; }
         public Visibility boolVisibility { get; set; }
+        public DelegateCommand<string> commandCategories { get; set; }
+
+
+        public List<string> Sorts { get; set; } = new() {
+            "По возрастанию",
+            "По убыванию"
+        };
+       
+        public List<string> FiltersStatus { get; set; } = new() {
+            "В обработке",
+            "Принят",
+            "Отправлен",
+            "Выдан покупателю",
+            "Отменен",
+            "1"
+
+        };
+
+        public string SelectedSort
+        {
+            get { return GetValue<string>(); }
+            set { SetValue(value, changedCallback: UpdateProduct); }
+        }
+
         public OrderAdminViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
@@ -34,10 +58,97 @@ namespace ElectronicShop.ViewModels
             _userService = userService;
             boolVisibility = Visibility.Hidden;
             UpdateProduct();
+            commandCategories = new DelegateCommand<string>(TheoryMethod);
         }
+        List<string> strings = new List<string>();
+
+        private void TheoryMethod(string parametr)
+        {
+
+            if (strings != null)
+            {
+                bool z = false;
+                foreach (var c in strings)
+                {
+                    if (parametr == c)
+                    {
+
+                        int b = strings.IndexOf(c);
+                        z = true;
+                        break;
+                    }
+                }
+                if (z && strings.Count > 1)
+                {
+                    strings.Remove(parametr);
+                }
+                else if (z && strings.Count == 1)
+                {
+                    strings.Remove(parametr);
+                }
+                else
+                {
+                    strings.Add(parametr);
+                }
+            }
+            else
+            {
+                strings.Add(parametr);
+            }
+            UpdateProduct();
+        }
+
         private async void UpdateProduct()
         {
-            OrderHelper = await _productService.getOrderAdminHelper();
+            var currentProduct = await _productService.getOrderAdminHelper();
+
+            int b = 0;
+            List<Order> newProduct = new List<Order>();
+            var checkProduct = currentProduct;
+            foreach (var strings1 in strings)
+            {
+                if (!string.IsNullOrEmpty(strings1))
+                {
+                    for (int i = 0; i < FiltersStatus.Count - 1; i++)
+                    {
+                        if (strings1 == FiltersStatus[i])
+                        {
+                            if (b == 0 && strings.Count <= 1)
+                            {
+                                currentProduct = currentProduct.Where(p => p.IdStatusOrder == i).ToList();
+                            }
+                            else if (b == 0 && strings.Count > 1)
+                            {
+                                currentProduct = currentProduct.Where(p => p.IdStatusOrder == i).ToList();
+                                b++;
+                            }
+                            else if (b > 0 && strings.Count > 1)
+                            {
+                                newProduct = checkProduct.Where(p => p.IdStatusOrder == i).ToList();
+                                currentProduct.AddRange(newProduct);
+                                b++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(SelectedSort))
+            {
+                switch (SelectedSort)
+                {
+                    case "По возрастанию":
+                        currentProduct = currentProduct.OrderBy(p => p.Idorder).ToList();
+                        break;
+                    case "По убыванию":
+                        currentProduct = currentProduct.OrderByDescending(p => p.Idorder).ToList();
+                        break;
+                }
+
+
+            }
+
+            OrderHelper = currentProduct;
         }
         public DelegateCommand Basket => new(() => _pageService.ChangePage(new EditAndAddsProducts()));
 
