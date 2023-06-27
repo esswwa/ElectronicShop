@@ -84,8 +84,8 @@ namespace ElectronicShop.ViewModels
                 MailAddress from = new MailAddress(_userService.checkAdress(), "ELEISSIS");
                 MailAddress to = new MailAddress(SelectedOrderHelper.IdUserNavigation.Email);
                 MailMessage m = new MailMessage(from, to);
-                m.Subject = $"Чек по заказу №{SelectedOrderHelper.Idorder} от {DateOnly.FromDateTime(DateTime.Now).ToString("D")}";
-                m.Body = $"Здравствуйте, {SelectedOrderHelper.IdUserNavigation.Login}!\n\nВаш заказ успешно оформлен. Спасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.\n\n";
+                m.Subject = $"Чек по заказу №{SelectedOrderHelper.Idorder}";
+                m.Body = $"Здравствуйте, {SelectedOrderHelper.IdUserNavigation.Login}!\n\nВаш заказ успешно получен. Спасибо, что выбрали наш магазин!\n\nЗаказ получен: {DateOnly.FromDateTime(DateTime.Now).ToString("D")}\n\nС уважением,\nКоманда магазина ELEISSIS.";
                 string fileName = $"Товарный чек №{SelectedOrderHelper.Idorder}.pdf";
                 string path = Path.Combine(Directory.GetCurrentDirectory(), fileName);
                 m.Attachments.Add(new Attachment(path));
@@ -99,7 +99,7 @@ namespace ElectronicShop.ViewModels
                 MailAddress to = new MailAddress(SelectedOrderHelper.IdUserNavigation.Email);
                 MailMessage m = new MailMessage(from, to);
                 m.Subject = $"Изменение в заказе №{SelectedOrderHelper.Idorder}";
-                m.Body = $"Здравствуйте, {SelectedOrderHelper.IdUserNavigation.Login}!\n\nВ вашем заказе произошли изменения.\n\n Заказ будет доставлен: {DateOnly.FromDateTime(DateReceipt)} c 9:00 до 18:00.\n Статус заказа: {StatusesOrder.NameStatus}.\n\n Спасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.\n\n";
+                m.Body = $"Здравствуйте, {SelectedOrderHelper.IdUserNavigation.Login}!\n\nВ вашем заказе произошли изменения.\n\nЗаказ будет доставлен: {DateOnly.FromDateTime(DateReceipt)} c 9:00 до 18:00.\nСтатус заказа: {StatusesOrder.NameStatus}.\n\nСпасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.";
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
                 smtp.Credentials = new NetworkCredential(_userService.checkAdress(), _userService.checkPassword());
                 smtp.EnableSsl = true;

@@ -51,7 +51,7 @@ namespace ElectronicShop.ViewModels
             MailAddress to = new MailAddress(Settings.Default.email);
             MailMessage m = new MailMessage(from, to);
             m.Subject = $"Изменение в заказе №{selOrd.Idorder}";
-            m.Body = $"Здравствуйте, {Settings.Default.login}!\n\nВаш заказ был отменен. Если произошла ошибка или нужно поменять что-либо в заказе, то повторите ваш заказ :).\n\nСпасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.\n\n";
+            m.Body = $"Здравствуйте, {Settings.Default.login}!\n\nВаш заказ был отменен. Если произошла ошибка или нужно поменять что-либо в заказе, то повторите ваш заказ :).\n\nСпасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.";
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.Credentials = new NetworkCredential(_userService.checkAdress(), _userService.checkPassword());
             smtp.EnableSsl = true;

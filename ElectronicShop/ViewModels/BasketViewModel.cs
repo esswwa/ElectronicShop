@@ -93,8 +93,8 @@ namespace ElectronicShop.ViewModels
             MailAddress from = new MailAddress(_userService.checkAdress(), "ELEISSIS");
             MailAddress to = new MailAddress(Settings.Default.email);
             MailMessage m = new MailMessage(from, to);
-            m.Subject = $"Чек по заказу №{orderCode} от {DateOnly.FromDateTime(DateTime.Now).ToString("D")}";
-            m.Body = $"Здравствуйте, {Settings.Default.login}!\n\nВаш заказ успешно оформлен. Спасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.\n\n";
+            m.Subject = $"Информация по заказу №{orderCode} от {DateOnly.FromDateTime(DateTime.Now).ToString("D")}";
+            m.Body = $"Здравствуйте, {Settings.Default.login}!\n\nВаш заказ успешно оформлен. Спасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.";
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.Credentials = new NetworkCredential(_userService.checkAdress(), _userService.checkPassword());
             smtp.EnableSsl = true;
