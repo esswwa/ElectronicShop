@@ -167,6 +167,19 @@ namespace ElectronicShop.ViewModels
             await _productService.editOrderStatus(SelectedOrderHelper);
             UpdateProduct();
             boolVisibility = Visibility.Hidden;
+
+            await Task.Delay(500);
+
+            MailAddress from = new MailAddress(_userService.checkAdress(), "ELEISSIS");
+            MailAddress to = new MailAddress(SelectedOrderHelper.IdUserNavigation.Email);
+            MailMessage m = new MailMessage(from, to);
+            m.Subject = $"Изменение в заказе №{SelectedOrderHelper.Idorder}";
+            m.Body = $"Здравствуйте, {SelectedOrderHelper.IdUserNavigation.Login}!\n\nВаш заказ был отменен. Если произошла ошибка или нужно поменять что-либо в заказе, то повторите ваш заказ :).\n\nСпасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.";
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential(_userService.checkAdress(), _userService.checkPassword());
+            smtp.EnableSsl = true;
+            await smtp.SendMailAsync(m);
+
         });
 
         public DelegateCommand editOrders => new(async () =>
