@@ -54,6 +54,8 @@ namespace ElectronicShop.ViewModels
 
         public bool IsEnabledCart { get; set; }
 
+        public string Article { get; set; }
+
         public ProductViewModel(PageService pageService, ProductService productService, UserService userService)
         {
             _pageService = pageService;
@@ -62,6 +64,7 @@ namespace ElectronicShop.ViewModels
 
             var df = _productService.checkFavourite(SelectProduct.product.IdProduct);
 
+            Article = SelectProduct.product.Article;
             NameProduct = SelectProduct.product.NameProduct;
             ImgProduct = SelectProduct.product.ImgProduct;
             SecondNameProduct = SelectProduct.product.SecondNameProduct;
