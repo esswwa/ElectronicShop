@@ -375,6 +375,7 @@
                                                      Margin="5 5 0 0"
                                                      MinWidth="200"
                                                      Value="{Binding Value5}" />
+                                        <TextBlock Text="{Binding countValue5}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Row="1"
                                                 Orientation="Horizontal">
@@ -383,6 +384,7 @@
                                                      Margin="5 5 0 0"
                                                      MinWidth="200"
                                                      Value="{Binding Value4}" />
+                                        <TextBlock Text="{Binding countValue4}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Row="2"
                                                 Orientation="Horizontal">
@@ -391,6 +393,7 @@
                                                      Margin="5 5 0 0"
                                                      MinWidth="200"
                                                      Value="{Binding Value3}" />
+                                        <TextBlock Text="{Binding countValue3}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Row="3"
                                                 Orientation="Horizontal">
@@ -399,6 +402,7 @@
                                                      Margin="5 5 0 0"
                                                      MinWidth="200"
                                                      Value="{Binding Value2}" />
+                                        <TextBlock Text="{Binding countValue2}"/>
                                     </StackPanel>
                                     <StackPanel Grid.Row="4"
                                                 Orientation="Horizontal">
@@ -407,6 +411,7 @@
                                                      Margin="5 5 0 0"
                                                      MinWidth="200"
                                                      Value="{Binding Value1}" />
+                                        <TextBlock Text="{Binding countValue1}"/>
                                     </StackPanel>
                                 </Grid>
                                 <Button Content="Добавить отзыв"
@@ -470,11 +475,11 @@
                                              materialDesign:HintAssist.IsFloating="True"
                                              Text="{Binding FeedbackText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                     <materialDesign:RatingBar x:Name="BasicRatingBarFractionalPreview2"
-                                                              Max="5"
+                                                              Max="4"
                                                               Grid.Row="3" 
                                                               Margin="0,12,0,0"
                                                               Min="0" 
-                                                              ValueIncrements="0.1"
+                                                              ValueIncrements="1"
                                                               Value="{Binding ReitingAddProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <Button Grid.Row="4" 
                                             Margin="0,12,0,0"

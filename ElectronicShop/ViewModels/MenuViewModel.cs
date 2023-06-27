@@ -76,6 +76,8 @@ namespace ElectronicShop.ViewModels
 
         public string textHeader { get; set; }
 
+        public Visibility visibilityListView { get; set; }
+
         public string SelectedSort
         {
             get { return GetValue<string>(); }
@@ -107,6 +109,7 @@ namespace ElectronicShop.ViewModels
                 Email = Settings.Default.email;
                 Adress = Settings.Default.Adress;
             }
+            visibilityListView = Visibility.Hidden;
             UpdateProduct();
             commandCategories = new DelegateCommand<string>(TheoryMethod);
             textHeader = "ELEISSIS";
@@ -271,8 +274,13 @@ namespace ElectronicShop.ViewModels
 
                  }
                 Products = currentProduct;
-            
-           
+
+            if (Products.Count == 0)
+                visibilityListView = Visibility.Visible;
+            else
+                visibilityListView = Visibility.Hidden;
+
+
         }
         public DelegateCommand ResetCommand => new(() => {
             UpdateProduct();

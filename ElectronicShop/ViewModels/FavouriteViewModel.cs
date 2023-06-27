@@ -71,6 +71,7 @@ namespace ElectronicShop.ViewModels
 
         public string textHeader { get; set; }
 
+        public Visibility visibilityListView { get; set; }
         public string SelectedSort
         {
             get { return GetValue<string>(); }
@@ -101,6 +102,7 @@ namespace ElectronicShop.ViewModels
                 LoginBack = Settings.Default.login;
                 Email = Settings.Default.email;
             }
+            visibilityListView = Visibility.Hidden;
             UpdateProduct();
             commandCategories = new DelegateCommand<string>(TheoryMethod);
             textHeader = "Избранные";
@@ -237,6 +239,10 @@ namespace ElectronicShop.ViewModels
 
             Products = currentProduct;
 
+            if (Products.Count == 0)
+                visibilityListView = Visibility.Visible;
+            else
+                visibilityListView = Visibility.Hidden;
 
         }
 

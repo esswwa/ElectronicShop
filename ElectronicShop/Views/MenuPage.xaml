@@ -14,6 +14,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.20*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -142,7 +143,17 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <materialDesign:Card Grid.Row="2">
+        <TextBlock Grid.Row="1"
+                   Grid.Column="1"
+                   FontSize="32"
+                   Margin="10"
+                   Visibility="{Binding visibilityListView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                   Foreground="White"
+                   Text="Товары не найдены... Попробуйте перезагрузить страницу или убрать фильтр."
+                   TextWrapping="Wrap"
+                   />
+        <materialDesign:Card Grid.Row="1"
+                             Grid.RowSpan="2">
             <TabControl
                 materialDesign:ColorZoneAssist.Mode="Standard"
                 materialDesign:ElevationAssist.Elevation="Dp0"

@@ -20,6 +20,7 @@ namespace ElectronicShop.ViewModels
         private static readonly Random rnd = new();
         public string CostProduct { get; set; }
 
+        public Visibility visibilityListView { get; set; }
         public string CountProduct1 { get; set; }
 
         public string textHeader { get; set; }
@@ -30,6 +31,7 @@ namespace ElectronicShop.ViewModels
             _productService = productService;
             _userService = userService;
             _documentService = documentService;
+            visibilityListView = Visibility.Hidden;
             UpdateProduct();
             textHeader = "Корзина";
         }
@@ -56,6 +58,11 @@ namespace ElectronicShop.ViewModels
             CountProduct1 = Count.ToString();
             CostProduct = cost.ToString();
             Adress = Settings.Default.Adress;
+
+            if (Products.Count == 0)
+                visibilityListView = Visibility.Visible;
+            else
+                visibilityListView = Visibility.Hidden;
         }
 
         public DelegateCommand Basket => new(() =>
@@ -94,7 +101,7 @@ namespace ElectronicShop.ViewModels
             MailAddress to = new MailAddress(Settings.Default.email);
             MailMessage m = new MailMessage(from, to);
             m.Subject = $"Информация по заказу №{orderCode} от {DateOnly.FromDateTime(DateTime.Now).ToString("D")}";
-            m.Body = $"Здравствуйте, {Settings.Default.login}!\n\nВаш заказ успешно оформлен. Спасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.";
+            m.Body = $"Здравствуйте, {Settings.Default.login}!\n\nВаш заказ успешно оформлен. Оплата товара при получении.\nСпасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.";
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.Credentials = new NetworkCredential(_userService.checkAdress(), _userService.checkPassword());
             smtp.EnableSsl = true;

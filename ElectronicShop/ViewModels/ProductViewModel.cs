@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace ElectronicShop.ViewModels
@@ -35,6 +36,13 @@ namespace ElectronicShop.ViewModels
         public double Value3 { get; set; }
         public double Value2 { get; set; }
         public double Value1 { get; set; }
+
+        public string countValue1 { get; set; }
+        public string countValue2 { get; set; }
+        public string countValue3 { get; set; }
+        public string countValue4 { get; set; }
+        public string countValue5 { get; set; }
+
         public static List<Feedback> Feedback { get; set; }
 
 
@@ -62,7 +70,14 @@ namespace ElectronicShop.ViewModels
             CostProduct = SelectProduct.product.CostProduct.ToString();
             IsCheckedButton = df;
             CountProduct = SelectProduct.product.CountProduct.ToString();
-            Description = SelectProduct.product.Description;
+            Description = SelectProduct.product.Description; 
+
+            Value1 = 0;
+            Value2 = 0;
+            Value3 = 0;
+            Value4 = 0;
+            Value5 = 0;
+
             UpdateProduct();
             CheckEnabled();
         }
@@ -77,7 +92,6 @@ namespace ElectronicShop.ViewModels
         {
             Feedback = Task.Run(async () => await _productService.getFeedbackProduct()).Result;
             CountFeedback = Feedback.Count.ToString();
-
             foreach (var i in Feedback)
             {
 
@@ -92,6 +106,12 @@ namespace ElectronicShop.ViewModels
                 if (i.Reiting > 4.5 && i.Reiting <= 5)
                     Value5++;
             }
+            countValue1 = Value1.ToString();
+            countValue2 = Value2.ToString();
+            countValue3 = Value3.ToString();
+            countValue4 = Value4.ToString();
+            countValue5 = Value5.ToString();
+
 
             Value1 = Value1 / Feedback.Count * 100;
             Value2 = Value2 / Feedback.Count * 100;
@@ -103,15 +123,16 @@ namespace ElectronicShop.ViewModels
 
         public DelegateCommand AddFeedback => new(async () =>
         {
-            double rounded = Math.Round(ReitingAddProduct, 1);
-            await _productService.addFeedback(downsideText, dignitiesText, FeedbackText, (float)rounded, SelectProduct.product.IdProduct);
+            await _productService.addFeedback(downsideText, dignitiesText, FeedbackText, ReitingAddProduct, SelectProduct.product.IdProduct);
             _productService.UpdateProductReiting(SelectProduct.product.IdProduct);
             downsideText = "";
             dignitiesText = "";
             FeedbackText = "";
             ReitingAddProduct = 0;
-            MessageBox.Show("Комментарий добавлен");
-            UpdateProduct();
+
+            await Task.Delay(300);
+
+            _pageService.ChangePage(new MenuPage());
         });
 
         public DelegateCommand Basket => new(() =>
