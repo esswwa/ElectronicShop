@@ -81,20 +81,24 @@
                                     <TextBox Grid.Row="1"
                                          Text="{Binding Article, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          materialDesign:HintAssist.Hint="Артикль"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Margin="0 0 0 5"/>
                                     <TextBox Grid.Row="2"
                                          Text="{Binding NameProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          materialDesign:HintAssist.Hint="Название"
                                          TextWrapping="Wrap"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Margin="0 0 0 5"/>
                                     <TextBox Grid.Row="3"
                                          Text="{Binding SecondNameProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          materialDesign:HintAssist.Hint="Второе название"
                                          TextWrapping="Wrap"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Margin="0 0 0 5"/>
                                     <TextBox Grid.Row="4"
                                          Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          materialDesign:HintAssist.Hint="Описание"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          TextWrapping="Wrap"
                                          Margin="0 0 0 5"/>
                                     <ComboBox
@@ -118,10 +122,12 @@
                                     <TextBox Grid.Row="8"
                                          Text="{Binding CostProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          materialDesign:HintAssist.Hint="Стоимость"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Margin="0 0 0 5"/>
                                     <TextBox Grid.Row="10"
                                          Text="{Binding CountProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          materialDesign:HintAssist.Hint="Количество на складе"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Margin="0 0 0 5"/>
                                     <ComboBox
                                          Grid.Row="11"
@@ -183,16 +189,19 @@
                                     <TextBox Grid.Row="1"
                                          Text="{Binding idCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          materialDesign:HintAssist.Hint="Номер"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          IsEnabled="False"
                                          Margin="0 0 0 5"/>
                                     <TextBox Grid.Row="2"
                                          Text="{Binding CategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          materialDesign:HintAssist.Hint="Категория"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          TextWrapping="Wrap"
                                          Margin="0 0 0 5"/>
                                     <TextBox Grid.Row="3"
                                          Text="{Binding CategoryNameDeep, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          materialDesign:HintAssist.Hint="Подкатегория"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          TextWrapping="Wrap"
                                          Margin="0 0 0 5"/>
                                     <TextBlock Grid.Row="4"
@@ -244,11 +253,13 @@
                                          Text="{Binding idFirm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          materialDesign:HintAssist.Hint="Номер"
                                          IsEnabled="False"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Margin="0 0 0 5"/>
                                     <TextBox Grid.Row="2"
                                          Text="{Binding Firm1, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          materialDesign:HintAssist.Hint="Фирма"
                                          TextWrapping="Wrap"
+                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                          Margin="0 0 0 5"/>
                                     <TextBlock Grid.Row="3"
                                                Margin="0 5 0 0"

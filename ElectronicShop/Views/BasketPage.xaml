@@ -22,7 +22,8 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
-        <materialDesign:Card Grid.RowSpan="3">
+        <materialDesign:Card Grid.RowSpan="2"
+                             Grid.Row="1">
             <TabControl
                 materialDesign:ColorZoneAssist.Mode="Standard"
                 materialDesign:ElevationAssist.Elevation="Dp0"
@@ -145,8 +146,6 @@
                 <ContextMenu>
                     <MenuItem Header="Добавить товар"
                                   Command="{Binding addInBasket}"/>
-                    <MenuItem Header="Купить быстро"
-                                  Command="{Binding fastBuy}"/>
                     <MenuItem Header="Удалить из корзины"
                                   Command="{Binding deleteFromBasket}"/>
                 </ContextMenu>
