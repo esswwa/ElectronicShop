@@ -12,7 +12,7 @@ namespace ElectronicShop.Services
     {
         public async Task GetCheck(int OrderCode, int OrderNumber, List<Product> Products)
         {
-            PdfWriter writer = new($"Товарный чек.pdf");
+            PdfWriter writer = new($"Товарный чек №{OrderNumber}.pdf");
             PdfDocument pdf = new(writer);
             Document document = new(pdf);
 
@@ -31,7 +31,7 @@ namespace ElectronicShop.Services
                 .SetFontSize(16);
             document.Add(content);
 
-            var table = new Table(7)
+            var table = new Table(6)
                 .SetWidth(UnitValue.CreatePercentValue(100))
                 .SetHeight(UnitValue.CreatePercentValue(100))
                 .SetHorizontalAlignment(iText.Layout.Properties.HorizontalAlignment.CENTER);
@@ -47,11 +47,6 @@ namespace ElectronicShop.Services
                 .SetFontSize(14));
 
             table.AddCell(new Paragraph("Наименование")
-                .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
-                .SetFont(comic)
-                .SetFontSize(14));
-
-            table.AddCell(new Paragraph("Описание")
                 .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                 .SetFont(comic)
                 .SetFontSize(14));
@@ -86,10 +81,7 @@ namespace ElectronicShop.Services
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                     .SetFont(comic)
                     .SetFontSize(14));
-                table.AddCell(new Paragraph(Products[i].Description)
-                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
-                    .SetFont(comic)
-                    .SetFontSize(14));
+             
                 table.AddCell(new Paragraph(ListProduct.counts[i].ToString())
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
                     .SetFont(comic)
@@ -105,11 +97,6 @@ namespace ElectronicShop.Services
                     .SetFont(comic)
                     .SetFontSize(14));
             }
-
-            table.AddCell(new Paragraph(" ")
-                .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
-                .SetFont(comic)
-                .SetFontSize(14));
 
             table.AddCell(new Paragraph(" ")
                 .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)

@@ -85,7 +85,7 @@ namespace ElectronicShop.ViewModels
             int orderCode = _productService.GetMaxOrderHelper();
             await _productService.editProductCount();
             await _productService.addOrder(Products); 
-            await _documentService.GetCheck(code, _productService.GetMaxOrderHelper(), Products);
+            await _documentService.GetCheck(code, _productService.GetMaxOrderHelperWithOut(), Products);
             _pageService.ChangePage(new OrderPage());
 
             await Task.Delay(500);
@@ -94,12 +94,7 @@ namespace ElectronicShop.ViewModels
             MailAddress to = new MailAddress(Settings.Default.email);
             MailMessage m = new MailMessage(from, to);
             m.Subject = $"Чек по заказу №{orderCode} от {DateOnly.FromDateTime(DateTime.Now).ToString("D")}";
-            m.Body = $"Здравствуйте, {Settings.Default.login}!\n\nВаш заказ успешно оформлен. Спасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.\n\n"
-            +
-            "Отправлено с помощью MailAdress и SMTP-client.";
-            string fileName = "Товарный чек.pdf";
-            string path = Path.Combine(Directory.GetCurrentDirectory(), fileName);
-            m.Attachments.Add(new Attachment(path));
+            m.Body = $"Здравствуйте, {Settings.Default.login}!\n\nВаш заказ успешно оформлен. Спасибо, что выбрали наш магазин!\n\nС уважением,\nКоманда магазина ELEISSIS.\n\n";
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.Credentials = new NetworkCredential(_userService.checkAdress(), _userService.checkPassword());
             smtp.EnableSsl = true;

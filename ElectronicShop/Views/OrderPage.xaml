@@ -213,16 +213,6 @@
                       HorizontalContentAlignment="Stretch"
                       ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                       d:ItemsSource="{d:SampleData ItemCount=5}">
-
-                    <ListView.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Отменить заказ"
-                                  Command="{Binding cancelOrder}"/>
-                            <MenuItem Header="Подтвердить доставку"
-                                  Command="{Binding confirmOrder}"/>
-                        </ContextMenu>
-                    </ListView.ContextMenu>
-
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <materialDesign:Card Background="White"
@@ -251,7 +241,7 @@
 
                                         <TextBlock Grid.Row="0"
                                            TextWrapping="Wrap"
-                                           Text="{Binding IdOrder, StringFormat={}Заказ №{0:C}, ConverterCulture=ru-RU}"/>
+                                           Text="{Binding Idorder, StringFormat={}Заказ №{0}}"/>
                                         <TextBlock Grid.Row="1"
                                            Margin="0 5 0 0"
                                            Text="{Binding IdUserNavigation.Adress, StringFormat={}Был доставлен по адресу: {0}}"

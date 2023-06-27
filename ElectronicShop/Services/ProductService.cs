@@ -13,10 +13,10 @@ namespace ElectronicShop.Services
         public ProductService(ElectronickshopContext electronickshopContext)
         {
             _electronickshopContext = electronickshopContext;
-            _mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Product, DbProduct>();
-            }).CreateMapper();
+            //_mapper = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.CreateMap<Product, DbProduct>();
+            //}).CreateMapper();
 
         }
 
@@ -265,7 +265,7 @@ namespace ElectronicShop.Services
         public async Task editOrderStatus(Order OrderHelper)
         {
             ObservableCollection<Order> OrderHelper1 = _electronickshopContext.Orders.ToObservableCollection();
-            var item = OrderHelper1.First(i => i.IdStatusOrder == OrderHelper.IdStatusOrder);
+            var item = OrderHelper1.First(i => i.Idorder == OrderHelper.Idorder);
             var index = OrderHelper1.IndexOf(item);
             item.IdStatusOrder = 4;
             OrderHelper1.RemoveAt(index);
@@ -419,7 +419,7 @@ namespace ElectronicShop.Services
                 _electronickshopContext.Users.ToList();
                 _electronickshopContext.Products.ToList();
                 _electronickshopContext.StatusOrders.ToList();
-                var feedbacks = await _electronickshopContext.Orders.Where(i => i.IdStatusOrderNavigation.NameStatus == "Выдан покупателю" || i.IdStatusOrderNavigation.NameStatus == "Отменен" && i.IdUser == Settings.Default.idUser).ToListAsync();
+                var feedbacks = await _electronickshopContext.Orders.Where(i => (i.IdStatusOrderNavigation.NameStatus == "Выдан покупателю" || i.IdStatusOrderNavigation.NameStatus == "Отменен") && i.IdUser == Settings.Default.idUser).ToListAsync();
                 feedbacks1 = feedbacks;
                 return feedbacks1;
 
@@ -600,6 +600,12 @@ namespace ElectronicShop.Services
         public int GetMaxOrderHelper()
         {
             var b = _electronickshopContext.Orders.Max(i => i.Idorder) + 1;
+            return b;
+        }
+
+        public int GetMaxOrderHelperWithOut()
+        {
+            var b = _electronickshopContext.Orders.Max(i => i.Idorder);
             return b;
         }
 
