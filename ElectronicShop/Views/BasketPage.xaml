@@ -223,6 +223,7 @@
                    Grid.Column="1"
                    FontSize="32"
                    Margin="10"
+                   HorizontalAlignment="Center"
                    Visibility="{Binding visibilityListView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                    Foreground="White"
                    Text="Корзина пуста..."
