@@ -10,7 +10,7 @@ namespace ElectronicShop.Services
 {
     public class DocumentService
     {
-        public async Task GetCheck(int OrderCode, int OrderNumber, List<Product> Products)
+        public async Task GetCheck(int OrderNumber, List<Product> Products)
         {
             PdfWriter writer = new($"Товарный чек №{OrderNumber}.pdf");
             PdfDocument pdf = new(writer);
@@ -130,7 +130,7 @@ namespace ElectronicShop.Services
 
             document.Add(table);
 
-            content = new Paragraph(string.Format("Адрес доставки: {0}",
+            content = new Paragraph(string.Format("Адрес получения: {0}",
                 Settings.Default.Adress))
                 .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
                 .SetFont(comic)
@@ -138,16 +138,7 @@ namespace ElectronicShop.Services
 
             document.Add(content);
 
-           
-
-            content = new Paragraph(string.Format("Код получения:\n {0}", OrderCode))
-                .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER)
-                .SetFont(comic)
-                .SetFontSize(16);
-
-            document.Add(content);
-
-            content = new Paragraph($"Большое спасибо за покупку, дорогой {Settings.Default.login}!")
+            content = new Paragraph($"Большое спасибо за покупку, {Settings.Default.login}!")
               .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT)
               .SetFont(comic)
               .SetFontSize(16);

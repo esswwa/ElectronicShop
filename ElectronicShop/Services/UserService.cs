@@ -21,7 +21,7 @@ namespace ElectronicShop.Services
                 return false;
             if (user.Password.Equals(password))
             {
-
+                 
                 Settings.Default.idUser = user.Iduser;
                 Settings.Default.login = user.Login;
                 Settings.Default.password = user.Password;

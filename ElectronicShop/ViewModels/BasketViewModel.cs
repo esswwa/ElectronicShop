@@ -88,11 +88,10 @@ namespace ElectronicShop.ViewModels
         });
         public DelegateCommand buyProduct => new(async () =>
         {
-            int code = rnd.Next(100, 999);
             int orderCode = _productService.GetMaxOrderHelper();
             await _productService.editProductCount();
             await _productService.addOrder(Products); 
-            await _documentService.GetCheck(code, _productService.GetMaxOrderHelperWithOut(), Products);
+            await _documentService.GetCheck(_productService.GetMaxOrderHelperWithOut(), Products);
             _pageService.ChangePage(new OrderPage());
 
             await Task.Delay(500);
